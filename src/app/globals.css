@@ -2,32 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+
+::-webkit-scrollbar {
+    width: .5vw;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+::-webkit-scrollbar-track {
+    background-color: lightgray;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+::-webkit-scrollbar-thumb {
+    background-color: pink;
+    border-radius: 50px;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.swiper-pagination-bullet {
+    transition: all .5s ease;
+}
+
+.swiper-pagination-bullet-active {
+    width: 20px !important;
+    border-radius: 20px !important;
+    background-color: red !important;
+}
+
+.promotion {
+    background-image: url('./../../public/images/promotion.jpg');
+}
+
+.top-sales {
+    background-image: url('./../../public/images/top-sales.jpg');
+}
+
+.news-products {
+    background-image: url('./../../public/images/news-product.jpg');
+}
+
+.container-slider .swiper-slide {
+    width: 200px !important;
 }
