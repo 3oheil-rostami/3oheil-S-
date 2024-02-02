@@ -3,5 +3,5 @@ import ContainerSlider from "@/components/ContainerSlider";
 import React from "react";
 
 export default function page() {
-	return true;
-};
+	return <ContainerSlider type="promotion" />;
+}
