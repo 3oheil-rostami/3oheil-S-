@@ -1,5 +1,7 @@
 "use client";
 import React, { useRef } from "react";
+import Link from "next/link";
+import data from "@/data/db.json";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -9,8 +11,11 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 
+import image0 from "@/../public/images/header-slider1.gif";
+import image2 from "@/../public/images/header-slider2.jpg";
+import image3 from "@/../public/images/header-slider3.jpg";
 export default function HeaderSlider() {
 	const progressCircle = useRef(null);
 	const progressContent = useRef(null);
@@ -34,15 +39,17 @@ export default function HeaderSlider() {
 				modules={[Autoplay, Pagination]}
 				// onAutoplayTimeLeft={onAutoplayTimeLeft}
 				className='h-full w-full'>
-				<SwiperSlide className='bg-red-50'>Slide 1</SwiperSlide>
-				<SwiperSlide className='bg-red-100'>Slide 2</SwiperSlide>
-				<SwiperSlide className='bg-red-200'>Slide 3</SwiperSlide>
-				<SwiperSlide className='bg-red-300'>Slide 4</SwiperSlide>
-				<SwiperSlide className='bg-red-400'>Slide 5</SwiperSlide>
-				<SwiperSlide className='bg-red-500'>Slide 6</SwiperSlide>
-				<SwiperSlide className='bg-red-600'>Slide 7</SwiperSlide>
-				<SwiperSlide className='bg-red-700'>Slide 8</SwiperSlide>
-				<SwiperSlide className='bg-red-900'>Slide 9</SwiperSlide>
+				{data.headerSlider.map(({ id, img, href }, index) => (
+					<SwiperSlide key={id} className='bg-red-50'>
+						<Link href={href} className='h-full w-full'>
+							<img
+								src={index === 0 ? image0.src : index === 2 ? image2.src : image3.src}
+								alt='ad image'
+								className='w-full h-full object-cover'
+							/>
+						</Link>
+					</SwiperSlide>
+				))}
 				<div className='autoplay-progress' slot='container-end'>
 					<svg viewBox='0 0 48 48' ref={progressCircle}>
 						<circle cx='24' cy='24' r='20'></circle>
