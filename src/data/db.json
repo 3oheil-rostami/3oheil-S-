@@ -1,0 +1,19 @@
+{
+	"headerSlider": [
+		{
+			"id": 211,
+			"img": "header-slider1.gif",
+			"href": "/"
+		},
+		{
+			"id": 1,
+			"img": "header-slider2.jpg",
+			"href": "/"
+		},
+		{
+			"id": 11,
+			"img": "header-slider3.jpg",
+			"href": "/"
+		}
+	]
+}
