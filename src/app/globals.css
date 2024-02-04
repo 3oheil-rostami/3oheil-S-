@@ -1,24 +1,120 @@
+:root {
+    /* primary */
+    --primary-50: "#ffe8ed";
+    --primary-100: "#ffc6cf";
+    --primary-200: "#fb8c92";
+    --primary-300: "#f45a67";
+    --primary-400: "#ff1a40";
+    --primary-500: "#ff001f";
+    --primary-600: "#f60021";
+    --primary-700: "#e4001b";
+    --primary-800: "#d80013";
+    --primary-900: "#c70004";
+    /* secondary */
+    --secondary-50: "#fbe2e7";
+    --secondary-100: "#f6b7c4";
+    --secondary-200: "#ef899d";
+    --secondary-300: "#e65b78";
+    --secondary-400: "#de3b5d";
+    --secondary-500: "#d71d44";
+    --secondary-600: "#c71843";
+    --secondary-700: "#b31240";
+    --secondary-800: "#9f0a3d";
+    --secondary-900: "#7d0038";
+    /* neutral */
+    --neutral-50: "#FAFAFA";
+    --neutral-100: "#F5F5F5";
+    --neutral-200: "#EEEEEE";
+    --neutral-300: "#E0E0E0";
+    --neutral-400: "#BDBDBD";
+    --neutral-500: "#9E9E9E";
+    --neutral-600: "#757575";
+    --neutral-700: "#616161";
+    --neutral-800: "#424242";
+    --neutral-900: "#212121";
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 
 ::-webkit-scrollbar {
     width: .5vw;
 }
 
-::-webkit-scrollbar-track {
-    background-color: lightgray;
-}
-
 ::-webkit-scrollbar-thumb {
-    background-color: pink;
+    background-color: #de3b5d;
     border-radius: 50px;
 }
 
+/* _button_styles_ */
+.btn-text {
+    box-shadow: 0 3px 8px 2px rgba(245, 245, 245, 0.301);
+    /* neutral 100 */
+    width: fit-content;
+    padding: .25rem 1rem;
+}
+
+.btn-fill-primary {
+    background-color: #f60021;
+    /* primary 600 */
+    color: white;
+}
+
+.btn-fill-primary:hover {
+    background-color: #ff001f;
+    /* primary 500 */
+}
+
+.btn-fill-primary:active {
+    background-color: #e4001b;
+    /* primary 700 */
+}
+
+.btn-outline-primary {
+    border: 2px solid #EEEEEE;
+    /* neutral 200 */
+    background-color: white;
+    color: #616161;
+    /* neutral 700 */
+}
+
+.btn-outline-primary:hover {
+    background-color: #d800121e;
+    border: 2px solid #d80013;
+    /* primary 800 */
+    color: #424242;
+    fill: #424242;
+    /* neutral 800*/
+}
+
+.btn-outline-primary:active {
+    text-shadow: 0 0 1px #424242;
+}
+
+.btn-text-variant {
+    border: none;
+    background-color: transparent;
+    color: #616161;
+}
+
+.btn-text-variant:hover {
+    box-shadow: 0 7px 7px 5px #616161;
+    /* neutral 100 */
+    color: #424242;
+    /* neutral 800*/
+}
+
+.btn-text-variant:active {
+    box-shadow: 0 5px 10px 2px rgba(238, 238, 238, 0.527);
+    /* neutral 100 */
+    color: #424242;
+    /* neutral 800*/
+}
+
 .swiper-pagination-bullet {
-    transition: all .5s ease;
+    transition: all .5s ease !important;
 }
 
 .swiper-pagination-bullet-active {
@@ -28,15 +124,15 @@
 }
 
 .promotion {
-    background-image: url('./../../public/images/promotion.jpg');
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.11), rgba(255, 255, 255, 0)), url('./../../public/images/promotion.jpg');
 }
 
 .top-sales {
-    background-image: url('./../../public/images/top-sales.jpg');
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.205), rgba(255, 255, 255, 0)), url('./../../public/images/top-sales.jpg');
 }
 
 .news-products {
-    background-image: url('./../../public/images/news-product.jpg');
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, 0.205), rgba(255, 255, 255, 0)), url('./../../public/images/news-product.jpg');
 }
 
 .container-slider .swiper-slide {
