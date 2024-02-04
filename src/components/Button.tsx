@@ -9,6 +9,7 @@ interface Props {
 	type?: "button" | "submit" | "reset";
 	reset?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 	size?: "sm" | "md" | "lg";
+	onClick?(data: any): any;
 }
 
 export default function Button({
@@ -19,42 +20,34 @@ export default function Button({
 	isDisabled,
 	type = "button",
 	size = "md",
+	onClick,
 	...reset
 }: Props) {
 	const styles = useMemo(() => {
 		let classNames: string[] = [];
-		let color: "purple" | "pink" | "slate" =
-			colorScheme === "primary" ? "purple" : colorScheme === "secondary" ? "pink" : "slate";
+
 		// typeBtn
-		typeBtn === "text" && classNames.push("w-fit", "px-4", "py-1", "shadow-md");
+		typeBtn === "text" && classNames.push("btn-text");
+
 		//size
-		size === "sm"
-			? classNames.push("size-11", "text-xl")
-			: size === "md"
-			? classNames.push("size-12", "text-xl")
-			: classNames.push("size-[52px]", "text-2xl");
+		if (typeBtn === "icon")
+			size === "sm"
+				? classNames.push("size-11", "text-xl")
+				: size === "md"
+				? classNames.push("size-12", "text-xl")
+				: size === "lg" && classNames.push("size-[52px]", "text-2xl");
+		else
+			size === "sm"
+				? classNames.push("h-11", "text-xl")
+				: size === "md"
+				? classNames.push("h-12", "text-xl")
+				: size === "lg" && classNames.push("h-[52px]", "text-2xl");
+
 		//  variant
-		variant === "fill"
-			? classNames.push("border-none", `bg-${color}-800`, "text-white", "shadow-md")
-			: variant === "outline"
-			? classNames.push(
-					"border-slate-300",
-					`hover:border-${color}-800`,
-					"border-solid",
-					"border-2",
-					"bg-white",
-					"text-slate-800",
-					"hover:text-slate-950"
-			  )
-			: classNames.push(
-					"border-none",
-					"text-slate-800",
-					"hover:text-slate-950",
-					"bg-transparent",
-					"shadow-md",
-					"hover:shadow-lg",
-					"active:shadow-sm"
-			  );
+		if (variant === "fill") colorScheme === "primary" && classNames.push("btn-fill-primary");
+		else if (variant === "outline")
+			colorScheme === "primary" && classNames.push("btn-outline-primary");
+		else if (variant === "text") classNames.push("btn-text-variant");
 
 		return classNames.join(" ");
 	}, [size, typeBtn]);
@@ -63,7 +56,8 @@ export default function Button({
 			type={type}
 			disabled={isDisabled}
 			{...reset}
-			className={`flex justify-center items-center hover:brightness-125 active:brightness-90 outline-none transition-all duration-300 rounded-md ${styles}`}>
+			onClick={onClick}
+			className={`flex justify-center items-center outline-none font-medium transition-all duration-300 rounded-md ${styles}`}>
 			{title}
 		</button>
 	);
