@@ -10,21 +10,21 @@ export default function Navbar() {
 	return (
 		<div className='container w-full h-24 px-2 flex items-center'>
 			<div className='right-sec w-1/2 h-full flex justify-start items-center gap-3'>
-				<div className='logo-wrapper bg-red-300 h-full '>
+				<div className='logo-wrapper bg-white h-full '>
 					<img src={Logo.src} alt='Logo Cosmatic' className='h-full w-auto object-cover' />
 				</div>
-				<div className='search-wrapper'>
+				<div className='search-wrapper w-full'>
 					<Input
 						placeholder='کالا مورد نظرت رو اینجا بنویس ...'
 						leftIcon={<IoSearch />}
 						type='search'
-						className='bg-pink-50 shadow-sm'
+						className='bg-pink-50 h-12 shadow-lg '
 					/>
 				</div>
 			</div>
 			<div className='left-sec w-1/2 flex justify-end items-center gap-2'>
 				<Button
-					colorScheme='secondary'
+					colorScheme='primary'
 					variant='outline'
 					size='md'
 					typeBtn='text'
