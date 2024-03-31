@@ -8,7 +8,7 @@ export default function MainLayout({
 }>) {
 	return (
 		<RootLayout>
-			<div>{children}</div>
+			<div className='main-layout'>{children}</div>
 		</RootLayout>
 	);
 }
