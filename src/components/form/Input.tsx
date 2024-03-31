@@ -4,13 +4,15 @@ interface Props {
 	rightIcon?: React.ReactNode;
 	leftIcon?: React.ReactNode;
 	value?: string;
-	onChange?: (value: any) => any;
+	onChange?: (value?: any) => any;
 	className?: string;
 	placeholder?: string;
 	label?: string;
 	errorHandling?: string;
-	type?: "search" | "text" | "email" | "password";
+	type?: "search" | "text" | "email" | "password" | "number" | "color";
 	isDisabled?: boolean;
+	min?: number;
+	max?: number;
 }
 
 export default function Input({
@@ -24,13 +26,9 @@ export default function Input({
 	rightIcon,
 	type,
 	isDisabled,
+	min,
+	max,
 }: Props) {
-	// const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-	// 	if (onChange) {
-	// 		onChange(e?.target?.value);
-	// 	}
-	// };
-
 	return (
 		<div className={`flex flex-col gap-1 w-full`}>
 			{label && <span className='text-slate-800 text-sm'>{label}</span>}
@@ -44,6 +42,8 @@ export default function Input({
 					onChange={onChange}
 					placeholder={placeholder}
 					className='bg-transparent w-full outline-none border-none text-sm'
+					min={min}
+					max={max}
 				/>
 				{leftIcon && <span className='*:fill-slate-800 cursor-pointer'>{leftIcon}</span>}
 			</div>

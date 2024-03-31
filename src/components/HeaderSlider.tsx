@@ -1,5 +1,4 @@
 "use client";
-import React, { useRef } from "react";
 import Link from "next/link";
 import data from "@/data/db.json";
 // Import Swiper React components
@@ -16,9 +15,8 @@ import { Autoplay, Pagination } from "swiper/modules";
 import image0 from "@/../public/images/header-slider1.gif";
 import image2 from "@/../public/images/header-slider2.jpg";
 import image3 from "@/../public/images/header-slider3.jpg";
+import Image from "next/image";
 export default function HeaderSlider() {
-	const progressCircle = useRef(null);
-	const progressContent = useRef(null);
 	// const onAutoplayTimeLeft = (s: any, time: any, progress: any) => {
 	// 	// progressCircle?.current?.style?.setProperty("--progress", 1 - progress);
 	// 	// progressContent?.current?.textContent = `${Math.ceil(time / 1000)}s`;
@@ -42,20 +40,16 @@ export default function HeaderSlider() {
 				{data.headerSlider.map(({ id, img, href }, index) => (
 					<SwiperSlide key={id} className='bg-red-50'>
 						<Link href={href} className='h-full w-full'>
-							<img
+							<Image
 								src={index === 0 ? image0.src : index === 2 ? image2.src : image3.src}
 								alt='ad image'
 								className='w-full h-full object-cover'
+								width={1200}
+								height={400}
 							/>
 						</Link>
 					</SwiperSlide>
 				))}
-				<div className='autoplay-progress' slot='container-end'>
-					<svg viewBox='0 0 48 48' ref={progressCircle}>
-						<circle cx='24' cy='24' r='20'></circle>
-					</svg>
-					<span ref={progressContent}></span>
-				</div>
 			</Swiper>
 		</div>
 	);

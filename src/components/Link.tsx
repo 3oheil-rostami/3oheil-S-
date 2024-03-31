@@ -2,7 +2,7 @@ import NextLink from "next/link";
 import React from "react";
 
 interface Props {
-	children?: string| any;
+	children?: string | any;
 	icon?: undefined | any;
 	href?: any;
 	className?: string;
