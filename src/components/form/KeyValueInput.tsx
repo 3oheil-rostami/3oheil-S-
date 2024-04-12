@@ -28,9 +28,6 @@ const KeyValueInput = ({ features, setFeatures }: Props) => {
 			setValue("");
 		}
 	};
-	useEffect(() => {
-		console.log(features);
-	}, [features]);
 	return (
 		<div className='flex gap-3 items-end'>
 			<Input
