@@ -12,22 +12,22 @@ import { Pagination } from "swiper/modules";
 
 export default function ImageSlider({ images, autoPlay }: ProductImageSliderProps) {
 	return (
-		<div className=' h-96 p-4 lg:[display:none!important]'>
+		<div className=" h-96 p-4 lg:[display:none!important]">
 			<Swiper
 				pagination={{
 					dynamicBullets: true,
 				}}
 				autoplay={autoPlay}
 				modules={[Pagination]}
-				className='mySwiper h-full w-full'>
-				{images.map(({ src, alt }, index) => (
-					<SwiperSlide key={index} className='overflow-hidden py-2'>
+				className="mySwiper h-full w-full">
+				{images.map((imageItem, index) => (
+					<SwiperSlide key={index} className="overflow-hidden py-2">
 						<Image
-							src={src}
-							width={540}
-							height={450}
-							alt={alt ?? "product image"}
-							className='block mx-auto h-[100%!important] w-[auto!important] object-cover'
+							src={typeof imageItem === "string" ? imageItem : imageItem.src}
+							width={600}
+							height={600}
+							alt={typeof imageItem !== "string" ? imageItem.src : "product image"}
+							className="block mx-auto h-[100%!important] w-[auto!important] object-cover"
 						/>
 					</SwiperSlide>
 				))}
