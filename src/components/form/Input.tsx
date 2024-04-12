@@ -13,6 +13,8 @@ interface Props {
 	isDisabled?: boolean;
 	min?: number;
 	max?: number;
+	name?: string;
+	id?: string;
 }
 
 export default function Input({
@@ -28,6 +30,8 @@ export default function Input({
 	isDisabled,
 	min,
 	max,
+	name,
+	id,
 }: Props) {
 	return (
 		<div className={`flex flex-col gap-1 w-full`}>
@@ -44,6 +48,8 @@ export default function Input({
 					className='bg-transparent w-full outline-none border-none text-sm'
 					min={min}
 					max={max}
+					name={name}
+					id={id}
 				/>
 				{leftIcon && <span className='*:fill-slate-800 cursor-pointer'>{leftIcon}</span>}
 			</div>
