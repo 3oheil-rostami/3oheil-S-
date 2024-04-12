@@ -1,3 +1,17 @@
+interface KeyValue {
+	key: string;
+	value: string | number;
+}
+
+interface Color {
+	colorName: string;
+	colorCode?: number;
+	available: number;
+	price: number;
+	off: number;
+	_id: string;
+}
+
 interface SubCategory {
 	_id: string;
 	name: string;
@@ -27,16 +41,21 @@ interface Product {
 	enName: string;
 	intro: string;
 	property: string[];
-	info: { key: string; value: string | number }[];
+	info: KeyValue[];
 	productCover: string;
 	productPics: string[];
-	price: number;
-	off: number;
-	available: number;
-	colors: string[];
-	brand: string;
-	subCategorie: string;
+	colors: Color[];
+	brand: string | { $oid: string } | null;
+	subCategorie: string | { $oid: string };
 	likes: number;
+	view: number;
+	buyCount: number;
+	avgPrice: number;
+	avgOff: number;
+	angAvailable: number;
+	score: number;
+	commentScoreSum: number;
+	commentCount: number;
 }
 interface ReplayComment {
 	_id: string;
@@ -66,6 +85,25 @@ interface Comment {
 	isDisliked: boolean;
 }
 
+interface Brand {
+	_id: string;
+	name: string;
+	enName: string;
+	brandPic: string;
+}
+
+interface CategoryPage {
+	products: Product[];
+	categories: Category[];
+	address: KeyValue[];
+}
+
+interface ProductPage {
+	product: Product;
+	address: KeyValue[];
+	brand: Brand;
+}
+
 interface CartItem {}
 interface Cart {}
 
@@ -77,4 +115,9 @@ export {
 	type Comment,
 	type CartItem,
 	type Cart,
+	type Brand,
+	type KeyValue,
+	type CategoryPage,
+	type ProductPage,
+	type Color,
 };

@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
+import { Brand, Color } from "./apiTypes";
 
 interface Link {
 	id: string | number;
@@ -16,41 +17,45 @@ interface ProductPageProps {
 }
 interface ProductImageModalProps {
 	isShow: boolean;
-	images: {
-		src: string;
-		width?: number;
-		height?: number;
-		blurWidth?: number;
-		blurHeight?: number;
-	}[];
+	images:
+		| {
+				src: string;
+				width?: number;
+				height?: number;
+				blurWidth?: number;
+				blurHeight?: number;
+		  }[]
+		| string[];
 }
 interface ProductImageSliderProps {
 	autoPlay?: boolean;
 	delay?: number;
 	duration?: number;
-	images: {
-		src: string;
-		width?: number;
-		height?: number;
-		blurWidth?: number;
-		blurHeight?: number;
-		alt?: string;
-	}[];
+	images:
+		| {
+				src: string;
+				width?: number;
+				height?: number;
+				blurWidth?: number;
+				blurHeight?: number;
+				alt?: string;
+		  }[]
+		| string[];
 }
 interface CardAddToCartProps {
-	brandId: string;
+	brand: Brand;
 	price: number;
 	off?: number;
 	isLiked?: boolean;
 }
 interface ColorsProductsProps {
-	colors: string[];
+	colors: Color[];
 }
 
 interface LinkAccordionProps {
 	title: string;
 	links?: Link[];
-	subAccordions?: { title: string; href: string; subLinks: Link[] }[];
+	subAccordions?: { title: string; href: string; subLinks: Link[]; isHasArrowIcon?: boolean }[];
 }
 
 interface ModalLayoutProps {
@@ -70,7 +75,7 @@ interface ButtonProps<T> extends ButtonHTMLAttributes<T> {
 	variant?: "fill" | "outline" | "text";
 	colorScheme: "primary" | "secondary" | "tertiary";
 	children?: string | ReactNode;
-	isDisabled?: boolean; 
+	isDisabled?: boolean;
 	isRounded?: boolean;
 	reset?: any;
 	size?: "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
@@ -110,6 +115,7 @@ interface NavDrawLinkProps {
 	icon: ReactNode;
 	title: string;
 	link: string;
+	className?: string;
 }
 
 export {
