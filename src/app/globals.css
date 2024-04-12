@@ -45,6 +45,7 @@ html {
 
 ::-webkit-scrollbar {
     width: .5vw;
+    height: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
