@@ -2,8 +2,16 @@
 import { Cell, Table } from "rsuite-table";
 import IconButton from "./form/IconButton";
 import { MdDelete, MdEdit } from "react-icons/md";
+
+interface ImageCellProps {
+	rowData: any;
+	dataKey: string;
+	forIcon?: boolean;
+	props?: any;
+}
+
 const CategoriesTable = (data: any) => {
-	const ImageCell = ({ rowData, dataKey, forIcon, ...props }) => {
+	const ImageCell = ({ rowData, dataKey, forIcon, ...props }: ImageCellProps) => {
 		console.log("rowData:", rowData, "|  dataKey:", dataKey);
 		return (
 			<Cell {...props} style={{ padding: 0, height: "100%" }}>
