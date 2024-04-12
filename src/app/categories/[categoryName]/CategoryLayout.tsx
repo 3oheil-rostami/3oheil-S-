@@ -1,90 +1,66 @@
-import React from "react";
-import MainLayout from "@/app/MainLayout";
-import Topbar from "@/components/Topbar";
-import Navbar from "@/components/Navbar";
+"use server";
 import Breadcrumb from "@/components/Breadcrumb";
 import LinkAccordion from "@/components/LinkAccordion";
+import HomeLayout from "@/app/HomeLayout";
+import { Category, KeyValue } from "@/types/apiTypes";
+import NavDrawLink from "@/components/dashboard/NavDrawLink";
+import { LuGalleryVerticalEnd } from "react-icons/lu";
 
-export default function CategoryLayout({
+async function getData() {}
+// از اینحا باید ادامه دهم
+export default async function CategoryLayout({
+	breadcrumb,
+	categories,
 	children,
 }: Readonly<{
+	breadcrumb: KeyValue[];
+	categories: Category[];
 	children: React.ReactNode;
 }>) {
+	console.log(categories);
 	return (
-		<MainLayout>
-			<Topbar />
-			<Navbar />
-			<div className='container-wrapper bg-gray-50 '>
-				{/* <!-- ========== MAIN CONTENT ========== --> */}
-				{/* <!-- Sidebar Toggle --> */}
-				<div className=' inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8'>
-					<div className='flex items-center py-4'>
-						{/* <!-- Navigation Toggle --> */}
-
-						{/* <!-- End Navigation Toggle --> */}
-						{/* <!-- Breadcrumb --> */}
+		<HomeLayout>
+			<div className="container-wrapper bg-gray-50 ">
+				<div className=" inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8">
+					<div className="flex items-center py-4">
 						<Breadcrumb
-							links={[
-								{ id: "ds", href: "#", title: "دسته بندی" },
-								{ id: "asdfsa", title: "لوازم آرایشی", href: "#" },
-							]}
+							links={breadcrumb.map((breadcrumbItem, index) => ({
+								id: index,
+								title: breadcrumbItem.key,
+								href: "" + breadcrumbItem.value,
+							}))}
 						/>
-						{/* <!-- End Breadcrumb --> */}
 					</div>
 				</div>
-				{/* <!-- End Sidebar Toggle --> */}
-				<div className='flex'>
-					{/* <!-- Sidebar --> */}
-					<div
-						id='application-sidebar'
-						className='transition-all duration-300 hidden z-[60] w-64 h-full min-w-64 bg-red-50/50 backdrop-blur-sm border-e border-neutral-200 rounded-xl pt-7 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 sticky top-0'>
-						<div className='px-6'>
-							<a className='flex-none text-xl font-semibold' href='#' aria-label='Products'>
-								همه محصولات
-							</a>
-						</div>
-						<nav className=' p-6 w-full flex flex-col flex-wrap'>
-							<ul className='space-y-1.5'>
+				<div className="flex">
+					<ul
+						id="application-sidebar"
+						className="transition-all duration-300 hidden z-[60] w-64 h-full min-w-64 bg-red-50/50 backdrop-blur-sm border-e border-neutral-200 rounded-xl pt-7 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 sticky top-0">
+						<NavDrawLink
+							link="#"
+							title="همه محصولات"
+							icon={<LuGalleryVerticalEnd />}
+							aria-label="Products"
+							className="p-px m-2"
+						/>
+						<li className="w-full flex flex-col flex-wrap p-2">
+							<ul className="space-y-1">
 								<LinkAccordion
-									title='لوازم آرایشی'
-									subAccordions={[
-										{
-											title: "آرایش صورت",
-											href: "#",
-											subLinks: [
-												{ id: "ds", title: "لینک 1", href: "#" },
-												{ id: "dss", title: "لینک 2", href: "#" },
-												{ id: "dsa", title: "لینک 3", href: "#" },
-												{ id: "dfs", title: "لینک 4", href: "#" },
-											],
-										},
-										{
-											title: "آرایش چشم",
-											href: "#",
-											subLinks: [
-												{ id: "ds", title: "لینک 1", href: "#" },
-												{ id: "dss", title: "لینک 2", href: "#" },
-												{ id: "dsa", title: "لینک 3", href: "#" },
-												{ id: "dfs", title: "لینک 4", href: "#" },
-											],
-										},
+									title="دسته بندی های مربوطه"
+									links={[
+										...categories.map(categoryItem => ({
+											id: categoryItem._id,
+											title: categoryItem.name,
+											href: categoryItem.href,
+										})),
 									]}
 								/>
 							</ul>
-						</nav>
-					</div>
-					{/* <!-- End Sidebar --> */}
-
-					{/* <!-- Content --> */}
-					<div className='w-full pt-5 px-4 sm:px-6 lg:px-8'>
-						{/* <!-- Page Heading --> */}
-						{children}
-						{/* <!-- End Page Heading --> */}
-					</div>
-					{/* <!-- End Content --> */}
-					{/* <!-- ========== END MAIN CONTENT ========== --> */}
+						</li>
+					</ul>
+					<div className="w-full pt-5 px-4 sm:px-6 lg:px-8">{children}</div>
 				</div>
 			</div>
-		</MainLayout>
+		</HomeLayout>
 	);
 }
