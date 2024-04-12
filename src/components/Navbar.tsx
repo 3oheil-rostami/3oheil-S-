@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Logo from "@/../public/images/images.jpeg";
 import Input from "./form/Input";
@@ -7,6 +8,7 @@ import { IoSearch } from "react-icons/io5";
 import { IoIosLogIn } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import Image from "next/image";
+
 export default function Navbar() {
 	return (
 		<div id='top' className='container-wrapper w-full h-24 px-2 flex items-center'>
