@@ -41,7 +41,7 @@ export default function Avatar({ name, srcImage, altValue, size, isBadge, status
 
 	return (
 		<div
-			className='relative rounded-full'
+			className="relative rounded-full"
 			style={{ width: `${boxSize[size]}px`, height: `${boxSize[size]}px` }}>
 			{!!srcImage && (
 				<Image
@@ -53,7 +53,7 @@ export default function Avatar({ name, srcImage, altValue, size, isBadge, status
 			)}
 			{!srcImage && (
 				<span
-					className='w-full h-full flex justify-center items-center text-[100%] font-medium text-white rounded-full'
+					className="w-full h-full flex justify-center items-center text-[100%] font-medium text-white rounded-full"
 					style={{ background: bgColor, fontSize: `calc(${sizes[size]}rem / 2.5)` }}>
 					{!!name && name.toUpperCase().slice(0, 2)}
 					{!name && <BsFillPersonFill style={{ fontSize: "calc(1em + 5px)" }} />}
