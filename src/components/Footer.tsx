@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import Button from "./form/Button";
 import Image from "next/image";
 import { BiArrowToTop } from "react-icons/bi";
@@ -12,7 +12,7 @@ import eanemad from "@/../public/images/samandehi.png";
 import { TiSocialFacebook, TiSocialGithub, TiSocialSkype, TiSocialTwitter } from "react-icons/ti";
 import Input from "./form/Input";
 import Link from "next/link";
-export default function Footer() {
+const Footer = () => {
 	const features = [feature1, feature2, feature3, feature4, feature5];
 	return (
 		<div className="w-full border-t-4 border-secondary-200 mt-10">
@@ -137,4 +137,6 @@ export default function Footer() {
 			</div>
 		</div>
 	);
-}
+};
+
+export default memo(Footer);
