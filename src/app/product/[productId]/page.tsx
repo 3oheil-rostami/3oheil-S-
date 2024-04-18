@@ -5,7 +5,7 @@ import DetailsProduct from "@/components/DetailsProduct";
 import ImageSlider from "@/components/ImageSlider";
 import ProductImages from "@/components/ProductImages";
 import Button from "@/components/form/Button";
-import MdModalLayout from "@/modals/MdModalLayout";
+import MdModalLayout from "@/components/modals/MdModalLayout";
 import { getProduct } from "@/services/product";
 import { FcLike } from "react-icons/fc";
 import { MdContentCopy } from "react-icons/md";
