@@ -1,85 +1,116 @@
-import React from "react";
+"use client";
+import React, { BaseSyntheticEvent } from "react";
 import Button from "@/components/form/Button";
 import Link from "next/link";
 import LoginLayout from "../LoginLayout";
-import Step1 from "../register/GetPhoneNumber";
-const page = () => {
+import LoginInputWrapper from "@/components/form/LoginInputWrapper";
+import { MdLock, MdOutlinePassword, MdPhone } from "react-icons/md";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
+type FormValues = {
+	number: string;
+	password: string;
+};
+
+async function handleSendCodeVerify(data: FormValues) {
+	fetch("http://localhost:4000/auth/login", {
+		method: "POST",
+		headers: {
+			Accept: "*/*",
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(data),
+	}).then(res => {
+		res.status === 500
+			? toast.error("خطایی در سرور رخ داده است .")
+			: res.status === 404
+			? toast.warning("شما هنوز با این شماره ثبت نام نکرده‌اید .")
+			: res.status === 403
+			? toast.error("شما بن شده اید، با پشتیبانی تماس بگیرید .")
+			: res.status === 401
+			? toast.error("رمز اشتباه است .")
+			: res.status === 200
+			? toast.success("ثبت نام با موفقیت انجام شد . خیلی خوش آمدید ☺ّ", {
+					onClose: () => {
+						document.cookie = `haba=${res.json().then(data => data)}; Secure;`;
+						window.location.href = "/";
+					},
+			  })
+			: "";
+		return res.json();
+	});
+}
+
+const Register = () => {
+	const { register, handleSubmit, watch, formState } = useForm<FormValues>();
+	const onSubmit = handleSubmit(async ({ ...data }) => {
+		if (formState.isValid) {
+			if (!navigator.onLine) {
+				toast.warning("شما آنلاین نیستید .");
+				return;
+			}
+			const phoneNumber: string = localStorage.getItem("phoneNumber") || "-1";
+			handleSendCodeVerify({ ...data, number: phoneNumber });
+		}
+	});
+	const submitHandler = (e: BaseSyntheticEvent) => {
+		e.preventDefault();
+		onSubmit(e);
+	};
 	return (
 		<LoginLayout>
-			<Step1 />
+			<form className="bg-white px-5 py-10 rounded-2xl" onSubmit={submitHandler}>
+				<h1 className="text-gray-800 font-bold text-2xl mb-1">سلامی دوباره به روی ماهتون✨</h1>
+				<p className="text-sm font-normal text-gray-600 mb-7">
+					خوشحالیم که باز شمارو کنار خودمون میبینیم .
+				</p>
+				<p className="text-sm font-bold text-gray-600 mb-3 mr-2">
+					لطفا اطلاعات فرم زیر رو پر کنید.
+				</p>
+				<LoginInputWrapper icon={<MdPhone />} errorMessage={formState.errors.number?.message}>
+					<input
+						className="pr-2 outline-none border-none font-sans grow"
+						type="text"
+						placeholder="شماره تلفن"
+						{...register("number", {
+							pattern: {
+								value: /^09\d{9}$/,
+								message: "ابتدای شماره را به این شکل وارد کنید :0912 ",
+							},
+							required: "شماره رو وارد نکردین :)",
+						})}
+					/>
+				</LoginInputWrapper>
+				<LoginInputWrapper icon={<MdLock />} errorMessage={formState.errors.password?.message}>
+					<input
+						className="pr-2 outline-none border-none font-sans grow"
+						type="password"
+						placeholder="رمز عبور"
+						{...register("password", { required: { value: true, message: "رمز عبور الزامیست !" } })}
+					/>
+				</LoginInputWrapper>
+				<Button
+					colorScheme="secondary"
+					variant="fill"
+					type="submit"
+					size="sm"
+					className="w-full bg-secondary-600 mt-4 py-2 rounded-[1rem!important] text-white font-semibold mb-2">
+					ورود
+				</Button>
+				<div className="flex items-center justify-between px-2 gap-3">
+					<Link
+						href={"/login/forget_password"}
+						className="text-sm hover:text-primary-500 cursor-pointer">
+						رمز عبور خود را فراموش کردین ؟
+					</Link>
+					<Button colorScheme="secondary" variant="fill" size="2xs" className="min-w-fit">
+						<Link href={"/register/get_phone_number"}>ثبت نام</Link>
+					</Button>
+				</div>
+			</form>
 		</LoginLayout>
 	);
 };
 
-export default page;
-
-{
-	/* <form className='bg-white px-5 py-10 rounded-2xl'>
-		<h1 className='text-gray-800 font-bold text-2xl mb-1'>سلامی دوباره به روی ماهتون✨</h1>
-		<p className='text-sm font-normal text-gray-600 mb-7'>
-			خوشحالیم که باز شمارو کنار خودمون میبینیم .
-		</p>
-		<p className='text-sm font-bold text-gray-600 mb-3 mr-2'>
-			لطفا اطلاعات فرم زیر رو پر کنید.
-		</p>
-
-		<div className='flex items-center border-2 py-2 px-3 rounded-2xl mb-4'>
-			<svg
-				xmlns='http://www.w3.org/2000/svg'
-				className='h-5 w-5 text-gray-400'
-				fill='none'
-				viewBox='0 0 24 24'
-				stroke='currentColor'>
-				<path
-					stroke-linecap='round'
-					stroke-linejoin='round'
-					stroke-width='2'
-					d='M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4'
-				/>
-			</svg>
-			<input
-				className='pr-2 outline-none border-none'
-				type='text'
-				name=''
-				id=''
-				placeholder='نام کاربری'
-			/>
-		</div>
-		<div className='flex items-center border-2 py-2 px-3 rounded-2xl'>
-			<svg
-				xmlns='http://www.w3.org/2000/svg'
-				className='h-5 w-5 text-gray-400'
-				viewBox='0 0 20 20'
-				fill='currentColor'>
-				<path
-					fill-rule='evenodd'
-					d='M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z'
-					clip-rule='evenodd'
-				/>
-			</svg>
-			<input
-				className='pr-2 outline-none border-none'
-				type='password'
-				name=''
-				id=''
-				placeholder='رمز عبور'
-			/>
-		</div>
-		<Button
-			colorScheme='secondary'
-			variant='fill'
-			type='submit'
-			size='sm'
-			className='w-full bg-secondary-600 mt-4 py-2 rounded-[1rem!important] text-white font-semibold mb-2'>
-			ورود
-		</Button>
-		<div className='flex items-center justify-between px-2 gap-3'>
-			<Link href={"/register"} className='text-sm hover:text-primary-500 cursor-pointer'>
-				رمز عبور خود را فراموش کردین ؟
-			</Link>
-			<Button colorScheme='secondary' variant='fill' size='2xs' className='min-w-fit'>
-				<Link href={"/register"}>ثبت نام</Link>
-			</Button>
-		</div>
-	</form> */
-}
+export default Register;
