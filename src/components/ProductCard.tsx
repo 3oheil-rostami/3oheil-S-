@@ -5,7 +5,7 @@ import { LiaStarSolid } from "react-icons/lia";
 import AddToCartButton from "./AddToCartButton";
 import { Product } from "@/types/apiTypes";
 import { calculateDiscountedPrice } from "@/functions";
-export default function ProductCard({ name, enName, colors, productCover }: Product) {
+export default function ProductCard({ name, enName, colors, productCover, _id }: Product) {
 	return (
 		<article className="overflow-hidden hover:shadow-md bg-white hover:-translate-y-1 transition-all p-4">
 			<div className="flex gap-1 flex-col">
@@ -13,7 +13,11 @@ export default function ProductCard({ name, enName, colors, productCover }: Prod
 				<div className="flex flex-col p-0">
 					<div className="image-wrapper h-60 w-full relative">
 						<div className="absolute bottom-0 right-1 z-50">
-							<AddToCartButton count={0} />
+							<AddToCartButton
+								productId={_id}
+								colorId={colors.sort((a, b) => a.price - b.price)[0]._id}
+								count={0}
+							/>
 						</div>
 						<Link href={`/product/${enName}`}>
 							<picture className="h-full w-full block">
