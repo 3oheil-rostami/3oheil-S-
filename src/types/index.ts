@@ -94,6 +94,8 @@ interface AddToCartButtonProps<T> extends ButtonHTMLAttributes<T> {
 	count: number;
 	incrementAction?: () => any;
 	decrementAction?: () => any;
+	productId: string | number;
+	colorId: string | number;
 }
 
 interface NotificationButtonProps {
