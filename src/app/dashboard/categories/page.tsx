@@ -3,8 +3,7 @@
 import CategoriesTable from "@/components/CategoriesTable";
 import React from "react";
 import DashboardLayout from "../DashboardLayout";
-import { httpService } from "@/core/http-service";
-
+import { httpService } from "@/services/http-service";
 
 async function getData() {
 	"use server";
