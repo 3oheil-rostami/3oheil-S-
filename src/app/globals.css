@@ -53,6 +53,18 @@ html {
     border-radius: 50px;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 .container-wrapper {
     padding: 0 16px;
     background-color: rgba(255, 255, 255, 0.222);
