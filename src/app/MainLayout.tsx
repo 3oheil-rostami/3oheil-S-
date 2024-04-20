@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import RootLayout from "./layout";
 import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ContextProvider from "@/context/Context";
+import ContextProvider, { useGlobalContext } from "@/context/mainContext";
 
 export default function MainLayout({
 	children,

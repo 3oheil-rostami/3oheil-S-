@@ -9,12 +9,12 @@ import { IoIosLogIn, IoMdPerson } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import Image from "next/image";
 import Link from "next/link";
-import { useGlobalContext } from "@/context/Context";
+import { useGlobalContext } from "@/context/mainContext";
 
 const Navbar = () => {
-	const { isLoggedIn, userInfos } = useGlobalContext();
-	const name = userInfos.name || "";
-	const family = userInfos.family || "";
+	const { isLoggedIn, user } = useGlobalContext();
+	const name = user?.name || "";
+	const family = user?.family || "";
 	return (
 		<div id="top" className="container-wrapper w-full h-24 px-2 flex items-center">
 			<div className="right-sec w-1/2 h-full flex justify-start items-center gap-3">

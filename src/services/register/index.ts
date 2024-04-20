@@ -14,13 +14,7 @@ const sendCode = (code: number, number: string) =>
 	httpService.post("/sms/verify", { code, number });
 const signUp = (data: ApiData) => {
 	console.log({ ...data });
-	return httpService.post(
-		"/auth/signup",
-		{ ...data },
-		{
-			withCredentials: true,
-		}
-	);
+	return httpService.post("/auth/signup", { ...data }, { withCredentials: true });
 };
 
 export { sendNumber, sendCode, signUp };

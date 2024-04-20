@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { InternalAxiosRequestConfig } from "axios";
 
 const baseURL = "http://localhost:4000";
 const isServer: boolean = typeof window === "undefined";
@@ -8,25 +8,24 @@ const httpService = axios.create({
 	headers: {
 		"Content-Type": "application/json",
 	},
-	withCredentials: true,
 });
 
 const responseInterceptor = axios.create({
 	baseURL,
 });
 
-responseInterceptor.interceptors.request.use(async config => {
+responseInterceptor.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
 	if (isServer) {
 		const { cookies } = await import("next/headers");
 		const token = cookies().get("token")?.value;
-
+		console.log(token);
 		if (token) {
 			config.headers["Authorization"] = `Bearer ${token}`;
 		}
 	} else {
 		const token = [...document.cookie.split("; ")]
-			.map(cookieItem => cookieItem.split("="))
-			.filter(cookieItem => cookieItem[0] === "token")[0][1];
+			?.map(cookieItem => cookieItem?.split("="))
+			?.filter(cookieItem => cookieItem?.[0] === "token")?.[0]?.[1];
 		if (token) {
 			config.headers["Authorization"] = `Bearer ${token}`;
 		}

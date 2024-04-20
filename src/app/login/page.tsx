@@ -7,6 +7,7 @@ import LoginInputWrapper from "@/components/form/LoginInputWrapper";
 import { MdLock, MdOutlinePassword, MdPhone } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 type FormValues = {
 	number: string;
@@ -14,45 +15,53 @@ type FormValues = {
 };
 
 async function handleSendCodeVerify(data: FormValues) {
-	fetch("http://localhost:4000/auth/login", {
+	return fetch("http://localhost:4000/auth/login", {
 		method: "POST",
 		headers: {
 			Accept: "*/*",
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify(data),
-	}).then(res => {
-		res.status === 500
-			? toast.error("خطایی در سرور رخ داده است .")
-			: res.status === 404
-			? toast.warning("شما هنوز با این شماره ثبت نام نکرده‌اید .")
-			: res.status === 403
-			? toast.error("شما بن شده اید، با پشتیبانی تماس بگیرید .")
-			: res.status === 401
-			? toast.error("رمز اشتباه است .")
-			: res.status === 200
-			? toast.success("ثبت نام با موفقیت انجام شد . خیلی خوش آمدید ☺ّ", {
-					onClose: () => {
-						document.cookie = `haba=${res.json().then(data => data)}; Secure;`;
-						window.location.href = "/";
-					},
-			  })
-			: "";
-		return res.json();
+		credentials: "include",
 	});
 }
 
-const Register = () => {
-	const { register, handleSubmit, watch, formState } = useForm<FormValues>();
+const Login = () => {
+	const { register, handleSubmit, formState } = useForm<FormValues>();
+	const router = useRouter();
 	const onSubmit = handleSubmit(async ({ ...data }) => {
-		if (formState.isValid) {
-			if (!navigator.onLine) {
-				toast.warning("شما آنلاین نیستید .");
-				return;
-			}
-			const phoneNumber: string = localStorage.getItem("phoneNumber") || "-1";
-			handleSendCodeVerify({ ...data, number: phoneNumber });
+		if (!navigator.onLine) {
+			toast.warning("شما آنلاین نیستید .");
+			return;
 		}
+		const toastId = toast.loading("در انجام درخواست ...");
+		const response = await handleSendCodeVerify({ ...data });
+		toast.update(toastId, {
+			isLoading: false,
+			autoClose: 3000,
+			type: response.ok ? "success" : "error",
+			render() {
+				if (response.status === 200) {
+					response.json().then(data => {
+						document.cookie = `token=${data.token};`;
+						setTimeout(() => {
+							router.replace("/#top");
+						}, 3000);
+					});
+				}
+				return response.status === 500
+					? "خطایی در سرور رخ داده است ."
+					: response.status === 404
+					? "شما هنوز با این شماره ثبت نام نکرده‌اید ."
+					: response.status === 403
+					? "شما بن شده اید، با پشتیبانی تماس بگیرید ."
+					: response.status === 401
+					? "رمز اشتباه است ."
+					: response.status === 200
+					? "ثبت نام با موفقیت انجام شد . خیلی خوش آمدید ☺ّ"
+					: "";
+			},
+		});
 	});
 	const submitHandler = (e: BaseSyntheticEvent) => {
 		e.preventDefault();
@@ -113,4 +122,4 @@ const Register = () => {
 	);
 };
 
-export default Register;
+export default Login;

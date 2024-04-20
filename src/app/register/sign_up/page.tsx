@@ -2,7 +2,7 @@
 import LoginLayout from "@/app/LoginLayout";
 import Link from "next/link";
 import Button from "@/components/form/Button";
-import React, { BaseSyntheticEvent } from "react";
+import React, { BaseSyntheticEvent, useEffect } from "react";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { IoMdMail } from "react-icons/io";
 import { IoPersonSharp } from "react-icons/io5";
@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import LoginInputWrapper from "@/components/form/LoginInputWrapper";
 import { FaLock } from "react-icons/fa";
-import { useGlobalContext } from "@/context/Context";
+import { useGlobalContext } from "@/context/mainContext";
 
 type FormValues = {
 	name: string;
@@ -29,10 +29,13 @@ type ApiData = {
 };
 
 const SignUp = () => {
-	const { login } = useGlobalContext();
 	const { register, handleSubmit, watch, formState } = useForm<FormValues>();
+	// const { isLoggedIn, updateUserInfo } = useGlobalContext();
 	const router = useRouter();
-
+	// useEffect(() => {
+	// 	updateUserInfo();
+	// 	if (isLoggedIn) router.replace("/user");
+	// }, [isLoggedIn, router]);
 	const submitHandler = (e: BaseSyntheticEvent) => {
 		e.preventDefault();
 		onSubmit(e);
@@ -64,20 +67,17 @@ const SignUp = () => {
 			async render() {
 				let token: null | string = null;
 				setTimeout(() => {
-					response.status === 400 && router.replace("/");
+					response.status === 200 && router.replace("/");
 				}, 3000);
 				if (response.status == 200) {
 					response.json().then((dataRes: { token: string }) => {
-						token = dataRes.token;
-						login({ name: data.name, family: data.family, phoneNumber, token });
-						localStorage.setItem("token", dataRes.token || "nothing");
+						const token = dataRes.token;
+						// localStorage.setItem("token", dataRes.token || "nothing");
+						document.cookie = `token=${token};`;
 					});
 					setTimeout(() => {
 						router.replace("/");
 					}, 3000);
-					// document.cookie = `haba=${(
-					// 	(await response.json()) as { token: string }
-					// ).token.toString()}; Secure;`;
 				}
 				return response.status === 500
 					? "خطایی در سرور رخ داده است ."
@@ -100,6 +100,7 @@ const SignUp = () => {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(data),
+			credentials: "include",
 		});
 	}
 
