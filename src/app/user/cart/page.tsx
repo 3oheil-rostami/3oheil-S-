@@ -1,118 +1,94 @@
-import React, { memo, useMemo } from "react";
-import UserLayout from "../UserLayout";
 import Button from "@/components/form/Button";
 import { MdDelete } from "react-icons/md";
 import Image from "next/image";
-import productImage from "@/../public/images/images.jpeg";
-import AddToCartButton from "@/components/AddToCartButton";
-import Timer from "@/components/Timer";
-import { getAllProductsInCart } from "@/services/product";
-import { AxiosResponse } from "axios";
+import { getAllProductsInCart } from "@/services/cart";
+import { ProductsInCart } from "@/types/apiTypes";
+import emptyCartImg from "@/../public/images/empty-cart.webp";
+import ProductListItem from "@/components/ProductListItem";
+import HeaderCartPage from "@/components/user/HeaderCartPage";
 
-const Cart = () => {
-	// const getData = async () => {
-	// 	const token = localStorage.getItem("token");
-	// 	const response = await fetch("http://localhost:4000/product/getAll", {
-	// 		headers: {
-	// 			Authorization: `Bearer ${token}`,
-	// 			Accept: "*/*",
-	// 			"Content-Type": "application/json",
-	// 		},
-	// 	});
-	// 	const responseData = await response.json();
-	// 	// setData(responseData);
-	// };
+async function getData() {
+	try {
+		const response = await getAllProductsInCart();
+		const data: ProductsInCart = response.data as ProductsInCart;
+		if (response.status === 404) return {} as ProductsInCart;
+		return data;
+	} catch (error) {
+		console.log(error);
+		return {} as ProductsInCart;
+	}
+}
 
-	// useEffect(() => {
-	// 	if (isLoading) {
-	// 		getData();
-	// 		setIsLoading(false);
-
-	// 		console.log(isLoading);
-	// 	}
-	// }, []);
-
+const Cart = async () => {
+	const data: ProductsInCart = await getData();
+	// console.log("data:", data);
 	return (
-		<UserLayout>
-			<div className="flex gap-3">
-				<div className="grow">
-					<div className="flex justify-between items-center border-b-2 pb-2">
-						{/* <h3 className="text-xl text-neutral-700 font-bold">سبد خرید شما : ({data} کالا)</h3> */}
-						<Button colorScheme="secondary" size="xs" variant="text">
-							خالی کردن سبد
-							<MdDelete className="text-xl" />
-						</Button>
-					</div>
-					<div className="cart-content">
-						<ul>
-							<nav>
-								{Array(4)
-									.fill(9)
-									.map((_, index) => (
-										<li className="border-b py-3 last:border-none" key={index}>
-											<div className="details-wrapper flex gap-3">
-												<div className="image-area flex flex-col gap-2 items-center">
-													<div className="image-wrapper size-24 overflow-hidden">
-														<Image src={productImage.src} width={100} height={100} alt="" />
-													</div>
-													<AddToCartButton colorId={""} productId={""} count={5} />
-													{/* <Timer initialSeconds={7 * 60 * 60 * 24} /> */}
-												</div>
-												<div className="py-3">
-													<h4 className="text-base font-bold text-neutral-800">
-														شامپو ضد ريزش مو سریتا حاوی عصاره کافئین ظرفیت 200 میلی لیتر
-													</h4>
-													<div className="colors flex gap-2 items-center mt-1">
-														<div className="flex items-center gap-1">
-															<div className="size-5 bg-teal-500 rounded-full border" />
-															<span className="text-sm font-medium text-neutral-800">تیلی</span>
-														</div>
-													</div>
-													<div className="button-control-wrapper py-3 px-2 pt-5 flex flex-col gap-3 items-start">
-														<div className="flex items-center gap-3">
-															<span className="line-through text-sm font-bold text-neutral-700">
-																124,0000 تومان
-															</span>
-															<span className="px-1 rounded-md  bg-primary-500 text-white text-sm font-normal">
-																12%
-															</span>
-														</div>
-														<span className="text-base font-bold text-primary-800">
-															123,500 تومان
-														</span>
-													</div>
-												</div>
-											</div>
-										</li>
-									))}
-							</nav>
-						</ul>
-					</div>
+		<div className="flex gap-3">
+			<div className="grow">
+				<HeaderCartPage data={data} />
+				<div className="cart-content">
+					{!!data.items?.length ? (
+						// check for design
+						<nav>
+							<ul>
+								{data.items?.map((productItem, index) => (
+									<ProductListItem key={index} {...productItem} />
+								))}
+							</ul>
+						</nav>
+					) : (
+						<div className="flex flex-col items-center justify-center ">
+							<Image
+								src={emptyCartImg.src}
+								width={400}
+								height={400}
+								alt="cart is empty !"
+								className="illustration-image-filter select-none"
+							/>
+							<h4 className="text-neutral-700 text-2xl font-bold">سبد خرید خالی است .</h4>
+						</div>
+					)}
 				</div>
-				<div className="border-r-2 w-72 pr-4">
-					<ul className="list-none flex flex-col gap-5 bg-neutral-50 p-5 rounded-xl">
-						<li className="flex justify-between items-center">
-							<span className="text-sm font-medium text-neutral-800">قیمت کالاها (4) :</span>
-							<span className="text-base font-semibold text-neutral-800">۱۷۱,۸۰۰ تومان</span>
-						</li>
-						<li className="flex justify-between items-center">
-							<span className="text-sm font-semibold text-neutral-800">جمع سبد خرید :</span>
-							<span className="text-base font-bold text-neutral-800">۱۰۶,۹۰۰ تومان</span>
-						</li>
-						<li className="flex justify-between items-center">
-							<span className="text-sm font-semibold text-primary-800">سود شما از خرید :</span>
-							<span className="text-base font-bold text-primary-800"> ۶۴,۹۰۰ تومان</span>
-						</li>
-						<Button colorScheme="primary" variant="fill" size="xs" className="mt-3">
-							تائید و تکمیل سفارش
-						</Button>
-					</ul>
+			</div>
+			{/* FORLETTER use redux and change to client component */}
+			<div className="border-r-2 w-72 pr-4">
+				<ul className="list-none flex flex-col gap-5 bg-neutral-50 p-5 rounded-xl">
+					<li className="flex justify-between items-center">
+						<span className="text-sm font-medium text-neutral-800">قیمت کالاها:</span>
+						<span className="text-base font-semibold text-neutral-800">
+							{parseInt((data.sumPrice || 0)?.toFixed(0))?.toLocaleString()} تومان
+						</span>
+					</li>
+					<li className="flex justify-between items-center">
+						<span className="text-sm font-semibold text-neutral-800">جمع سبد خرید :</span>
+						<span className="text-base font-bold text-neutral-800">
+							{parseInt((data.finalPrice || 0)?.toFixed(0))?.toLocaleString()} تومان
+						</span>
+					</li>
+					<li className="flex justify-between items-center">
+						<span className="text-sm font-semibold text-primary-800">سود شما از خرید :</span>
+						<span className="text-base font-bold text-primary-800">
+							{" "}
+							{parseInt((data.sumPrice - data.finalPrice || 0)?.toFixed(0))?.toLocaleString()} تومان
+						</span>
+					</li>
+					<Button
+						colorScheme="primary"
+						variant="fill"
+						size="xs"
+						className="mt-3"
+						// onClick={}
+						isDisabled={!data.items?.length}>
+						تائید و تکمیل سفارش
+					</Button>
+				</ul>
+				{!!data.items?.length && (
 					<p className=" text-xs text-neutral-700 text-justify mt-3 px-2">
 						هزینه این سفارش هنوز پرداخت نشده‌ و در صورت اتمام موجودی، کالاها از سبد حذف می‌شوند.
 					</p>
-				</div>
+				)}
 			</div>
-		</UserLayout>
+		</div>
 	);
 };
 

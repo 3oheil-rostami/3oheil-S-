@@ -7,17 +7,22 @@ const httpService = axios.create({
 	baseURL,
 	headers: {
 		"Content-Type": "application/json",
+		Accept: "*/*",
 	},
 });
 
 const responseInterceptor = axios.create({
 	baseURL,
+	headers: {
+		"Content-Type": "application/json",
+		Accept: "*/*",
+	},
 });
 
 responseInterceptor.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
 	if (isServer) {
 		const { cookies } = await import("next/headers");
-		const token = cookies().get("token")?.value;
+		const token = cookies().get("Token")?.value;
 		console.log(token);
 		if (token) {
 			config.headers["Authorization"] = `Bearer ${token}`;
@@ -38,7 +43,7 @@ responseInterceptor.interceptors.response.use(
 	response => response,
 	async error => {
 		if (error.response?.status === 405) {
-			window.location.href = "/login";
+			window.location.href = "/auth/login";
 		}
 		return Promise.reject(error);
 	}

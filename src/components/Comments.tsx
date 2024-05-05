@@ -4,6 +4,7 @@ import { MdOutlineFavorite } from "react-icons/md";
 import { getAllComments } from "@/services/comment";
 import Avatar from "./Avatar";
 import Button from "./form/Button";
+import { Comment } from "@/types/apiTypes";
 
 async function getDateComments(productId: string) {
 	try {
@@ -16,9 +17,8 @@ async function getDateComments(productId: string) {
 	}
 }
 
-export default async function CommentsSection({ productId }: { productId: string }) {
-	const comments: undefined | Comment[] = await getDateComments(productId);
-
+export default async function CommentsSection({ comments }: { comments: Comment[] }) {
+	console.log("comments:", comments);
 	return (
 		<>
 			<form>

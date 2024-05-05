@@ -1,61 +1,54 @@
 "use client";
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import Logo from "@/../public/images/images.jpeg";
 import Input from "./form/Input";
 import Button from "./form/Button";
 
 import { IoSearch } from "react-icons/io5";
-import { IoIosLogIn, IoMdPerson } from "react-icons/io";
-import { IoCartOutline } from "react-icons/io5";
+import { IoIosLogIn } from "react-icons/io";
 import Image from "next/image";
 import Link from "next/link";
-import { useGlobalContext } from "@/context/mainContext";
+import { Provider, useSelector } from "react-redux";
+import { store } from "@/app/store";
+import CartButton from "./CartButton";
+import { fetchProductsInCart } from "@/reducers/cart";
 
 const Navbar = () => {
-	const { isLoggedIn, user } = useGlobalContext();
-	const name = user?.name || "";
-	const family = user?.family || "";
+	useEffect(() => {
+		store.dispatch(fetchProductsInCart());
+	}, []);
 	return (
-		<div id="top" className="container-wrapper w-full h-24 px-2 flex items-center">
-			<div className="right-sec w-1/2 h-full flex justify-start items-center gap-3">
-				<div className="logo-wrapper bg-white h-full ">
-					<Image
-						src={Logo.src}
-						alt="Logo Cosmatic"
-						width={1200}
-						height={96}
-						className="h-full w-auto object-cover"
-					/>
+		<Provider store={store}>
+			<div id="top" className="container-wrapper w-full h-24 px-2 flex items-center z-[99999999]">
+				<div className="right-sec w-1/2 h-full flex justify-start items-center gap-3">
+					<div className="logo-wrapper bg-white h-full ">
+						<Image
+							src={Logo.src}
+							alt="Logo Cosmatic"
+							width={1200}
+							height={96}
+							className="h-full w-auto object-cover"
+						/>
+					</div>
+					<div className="search-wrapper w-full">
+						<Input
+							placeholder="کالا مورد نظرت رو اینجا بنویس ..."
+							leftIcon={<IoSearch />}
+							type="search"
+							className="bg-pink-50 h-12 shadow-lg "
+						/>
+					</div>
 				</div>
-				<div className="search-wrapper w-full">
-					<Input
-						placeholder="کالا مورد نظرت رو اینجا بنویس ..."
-						leftIcon={<IoSearch />}
-						type="search"
-						className="bg-pink-50 h-12 shadow-lg "
-					/>
+				<div className="left-sec w-1/2 flex justify-end items-center gap-2">
+					<Button colorScheme="primary" variant="outline" size="lg" typeBtn="text">
+						<Link href={"/auth/login"} className="flex items-center gap-2">
+							ورود / ثبت نام <IoIosLogIn />
+						</Link>
+					</Button>
+					<CartButton />
 				</div>
 			</div>
-			<div className="left-sec w-1/2 flex justify-end items-center gap-2">
-				<Button colorScheme="primary" variant="outline" size="md" typeBtn="text">
-					<Link href={isLoggedIn ? "/user" : "/login"} className="flex items-center gap-2">
-						{isLoggedIn ? (
-							<>
-								{`${name}  ${family}`}
-								<IoMdPerson />
-							</>
-						) : (
-							<>
-								ورود / ثبت نام <IoIosLogIn />
-							</>
-						)}
-					</Link>
-				</Button>
-				<Button typeBtn="icon" variant="fill" colorScheme="primary" size="md">
-					<IoCartOutline />
-				</Button>
-			</div>
-		</div>
+		</Provider>
 	);
 };
 

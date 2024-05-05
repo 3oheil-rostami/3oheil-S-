@@ -30,13 +30,15 @@ export default function Brands() {
 	];
 	return (
 		<HomeSection
-			title='بهترین برندهای لوازم آرایشی'
-			className='categories-wrapper grid grid-cols-6 gap-y-3 gap-x-2'>
+			title="بهترین برندهای لوازم آرایشی"
+			className="categories-wrapper grid grid-cols-6 gap-y-3 gap-x-2">
 			{brands.map((image, index) => (
 				<div key={index}>
-					<figure className='flex flex-col justify-center '>
-						<Image src={image.src} height={250} width={150} alt='logo brand' />
-						<figcaption className='block text-center'>برند فلانی </figcaption>
+					<figure className="flex flex-col justify-center items-center relative h-36">
+						<Image src={image.src} fill sizes="200px" className="inset-0" alt="logo brand" />
+						<figcaption className="block text-center absolute z-10 bottom-0 bg-white text-neutral-900 font-bold">
+							برند فلانی{" "}
+						</figcaption>
 					</figure>
 				</div>
 			))}

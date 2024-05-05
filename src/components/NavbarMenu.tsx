@@ -19,15 +19,18 @@ async function getData() {
 export default async function NavbarMenu() {
 	const data: Category[] | undefined = await getData();
 	return (
-		<nav className="container-wrapper h-12 w-full flex justify-start items-center z-50 ">
+		<nav className="container-wrapper h-12 w-full flex justify-start items-center z-[999999]">
 			<ul className="flex gap-7 px-3">
 				{!!data &&
 					data.map((item, index) => (
-						<li key={index} className="group z-50 text-slate-800 hover:text-slate-950 ">
-							<Link href={`/categories/${item.href}`} icon={<PiEyedropperSampleDuotone />}>
+						<li key={index} className="group z-[999999] text-slate-800 hover:text-slate-950 ">
+							<Link
+								href={`/categories/${item.href}`}
+								className="font-bold text-neutral-800"
+								icon={<PiEyedropperSampleDuotone />}>
 								{item.name}
 							</Link>
-							<div className="sub-menu absolute inset-x-0 transition-all duration-300 -translate-y-1/2 scale-y-0 group-hover:scale-100 group-hover:translate-y-2 h-96 z-50">
+							<div className="sub-menu absolute inset-x-0 transition-all duration-300 -translate-y-1/2 scale-y-0 group-hover:scale-100 group-hover:translate-y-2 h-96 z-[999999]">
 								<nav className="container-wrapper mx-[auto!important] h-full p-[32px!important] bg-[rgb(255,232,237)!important] rounded-b-2xl flex flex-col justify-between">
 									<h3 className="mb-4 pb-4 border-b-4 border-secondary-800/50">
 										<Link
@@ -67,6 +70,7 @@ export default async function NavbarMenu() {
 											<Image
 												src={`http://localhost:4000/image/categoriepic/${item.pic}`}
 												fill
+												sizes="250px"
 												alt="product image"
 												className="object-cover mix-blend-darken select-none"
 											/>

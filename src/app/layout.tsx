@@ -1,13 +1,9 @@
-import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Flip, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 
 const iranSans = localFont({ src: "./IRANSans.woff2" });
-
-// export const metadata: Metadata = {
-// 	title: "Cosmetic shop",
-// 	description: "وبسایت فروشگاهی لوازم آرایشی و بهداشتی",
-// };
 
 export default function RootLayout({
 	children,
@@ -15,11 +11,19 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='fa' dir='rtl'>
+		<html lang="fa" dir="rtl">
 			<body
 				style={{ width: "100dvw", height: "100dvh", overflow: "hidden auto" }}
 				className={iranSans.className}>
 				{children}
+				<ToastContainer
+					position="bottom-center"
+					rtl
+					autoClose={3000}
+					draggable
+					transition={Flip}
+					className={"font-bold text-base text-neutral-800"}
+				/>
 			</body>
 		</html>
 	);

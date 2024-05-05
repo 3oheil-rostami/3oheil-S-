@@ -2,12 +2,14 @@ import { httpService, responseInterceptor } from "../http-service";
 
 const getProduct = (enName: string) => httpService.get(`/product/get/${enName}`);
 
-const addToCart = (productId: string | number, colorId: string | number) =>
-	responseInterceptor.post(`/cart/new/${productId}`, { colorId });
+const getMoreDiscount = () => httpService.get("product/moreDiscount");
 
-const removeToCart = (productId: string | number, colorId: string | number) =>
-	responseInterceptor.delete(`/cart/delete/${productId}`, { data: { colorId } });
+const handleLinkProduct = (productId: string) => responseInterceptor.post("/like/", { productId });
 
-const getAllProductsInCart = () => responseInterceptor.get("/product/getAll");
+const checkProductLiked = async (productId: string): Promise<boolean> => {
+	const response = await responseInterceptor.post("/like/check", { productId });
+	const data: boolean = response.data as boolean;
+	return data;
+};
 
-export { getProduct, addToCart, removeToCart, getAllProductsInCart };
+export { getProduct, getMoreDiscount, handleLinkProduct, checkProductLiked };

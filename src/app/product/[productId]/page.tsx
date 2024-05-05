@@ -4,15 +4,12 @@ import CardAddToCart from "@/components/CardAddToCart";
 import DetailsProduct from "@/components/DetailsProduct";
 import ImageSlider from "@/components/ImageSlider";
 import ProductImages from "@/components/ProductImages";
-import Button from "@/components/form/Button";
 import MdModalLayout from "@/components/modals/MdModalLayout";
-import { getProduct } from "@/services/product";
-import { FcLike } from "react-icons/fc";
-import { MdContentCopy } from "react-icons/md";
-import ProductLayout from "../ProductLayout";
-import { ProductPage } from "@/types/apiTypes";
+import { checkProductLiked, getProduct } from "@/services/product";
+import { Comment, ProductPage } from "@/types/apiTypes";
 import CommentsSection from "@/components/Comments";
 import { getAllComments } from "@/services/comment";
+import AddToCartCard from "@/components/AddToCartCard(ClientSide)";
 
 async function getDataProduct(enName: string) {
 	try {
@@ -24,13 +21,32 @@ async function getDataProduct(enName: string) {
 		return undefined;
 	}
 }
+async function getOtherData(productId: string): Promise<
+	| {
+			commentsData: Comment[];
+			checkLickedProductResponse: boolean;
+	  }
+	| undefined
+> {
+	try {
+		const commentsResponse = await getAllComments(productId);
+		const checkLickedProductResponse = await checkProductLiked(productId);
+		const commentsData: Comment[] = commentsResponse.data;
+		return { commentsData, checkLickedProductResponse };
+	} catch (error) {
+		console.error(":( error is  =>", error);
+		return undefined;
+	}
+}
 
 const page = async ({ params: { productId } }: { params: { productId: string } }) => {
-	// BUG دیتاها گرفته نمیشود
 	const data = await getDataProduct(productId);
-	// console.log("data:", productId, data);
+	const otherData = await getOtherData(data?.product._id || "null");
+	const comments: Comment[] | undefined = otherData?.commentsData;
+
+	console.log(otherData?.commentsData);
 	return (
-		<ProductLayout>
+		<>
 			<div className="lg:hidden mb-5">
 				<Breadcrumb
 					links={
@@ -58,12 +74,11 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 							]}
 						/>
 						<div className="absolute top-5 right-0 z-50 lg:hidden">
-							<Button colorScheme="secondary" typeBtn="icon" variant="text">
-								<FcLike />
-							</Button>
-							<Button colorScheme="secondary" typeBtn="icon" variant="text">
-								<MdContentCopy />
-							</Button>
+							<AddToCartCard
+								axis="vertical"
+								productId={data?.product._id || "null"}
+								isLiked={!!otherData?.checkLickedProductResponse}
+							/>
 						</div>
 					</div>
 					<ProductImages
@@ -98,11 +113,13 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 								score={data?.product.score || 0}
 							/>
 							<CardAddToCart
+								productId={data?.product._id || "null"}
 								brand={
 									data?.brand || { _id: "", brandPic: "", enName: "unknown", name: "برند ناشناس" }
 								}
 								price={data?.product.colors.sort((a, b) => a.price - b.price)[0].price || 0}
 								off={data?.product.colors.sort((a, b) => a.off - b.off)[0].off || 0}
+								isLiked={!!otherData?.checkLickedProductResponse}
 							/>
 						</div>
 					</div>
@@ -147,11 +164,11 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 				<section>
 					<h4 className="text-xl font-bold text-neutral-700">نظرات :</h4>
 					<div className=" mr-3 mt-2">
-						<CommentsSection productId={data?.product._id || ""} />
+						<CommentsSection comments={comments || []} />
 					</div>
 				</section>
 			</div>
-		</ProductLayout>
+		</>
 	);
 };
 

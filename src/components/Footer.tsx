@@ -12,6 +12,7 @@ import eanemad from "@/../public/images/samandehi.png";
 import { TiSocialFacebook, TiSocialGithub, TiSocialSkype, TiSocialTwitter } from "react-icons/ti";
 import Input from "./form/Input";
 import Link from "next/link";
+
 const Footer = () => {
 	const features = [feature1, feature2, feature3, feature4, feature5];
 	return (
@@ -31,7 +32,7 @@ const Footer = () => {
 					</div>
 					<div className="">
 						<Button colorScheme="primary" typeBtn="text" variant="outline" size="md">
-							<Link href={"#top"} className="flex items-center gap-1">
+							<Link href={"#top"} className="flex items-center gap-1 w-full">
 								برو به بالا <BiArrowToTop />
 							</Link>
 						</Button>
@@ -95,7 +96,7 @@ const Footer = () => {
 							</h6>
 							<div className="flex items-center gap-2 mt-2">
 								<Input placeholder="ایمیل خود را وارد کنید ." className="shadow-md" />
-								<Button colorScheme="primary" typeBtn="text" variant="fill" size="sm">
+								<Button colorScheme="primary" typeBtn="text" variant="fill" size="xs">
 									ثبت
 								</Button>
 							</div>
