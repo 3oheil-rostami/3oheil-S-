@@ -8,4 +8,6 @@ const addToCart = (productId: string | number, colorId: string | number) =>
 const removeToCart = (productId: string | number, colorId: string | number) =>
 	responseInterceptor.delete(`/cart/delete/${productId}`, { data: { colorId } });
 
-export { getAllProductsInCart, addToCart, removeToCart };
+const clearCart = () => responseInterceptor.delete("/cart/deleteAll");
+
+export { getAllProductsInCart, addToCart, removeToCart, clearCart };

@@ -28,11 +28,11 @@ const HeaderCartPageContent = ({ data }: Props) => {
 
 	return (
 		<div className="flex justify-between items-center border-b-2 pb-2">
-			<h3 className="text-xl text-neutral-700 font-bold">
+			<h3 className="text-lg text-neutral-700 font-bold">
 				سبد خرید شما : ( {allQuantityProduct} کالا)
 			</h3>
 			{!!data.items?.length && (
-				<Button colorScheme="secondary" size="xs" variant="text" onClick={clearCartHandler}>
+				<Button colorScheme="secondary" size="2xs" variant="text" onClick={clearCartHandler}>
 					خالی کردن سبد
 					<MdDelete className="text-xl" />
 				</Button>

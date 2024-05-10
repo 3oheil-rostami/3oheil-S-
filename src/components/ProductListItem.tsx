@@ -3,8 +3,9 @@ import Image from "next/image";
 import React from "react";
 import AddToCartButton from "./AddToCartButton";
 import { calculateDiscountedPrice } from "@/utils";
+import Link from "next/link";
 
-const ProductListItem = ({ colorId, productId, quantity }: ProductItemInCart) => {
+const ProductListItem = ({ colorId, productId }: ProductItemInCart) => {
 	const currentProduct: Color =
 		productId.colors.find(item => item._id === colorId._id) || ({} as Color);
 	return (
@@ -23,13 +24,16 @@ const ProductListItem = ({ colorId, productId, quantity }: ProductItemInCart) =>
 						product={productId}
 						accessToActions={true}
 						colorId={colorId._id}
-						productId={productId._id}
-						count={quantity}
+						size="sm"
 					/>
 					{/* <Timer initialSeconds={7 * 60 * 60 * 24} /> */}
 				</div>
 				<div className="py-3">
-					<h4 className="text-base font-bold text-neutral-800">{productId.name}</h4>
+					<Link href={`/product/${productId.enName}`}>
+						<h4 className="text-base font-bold text-neutral-800 hover:text-primary-700 transition-all duration-300">
+							{productId.name}
+						</h4>
+					</Link>
 					<div className="colors flex gap-2 items-center mt-1">
 						<div className="flex items-center gap-1">
 							<div

@@ -1,6 +1,6 @@
 "use client";
 import { addToCart, removeToCart } from "@/services/cart";
-import { AddToCartButtonProps, cartReducerStatesProps } from "@/types";
+import { AddToCartButtonProps, CartReducerStatesProps } from "@/types";
 import React, { useEffect, useState } from "react";
 import { MdDelete, MdDeleteOutline, MdOutlineAdd } from "react-icons/md";
 import { toast } from "react-toastify";
@@ -18,14 +18,14 @@ import {
 function AddToCartButton({
 	incrementAction,
 	decrementAction,
-	productId,
 	colorId,
 	accessToActions,
 	product,
+	size,
 }: AddToCartButtonProps<HTMLButtonElement>) {
 	const dispatch = useDispatch();
 	const [canUseActions, setCanUseActions] = useState<boolean>(true);
-	const availableQuantityOfThisProduct: number = useSelector((state: cartReducerStatesProps) =>
+	const availableQuantityOfThisProduct: number = useSelector((state: CartReducerStatesProps) =>
 		selectCountProductBasedOnCartContent(state, colorId)
 	);
 	const [countNum, setCountNum] = useState<number>(availableQuantityOfThisProduct);
@@ -42,7 +42,7 @@ function AddToCartButton({
 		setCanUseActions(false);
 		setCountNum(prevValue => prevValue + 1);
 		const toastId = toast.loading("در حال اضافه کردن به سبد خرید ...");
-		const response = await addToCart(productId, colorId);
+		const response = await addToCart(product?._id || "", colorId);
 		toast.update(toastId, {
 			isLoading: false,
 			autoClose: 3000,
@@ -84,7 +84,7 @@ function AddToCartButton({
 			decrementAction && decrementAction();
 			setCanUseActions(false);
 			const toastId = toast.loading("در حال حذف محصول از سبد خرید ...");
-			const response = await removeToCart(productId, colorId);
+			const response = await removeToCart(product?._id || "", colorId);
 			toast.update(toastId, {
 				isLoading: false,
 				autoClose: 3000,
@@ -113,29 +113,48 @@ function AddToCartButton({
 
 	return (
 		<div
-			className={`w-fit h-9 min-w-9 bg-white border border-primary-600 rounded-full flex justify-center gap-2 items-center text-primary-700 p-px transition-all ${
-				countNum === 0
-					? "*:hidden *:hover:hidden first:*:inline first:*:hover:inline"
-					: "*:hidden *:hover:inline first:*:inline first:*:hover:hidden"
-			}`}>
-			<button className="addToCard" onClick={incrementHandler} disabled={!canUseActions}>
-				{countNum === 0 ? <MdOutlineAdd /> : countNum}
+			className={`flex justify-center items-center transition-all ${
+				size === "sm"
+					? countNum === 0
+						? " *:hidden *:hover:hidden first:*:inline first:*:hover:inline "
+						: " *:hidden *:hover:inline first:*:inline first:*:hover:hidden "
+					: countNum === 0
+					? " *:hidden *:hover:hidden first:*:inline first:*:hover:inline "
+					: " *:inline first:*:hidden "
+			} 
+			${
+				size === "sm"
+					? " w-fit h-9 min-w-9 bg-white border border-primary-600 rounded-full text-primary-700 p-px  gap-2"
+					: countNum === 0
+					? " w-full h-11 bg-primary-600 text-white rounded-md  gap-4"
+					: " w-full h-11 bg-white text-primary-700 rounded-md border-2 border-[rgb(246,0,33)!important] gap-4"
+			}`}
+			style={{ borderWidth: size === "lg" && countNum > 0 ? "2px" : "" }}>
+			<button
+				className="addToCard block w-full"
+				onClick={incrementHandler}
+				disabled={!canUseActions}>
+				{countNum === 0 ? (size === "lg" ? "افزودن به سبد" : "+") : countNum}
 			</button>
 			{countNum > 0 && (
 				<>
 					<button
-						className="increment p-1 text-base rounded-full bg-neutral-50 border-2 border-transparent hover:border-neutral-200 transition-all"
+						className={`p-1 bg-neutral-50 border-2 border-transparent hover:border-neutral-200 transition-all ${
+							size === "sm" ? "text-base rounded-full" : "text-2xl rounded-sm w-16"
+						}`}
 						type="button"
 						disabled={!canUseActions}
 						onClick={incrementHandler}>
-						<MdOutlineAdd />
+						<MdOutlineAdd className="mx-auto" />
 					</button>
 					<span className="count font-bold text-lg">{countNum}</span>
 					<button
-						className="decrement p-1 text-base rounded-full bg-neutral-50 border-2 border-transparent hover:border-neutral-200 transition-all"
+						className={`p-1 bg-neutral-50 border-2 border-transparent hover:border-neutral-200 transition-all ${
+							size === "sm" ? "text-base rounded-full" : "text-2xl rounded-sm w-16"
+						}`}
 						disabled={!canUseActions}
 						onClick={decrementHandler}>
-						<MdDeleteOutline />
+						<MdDeleteOutline className="mx-auto" />
 					</button>
 				</>
 			)}

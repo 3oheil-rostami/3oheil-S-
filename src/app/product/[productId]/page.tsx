@@ -64,11 +64,11 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 						<ImageSlider
 							images={[
 								{
-									src: `http://localhost:4000/image/productcover/${data?.product.productCover}`,
+									src: `http://localhost:4000/images/productCover/${data?.product.productCover}`,
 									alt: "product image",
 								},
 								...(data?.product.productPics.map(picItem => ({
-									src: `http://localhost:4000/image/productpic/${picItem}`,
+									src: `http://localhost:4000/image/productPic/${picItem}`,
 									alt: `product image`,
 								})) || []),
 							]}
@@ -76,7 +76,7 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 						<div className="absolute top-5 right-0 z-50 lg:hidden">
 							<AddToCartCard
 								axis="vertical"
-								productId={data?.product._id || "null"}
+								product={data?.product}
 								isLiked={!!otherData?.checkLickedProductResponse}
 							/>
 						</div>
@@ -84,11 +84,11 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 					<ProductImages
 						images={[
 							{
-								src: `http://localhost:4000/image/productcover/${data?.product.productCover}`,
+								src: `http://localhost:4000/image/productCover/${data?.product.productCover}`,
 								alt: "product image",
 							},
 							...(data?.product.productPics.map(picItem => ({
-								src: `http://localhost:4000/image/productpic/${picItem}`,
+								src: `http://localhost:4000/image/productPic/${picItem}`,
 								alt: `product image`,
 							})) || []),
 						]}
@@ -113,7 +113,7 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 								score={data?.product.score || 0}
 							/>
 							<CardAddToCart
-								productId={data?.product._id || "null"}
+								product={data?.product}
 								brand={
 									data?.brand || { _id: "", brandPic: "", enName: "unknown", name: "برند ناشناس" }
 								}
@@ -153,12 +153,7 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 				<section>
 					<h4 className="text-xl font-bold text-neutral-700">نحوه استفاده :</h4>
 					<div className="border-r border-neutral-400 p-5 mr-3 mt-2 rounded-lg bg-neutral-100">
-						<p className="text-base font-medium text-neutral-90">
-							پس از استفاده از شامپو و خشک کردن نسبی تارهای مو، در زمانی که هنوز رطوبت مختصری بر روی
-							تارهای مو باقی مانده، هیرتونیک لافارر را بر موضع دچار ریزش 7 مرتبه پاف نمائید و با نوک
-							انگشتان به نرمی و به صورت دورانی ماساژ دهید تا خوب جذب گردد. طریقۀ مصرف برای ابرو: بر
-							روی هر ابرو یک مرتبه پاف شود و از ماساژ اجتناب شود
-						</p>
+						<p className="text-base font-medium text-neutral-90">{data?.product.howUse}</p>
 					</div>
 				</section>
 				<section>

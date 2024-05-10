@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode } from "react";
-import { Brand, Color, Product, ProductsInCart } from "./apiTypes";
+import { Brand, Color, Product, ProductsInCart, UserInformation } from "./apiTypes";
 
 interface Link {
 	id: string | number;
@@ -47,7 +47,7 @@ interface CardAddToCartProps {
 	price: number;
 	off?: number;
 	isLiked: boolean;
-	productId: string;
+	product?: Product;
 }
 interface ColorsProductsProps {
 	colors: Color[];
@@ -94,10 +94,10 @@ interface IconButtonProps<T> extends ButtonHTMLAttributes<T> {
 interface AddToCartButtonProps<T> extends ButtonHTMLAttributes<T> {
 	incrementAction?: () => any;
 	decrementAction?: () => any;
-	productId: string;
 	colorId: string;
 	accessToActions: boolean;
-	product: Product;
+	product?: Product;
+	size: "sm" | "lg";
 }
 
 interface NotificationButtonProps {
@@ -122,10 +122,40 @@ interface NavDrawLinkProps {
 	className?: string;
 }
 
-interface cartReducerStatesProps {
+interface CartReducerStatesProps {
 	data: null | ProductsInCart;
 	error: any;
 	status: "idle" | "pending" | "successfully" | "failed";
+}
+interface UserReducerStatesProps {
+	data: null | undefined | UserInformation;
+	error: any;
+	status: "idle" | "pending" | "successfully" | "failed";
+}
+
+interface ProductReducerStatesProps {
+	error: unknown;
+	sortBy?: SortItems;
+	price?: [number, number];
+	isAvailable?: boolean;
+	brands?: string[];
+}
+
+type SortItems =
+	| "cheapest"
+	| "expensive"
+	| "new"
+	| "off"
+	| "popular"
+	| "view"
+	| "mostBuy"
+	| undefined;
+
+interface SortItemsSearchParams {
+	sort: SortItems;
+	price?: [number, number];
+	isAvailable?: boolean;
+	brands?: string[];
 }
 
 export {
@@ -145,5 +175,9 @@ export {
 	type NotificationButtonProps,
 	type AvatarProps,
 	type NavDrawLinkProps,
-	type cartReducerStatesProps,
+	type CartReducerStatesProps,
+	type UserReducerStatesProps,
+	type ProductReducerStatesProps,
+	type SortItemsSearchParams,
+	SortItems,
 };

@@ -13,7 +13,7 @@ type FormValues = {
 	password: string;
 };
 
-async function handleSendCodeVerify(data: FormValues) {
+async function handleSendData(data: FormValues) {
 	return fetch("http://localhost:4000/auth/login", {
 		method: "POST",
 		headers: {
@@ -34,8 +34,8 @@ const Login = () => {
 			toast.warning("شما آنلاین نیستید .");
 			return;
 		}
-		const toastId = toast.loading("در انجام درخواست ...");
-		const response = await handleSendCodeVerify({ ...data });
+		const toastId = toast.loading("در حال انجام درخواست ...");
+		const response = await handleSendData({ ...data });
 		toast.update(toastId, {
 			isLoading: false,
 			autoClose: 3000,

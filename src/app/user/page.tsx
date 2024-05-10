@@ -5,9 +5,14 @@ import { getUserInfo } from "@/services/user";
 import { UserInformation } from "@/types/apiTypes";
 
 async function getData() {
-	const response = await getUserInfo();
-	const data: UserInformation = response.data;
-	return data;
+	try {
+		const response = await getUserInfo();
+		const data: UserInformation = response.data;
+		return data;
+	} catch (error) {
+		console.error(error);
+		return null;
+	}
 }
 
 const User = async () => {
@@ -22,7 +27,7 @@ const User = async () => {
 					</div>
 					<span className="text-xl font-bold text-neutral-800">{data?.name}</span>
 					<span className="bg-neutral-300 text-neutral-800 text-sm font-semibold px-2 py-1 rounded-md">
-						{data.role === "user" ? "مشتری" : "فروشنده"}
+						{data?.role === "user" ? "مشتری" : "فروشنده"}
 					</span>
 				</div>
 			</div>
@@ -41,16 +46,16 @@ const User = async () => {
 					</li> */}
 					<li>
 						<span className="text-base font-semibold text-neutral-800">ایمیل :</span>
-						<span className="text-base font-normal text-neutral-700 mx-2">{data.email}</span>
+						<span className="text-base font-normal text-neutral-700 mx-2">{data?.email}</span>
 					</li>
 					<li>
 						<span className="text-base font-semibold text-neutral-800">شماره تلفن :</span>
-						<span className="text-base font-normal text-neutral-700 mx-2">{data.number}</span>
+						<span className="text-base font-normal text-neutral-700 mx-2">{data?.number}</span>
 					</li>
 					<li>
 						<span className="text-base font-semibold text-neutral-800">نقش :</span>
 						<span className="text-base font-normal text-neutral-700 mx-2">
-							{data.role === "user" ? "مشتری" : "فروشنده"}
+							{data?.role === "user" ? "مشتری" : "فروشنده"}
 						</span>
 					</li>
 				</ul>

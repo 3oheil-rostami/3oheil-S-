@@ -1,3 +1,10 @@
+interface BasePropsAPI {
+	readonly _id: string;
+	readonly createdAt: string;
+	readonly updatedAt: string;
+	readonly __v: number;
+}
+
 interface KeyValue {
 	key: string;
 	value: string | number;
@@ -135,7 +142,14 @@ interface UserInformation {
 	__v: number;
 }
 
+interface FavoritesPageData extends BasePropsAPI {
+	_id: string;
+	userId: string;
+	productId: Product[];
+}
+
 export {
+	type BasePropsAPI,
 	type SubCategory,
 	type Category,
 	type Product,
@@ -151,4 +165,5 @@ export {
 	type ProductsInCart,
 	type ProductItemInCart,
 	type UserInformation,
+	type FavoritesPageData,
 };

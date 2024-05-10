@@ -4,7 +4,7 @@ const getProduct = (enName: string) => httpService.get(`/product/get/${enName}`)
 
 const getMoreDiscount = () => httpService.get("product/moreDiscount");
 
-const handleLinkProduct = (productId: string) => responseInterceptor.post("/like/", { productId });
+const handleLikeProduct = (productId: string) => responseInterceptor.post("/like/", { productId });
 
 const checkProductLiked = async (productId: string): Promise<boolean> => {
 	const response = await responseInterceptor.post("/like/check", { productId });
@@ -12,4 +12,6 @@ const checkProductLiked = async (productId: string): Promise<boolean> => {
 	return data;
 };
 
-export { getProduct, getMoreDiscount, handleLinkProduct, checkProductLiked };
+const getFavoriteProducts = () => responseInterceptor.get("/like/user");
+
+export { getProduct, getMoreDiscount, handleLikeProduct, checkProductLiked, getFavoriteProducts };

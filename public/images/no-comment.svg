@@ -1,0 +1,14 @@
+<svg id="SvgjsSvg1078" width="256" height="256" xmlns="http://www.w3.org/2000/svg" version="1.1"
+	xmlnsXlink="http://www.w3.org/1999/xlink">
+	<defs id="SvgjsDefs1079"></defs>
+	<g id="SvgjsG1080">
+		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 48 48" width="256"
+			height="256">
+			<path stroke="#c71843" strokeLinejoin="round"
+				d="M7 16C7 12.6863 9.68629 10 13 10H35C38.3137 10 41 12.6863 41 16V27C41 30.3137 38.3137 33 35 33H23.6978C22.2787 33 20.9055 33.503 19.8222 34.4197L15 38.5V35C15 33.8954 14.1046 33 13 33V33C9.68629 33 7 30.3137 7 27V16Z"
+			></path>
+			<path stroke="#c71843" strokeLinecap="round" strokeLinejoin="round"
+				d="M18.5 21.5H29.5"></path>
+		</svg>
+	</g>
+</svg>

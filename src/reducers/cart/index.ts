@@ -1,5 +1,5 @@
 import { getAllProductsInCart } from "@/services/cart";
-import { cartReducerStatesProps } from "@/types";
+import { CartReducerStatesProps } from "@/types";
 import { Color, Product, ProductItemInCart } from "@/types/apiTypes";
 import { calculateDiscountedPrice } from "@/utils";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
@@ -13,7 +13,7 @@ export const fetchProductsInCart = createAsyncThunk("products/fetchProductsInCar
 	}
 });
 
-const initialState: cartReducerStatesProps = {
+const initialState: CartReducerStatesProps = {
 	data: null,
 	error: null,
 	status: "idle",
@@ -99,11 +99,10 @@ const cartSlice = createSlice({
 	},
 });
 
-export const selectCartItems = (state: cartReducerStatesProps) => state;
-export const selectCountProductBasedOnCartContent = (
-	state: cartReducerStatesProps,
-	colorId: string
-) => state.data?.items?.find(productItem => productItem.colorId._id === colorId)?.quantity || 0;
+export const selectCartItems = (state: any) => state.cart;
+export const selectCountProductBasedOnCartContent = (state: any, colorId: string) =>
+	state.cart?.data?.items?.find((productItem: any) => productItem.colorId._id === colorId)
+		?.quantity || 0;
 
 export const { addProductToCart, removeProductFromCart, clearCartContent } = cartSlice.actions;
 export default cartSlice.reducer;

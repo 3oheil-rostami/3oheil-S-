@@ -4,6 +4,7 @@ import Topbar from "@/components/Topbar";
 import Navbar from "@/components/Navbar";
 import NavbarMenu from "@/components/NavbarMenu";
 import Footer from "@/components/Footer";
+import HeaderCard from "@/components/user/HeaderCard";
 
 export default function UserLayout({
 	children,
@@ -22,7 +23,12 @@ export default function UserLayout({
 					<div className="">
 						<NavDraw />
 					</div>
-					<div className="grow p-5 border-2 rounded-xl">{children}</div>
+					<div className="grow">
+						<div className="mb-3">
+							<HeaderCard />
+						</div>
+						<div className="grow p-5 border-2 rounded-xl">{children}</div>
+					</div>
 				</div>
 			</div>
 			<Footer />

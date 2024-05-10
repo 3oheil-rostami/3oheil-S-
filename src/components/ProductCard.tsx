@@ -7,7 +7,6 @@ import { Product, ProductsInCart } from "@/types/apiTypes";
 import { calculateDiscountedPrice, takingProductFromOthers } from "@/utils";
 
 function ProductCard({ product, inCart }: { product: Product; inCart?: ProductsInCart }) {
-	console.log("product:", product);
 	return (
 		<article className="overflow-hidden hover:shadow-md bg-white hover:-translate-y-1 transition-all p-4">
 			<div className="flex gap-1 flex-col">
@@ -18,8 +17,8 @@ function ProductCard({ product, inCart }: { product: Product; inCart?: ProductsI
 							<AddToCartButton
 								product={product}
 								accessToActions={!!inCart}
-								productId={product._id}
 								colorId={takingProductFromOthers(product.colors, "off")._id}
+								size="sm"
 							/>
 						</div>
 						<Link href={`/product/${product.enName}`}>

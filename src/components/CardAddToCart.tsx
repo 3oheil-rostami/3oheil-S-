@@ -1,20 +1,12 @@
 import Image from "next/image";
 import Link from "./Link";
 import { CardAddToCartProps } from "@/types";
-import { calculateDiscountedPrice } from "@/utils";
+import { calculateDiscountedPrice, takingProductFromOthers } from "@/utils";
 import AddToCartCard from "./AddToCartCard(ClientSide)";
 
-export default function CardAddToCart({
-	brand,
-	off,
-	price,
-	isLiked,
-	productId,
-}: CardAddToCartProps) {
+export default function CardAddToCart({ brand, off, price, isLiked, product }: CardAddToCartProps) {
 	return (
-		<div
-			className="h-fit flex items-center flex-row-reverse lg:flex-col justify-between lg:justify-normal z-30 border-2 bg-neutral-100 rounded-lg shadow-inner lg:divide-y-2 divide-neutral-200 px-3 py-5 overflow-hidden
-		 ">
+		<div className="h-fit flex items-center flex-row-reverse gap-1 lg:flex-col justify-between lg:justify-normal z-30 border-2 bg-neutral-100 rounded-lg shadow-inner lg:divide-y-2 divide-neutral-200 px-3 py-5 overflow-hidden">
 			<div className="brand-wrapper flex-col gap-2 items-center h-40 w-full hidden lg:flex ">
 				<Image
 					src={`http://localhost:4000/brandPic/${brand.brandPic}`}
@@ -25,7 +17,7 @@ export default function CardAddToCart({
 				/>
 				<span className="text-neutral-700 hover:text-neutral-900 text-xs">
 					<Link href={brand.enName === "unknown" ? "/brands" : `/brands/${brand.enName}`}>
-						برای مشاهده همه محسولات برند {brand.name}
+						{`برای مشاهده همه محسولات برند "${brand.name}"`}
 					</Link>
 				</span>
 			</div>
@@ -65,7 +57,8 @@ export default function CardAddToCart({
 			<AddToCartCard
 				axis="horizontal"
 				isLiked={!!isLiked}
-				productId={productId}
+				product={product}
+				colorId={takingProductFromOthers(product?.colors || [], "off")._id}
 				toggleShowButtonsActions
 			/>
 		</div>

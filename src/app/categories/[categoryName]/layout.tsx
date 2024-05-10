@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import NavbarMenu from "@/components/NavbarMenu";
 import Footer from "@/components/Footer";
 import { getCategory } from "@/services/category";
+import RightPanelFilterControl from "./components/RightPanelFilterControl";
 
 async function getData(href: string) {
 	try {
@@ -77,6 +78,7 @@ export default async function CategoryLayout({
 								/>
 							</ul>
 						</li>
+						<RightPanelFilterControl />
 					</ul>
 					<div className="w-full pt-5 px-4 sm:px-6 lg:px-8">{children}</div>
 				</div>

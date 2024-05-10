@@ -9,6 +9,8 @@ import ProductListItem from "./ProductListItem";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import emptyCartImg from "@/../public/images/empty-cart2.png";
+import { clearCart } from "@/services/cart";
+import { toast } from "react-toastify";
 
 const CartButton = () => {
 	const router = useRouter();
@@ -20,6 +22,28 @@ const CartButton = () => {
 		allCartItems.data?.items?.map(item => (sumProducts += item.quantity));
 		return sumProducts;
 	};
+
+	const handleClearCart = async () => {
+		if (!navigator.onLine) {
+			toast.warning("شما آنلاین نیستید !");
+			return;
+		}
+		const toastId = toast.loading("در حال انجام درخواست ... ", { autoClose: 10000 });
+		const response = await clearCart();
+		const { status } = response;
+		toast.update(toastId, {
+			isLoading: false,
+			autoClose: 3000,
+			type: status === 200 ? "success" : "error",
+			render() {
+				if (status == 200) {
+					dispatch(clearCartContent(null));
+				}
+				return status === 200 ? "سبد خرید خالی شد ." : " با خطا مواجه شدیم :/ ";
+			},
+		});
+	};
+
 	return (
 		<div className="relative group">
 			{allCartItems.status === "successfully" && (
@@ -27,17 +51,17 @@ const CartButton = () => {
 					{sumProducts()}
 				</span>
 			)}
-			<IconButton colorScheme="primary" size="lg" variant="fill">
+			<IconButton
+				colorScheme="primary"
+				size="lg"
+				variant="fill"
+				onClick={() => router.push("/user/cart")}>
 				<IoCartOutline />
 			</IconButton>
 			<div className="absolute top-14 left-0 flex flex-col w-96 h-auto min-h-80 bg-neutral-100 shadow-xl rounded-xl opacity-0 scale-y-0 group-hover:scale-y-100 group-hover:opacity-100 overflow-hidden transition-all duration-500 -translate-y-full group-hover:translate-y-0 delay-100">
 				<div className="header w-full flex items-center justify-between p-3 bg-neutral-200">
 					<span className="text-base font-semibold text-neutral-900">{sumProducts()}عدد کالا </span>
-					<Button
-						colorScheme="secondary"
-						size="2xs"
-						variant="fill"
-						onClick={() => dispatch(clearCartContent(null))}>
+					<Button colorScheme="secondary" size="2xs" variant="fill" onClick={handleClearCart}>
 						خالی کردن سبد خرید
 					</Button>
 				</div>

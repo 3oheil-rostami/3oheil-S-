@@ -4,10 +4,8 @@ import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
 
-export default function Avatar({ name, srcImage, altValue, size, isBadge, status }: AvatarProps) {
+export default function MyAvatar({ name, srcImage, altValue, size, isBadge, status }: AvatarProps) {
 	const [bgColor, setBgColor] = useState<string>("");
-	const sizeAvatar: string[] = [];
-	const fontSize = "";
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const colors: string[] = [
 		"#007AB8",

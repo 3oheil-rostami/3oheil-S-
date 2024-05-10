@@ -1,24 +1,23 @@
 "use server";
-import { BsReplyFill } from "react-icons/bs";
-import { MdOutlineFavorite } from "react-icons/md";
 import { getAllComments } from "@/services/comment";
-import Avatar from "./Avatar";
-import Button from "./form/Button";
 import { Comment } from "@/types/apiTypes";
+import CommentItem from "./CommentItem";
+import Image from "next/image";
+import commentsIsEmptyImg from "@/../public/images/no-comment.svg";
 
-async function getDateComments(productId: string) {
-	try {
-		const response = await getAllComments(productId);
-		const data: Comment[] = response.data;
-		return data;
-	} catch (error) {
-		console.error(":( error is  =>", error);
-		return undefined;
-	}
-}
+// async function getDateComments(productId: string) {
+// 	try {
+// 		const response = await getAllComments(productId);
+// 		const data: Comment[] = response.data;
+// 		return data;
+// 	} catch (error) {
+// 		console.error(":( error is  =>", error);
+// 		return undefined;
+// 	}
+// }
 
 export default async function CommentsSection({ comments }: { comments: Comment[] }) {
-	console.log("comments:", comments);
+	// console.log("comments:", comments);
 	return (
 		<>
 			<form>
@@ -47,97 +46,20 @@ export default async function CommentsSection({ comments }: { comments: Comment[
 			<div className="comments-section w-full h-auto mt-3">
 				<h6 className="text-base font-bold text-neutral-700 mt-5 mb-2">نظرات بقیه :</h6>
 				<div className="comments-wrapper flex flex-col w-full h-auto ">
-					<div className="comment flex gap-3 shadow-smshadow-neutral-700 bg-neutral-100 p-3 rounded-lg border-r border-neutral-400">
-						<div className="avatar-wrapper w-14">
-							<Avatar size="md" name="B" />
+					{comments.length === 0 ? (
+						<div className="flex flex-col gap-2 items-center justify-center">
+							<Image
+								src={commentsIsEmptyImg.src}
+								width={250}
+								height={250}
+								alt="نظری ثبت نشده است ."
+								className="opacity-75"
+							/>
+							<p className="text-lg font-bold text-neutral-800">نظری ثبت نشده است .</p>
 						</div>
-						<div className="comment-content">
-							<div className="comment-header flex justify-between h-fit pl-2 items-center">
-								<div>
-									<h4 className="text-base font-semibold text-secondary-600">بهار احمدی</h4>
-									<h6 className="text-sm text-neutral-700 mr-1">مشتری</h6>
-								</div>
-								<span className="text-neutral-900 font-medium text-xs bg-neutral-200 px-2 py-px rounded-md">
-									3 روز پیش
-								</span>
-							</div>
-							<p className="mt-2 text-neutral-900 text-sm font-medium">
-								لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-								گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
-								شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می
-								باشد.
-							</p>
-							<div className="btn-wrapper mt-3 flex gap-2">
-								<Button
-									colorScheme="primary"
-									variant="outline"
-									size="xs"
-									type="button"
-									className="flex items-center">
-									<MdOutlineFavorite className="text-primary-600 text-xl" />
-									<span>
-										275 <span>نفر پسندیدند</span>
-									</span>
-								</Button>
-								<Button
-									colorScheme="secondary"
-									size="xs"
-									variant="outline"
-									type="button"
-									className="flex items-center">
-									<BsReplyFill className="text-xl" />
-									<span>
-										150 <span> نظر دادند</span>
-									</span>
-								</Button>
-							</div>
-							<div className="comments-replied mr-2 mt-2 pr-4 border-r-2 border-neutral-300">
-								{Array(2)
-									.fill(9)
-									.map((_, index) => (
-										<div
-											key={index}
-											className="comment flex gap-3 bg-neutral-50 mt-2 p-3 rounded-lg">
-											<div className="avatar-wrapper w-14">
-												<Avatar size="sm" name="" />
-											</div>
-											<div className="comment-content">
-												<div className="comment-header flex justify-between h-fit items-center">
-													<div>
-														<h4 className="text-base font-semibold text-secondary-600">
-															خانوم دلاک
-														</h4>
-														<h6 className="text-sm text-neutral-700 mr-1">مدیر فروشگاه</h6>
-													</div>
-													<span className="text-neutral-900 font-medium text-xs bg-neutral-200 px-2 py-px rounded-md">
-														3 روز پیش
-													</span>
-												</div>
-												<p className="mt-2 text-neutral-900 text-sm font-medium">
-													لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
-													طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-													که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف
-													بهبود ابزارهای کاربردی می باشد.
-												</p>
-												<div className="btn-wrapper mt-3 flex gap-2">
-													<Button
-														colorScheme="primary"
-														variant="outline"
-														size="2xs"
-														type="button"
-														className="flex items-center">
-														<MdOutlineFavorite className="text-primary-600 text-lg" />
-														<span>
-															275 <span>نفر پسندیدند</span>
-														</span>
-													</Button>
-												</div>
-											</div>
-										</div>
-									))}
-							</div>
-						</div>
-					</div>
+					) : (
+						comments.map(commentItem => <CommentItem key={commentItem._id} {...commentItem} />)
+					)}
 				</div>
 			</div>
 		</>

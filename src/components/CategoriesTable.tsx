@@ -16,11 +16,11 @@ const CategoriesTable = (data: any) => {
 		return (
 			<Cell {...props} style={{ padding: 0, height: "100%" }}>
 				<div
-					className='bg-neutral-50 mt-0.5 overflow-hidden inline-block'
+					className="bg-neutral-50 mt-0.5 overflow-hidden inline-block"
 					style={{ width: forIcon ? "50px" : "100%", height: forIcon ? "50px" : "100px" }}>
 					<img
 						src={`http://localhost:4000/image/${forIcon ? rowData.icon : rowData.pic}`}
-						className='size-full object-cover'
+						className="size-full object-cover"
 					/>
 				</div>
 			</Cell>
@@ -54,44 +54,44 @@ const CategoriesTable = (data: any) => {
 					}}>
 					{({ Column, HeaderCell, Cell }) => (
 						<>
-							<Column width={80} align=''>
+							<Column width={80} align="">
 								<HeaderCell>عکس</HeaderCell>
-								<ImageCell dataKey='pic' rowData={data.data} />
+								<ImageCell dataKey="pic" rowData={data.data} />
 							</Column>
 
 							<Column width={130}>
 								<HeaderCell>نام</HeaderCell>
-								<Cell dataKey='name' />
+								<Cell dataKey="name" />
 							</Column>
 
 							<Column width={200}>
 								<HeaderCell>آدرس صفحه</HeaderCell>
-								<Cell dataKey='href' />
+								<Cell dataKey="href" />
 							</Column>
 
 							<Column width={250}>
 								<HeaderCell>درباره آن</HeaderCell>
-								<Cell dataKey='info' />
+								<Cell dataKey="info" />
 							</Column>
 
 							<Column width={50}>
 								<HeaderCell>اولویت</HeaderCell>
-								<Cell dataKey='level' />
+								<Cell dataKey="level" />
 							</Column>
 
 							<Column width={50}>
 								<HeaderCell>آیکون</HeaderCell>
-								<ImageCell forIcon={true} rowData={data.data} dataKey='icon' />
+								<ImageCell forIcon={true} rowData={data.data} dataKey="icon" />
 							</Column>
 
 							<Column width={100}>
 								<HeaderCell>گزینه ها</HeaderCell>
 								<Cell rowKey={"_id"}>
-									<div className='flex gap-2'>
-										<IconButton colorScheme='primary' size='lg' variant='outline'>
+									<div className="flex gap-2">
+										<IconButton colorScheme="primary" size="lg" variant="outline">
 											<MdEdit />
 										</IconButton>
-										<IconButton colorScheme='primary' size='lg' variant='fill'>
+										<IconButton colorScheme="primary" size="lg" variant="fill">
 											<MdDelete />
 										</IconButton>
 									</div>

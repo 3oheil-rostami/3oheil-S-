@@ -13,7 +13,7 @@ export default function CardSide({
 }: Product & { isHasTime: boolean }) {
 	return (
 		<Link
-			href={`/${enName}`}
+			href={`/product/${enName}`}
 			className={`${
 				isHasTime ? " h-[400px]" : "h-80"
 			} w-full flex flex-col justify-between  bg-white py-1 rounded-md overflow-hidden`}>

@@ -13,6 +13,11 @@ module.exports = {
 				port: "3000",
 				pathname: "/**",
 			},
+			{
+				protocol: "https",
+				hostname: "demon.liara.run",
+				pathname: "/**",
+			},
 		],
 		domains: ["localhost"],
 	},
