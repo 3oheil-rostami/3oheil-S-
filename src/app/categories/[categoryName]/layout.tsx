@@ -78,7 +78,7 @@ export default async function CategoryLayout({
 								/>
 							</ul>
 						</li>
-						<RightPanelFilterControl />
+						{/* <RightPanelFilterControl /> */}
 					</ul>
 					<div className="w-full pt-5 px-4 sm:px-6 lg:px-8">{children}</div>
 				</div>
