@@ -37,42 +37,49 @@ const SortControllerContent = () => {
 			<span className="text-base font-bold text-neutral-700">مرتب سازی بر اساس :</span>
 			<div className="flex items-center gap-2">
 				<Radio
+					crossOrigin={() => undefined}
 					name="sort"
 					onClick={() => handleChangeCurrentSortItem("cheapest")}
 					defaultChecked={currentSortItem === "cheapest"}
 					label={<p>ارزانترین</p>}
 				/>
 				<Radio
+					crossOrigin={() => undefined}
 					name="sort"
 					onClick={() => handleChangeCurrentSortItem("expensive")}
 					defaultChecked={currentSortItem === "expensive"}
 					label={<p>گرانترین</p>}
 				/>
 				<Radio
+					crossOrigin={() => undefined}
 					name="sort"
 					onClick={() => handleChangeCurrentSortItem("new")}
 					defaultChecked={currentSortItem === "new"}
 					label={<p>تازه ترین</p>}
 				/>
 				<Radio
+					crossOrigin={() => undefined}
 					name="sort"
 					onClick={() => handleChangeCurrentSortItem("popular")}
 					defaultChecked={currentSortItem === "popular"}
 					label={<p>محبوب ترین</p>}
 				/>
 				<Radio
+					crossOrigin={() => undefined}
 					name="sort"
 					onClick={() => handleChangeCurrentSortItem("off")}
 					defaultChecked={currentSortItem === "off"}
 					label={<p>داغ ترین</p>}
 				/>
 				<Radio
+					crossOrigin={() => undefined}
 					name="sort"
 					onClick={() => handleChangeCurrentSortItem("view")}
 					defaultChecked={currentSortItem === "view"}
 					label={<p>پر بازدید ترین</p>}
 				/>
 				<Radio
+					crossOrigin={() => undefined}
 					name="sort"
 					onClick={() => handleChangeCurrentSortItem("mostBuy")}
 					defaultChecked={currentSortItem === "mostBuy"}

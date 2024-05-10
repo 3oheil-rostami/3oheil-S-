@@ -26,11 +26,14 @@ const OrderContent = () => {
 		<div>
 			<div className="w-full px-8 py-4">
 				<Stepper
+					placeholder={"stepper"}
 					dir="ltr"
 					activeStep={activeStep}
 					isLastStep={value => setIsLastStep(value)}
 					isFirstStep={value => setIsFirstStep(value)}>
-					<Step className={activeStep >= 0 ? "!bg-secondary-600" : "!bg-neutral-200"}>
+					<Step
+						placeholder={"step"}
+						className={activeStep >= 0 ? "!bg-secondary-600" : "!bg-neutral-200"}>
 						1
 						<div className="absolute -bottom-10 w-max text-center">
 							<h6
@@ -41,7 +44,9 @@ const OrderContent = () => {
 							</h6>
 						</div>
 					</Step>
-					<Step className={activeStep >= 1 ? "!bg-secondary-600" : "!bg-neutral-200"}>
+					<Step
+						placeholder={"step"}
+						className={activeStep >= 1 ? "!bg-secondary-600" : "!bg-neutral-200"}>
 						2
 						<div className="absolute -bottom-10 w-max text-center">
 							<h6
@@ -52,14 +57,16 @@ const OrderContent = () => {
 							</h6>
 						</div>
 					</Step>
-					<Step className={activeStep >= 2 ? "!bg-secondary-600" : "!bg-neutral-200"}>
+					<Step
+						placeholder={"step"}
+						className={activeStep >= 2 ? "!bg-secondary-600" : "!bg-neutral-200"}>
 						3
 						<div className="absolute -bottom-10 w-max text-center">
 							<h6
 								className={`${
 									activeStep === 2 ? "text-neutral-800 animate-pulse" : "text-neutral-600"
 								}`}>
-								اتمام خرید 
+								اتمام خرید
 							</h6>
 						</div>
 					</Step>

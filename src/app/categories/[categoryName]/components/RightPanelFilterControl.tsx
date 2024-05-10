@@ -57,19 +57,23 @@ const RightPanelFilterControlContent = () => {
 
 	return (
 		<>
-			<ListItem>
+			<ListItem placeholder={"listitem"}>
 				<Switch
+					crossOrigin={() => undefined}
 					label="فقط کالاهای موجود"
 					containerProps={{ className: "ml-5" }}
 					onChange={handleIsAvailableProductsInUrl}
 				/>
 			</ListItem>
 
-			<Accordion open={open === 0} icon={<Icon id={0} open={open} />}>
-				<AccordionHeader onClick={() => handleOpen(0)}>محدوده قیمت</AccordionHeader>
+			<Accordion placeholder={"accordion"} open={open === 0} icon={<Icon id={0} open={open} />}>
+				<AccordionHeader placeholder={"accordion"} onClick={() => handleOpen(0)}>
+					محدوده قیمت
+				</AccordionHeader>
 				<AccordionBody>
 					<div className="flex flex-col gap-2">
 						<Input
+							crossOrigin={() => undefined}
 							label="حداقل قیمت "
 							type="number"
 							inputMode="numeric"
@@ -79,6 +83,7 @@ const RightPanelFilterControlContent = () => {
 							}
 						/>
 						<Input
+							crossOrigin={() => undefined}
 							label="حداکثر قیمت"
 							type="number"
 							inputMode="numeric"
@@ -90,18 +95,25 @@ const RightPanelFilterControlContent = () => {
 					</div>
 				</AccordionBody>
 			</Accordion>
-			<Accordion open={open === 1} icon={<Icon id={1} open={open} />}>
-				<AccordionHeader onClick={() => handleOpen(1)}>برند ها</AccordionHeader>
+			<Accordion placeholder={"hello"} open={open === 1} icon={<Icon id={1} open={open} />}>
+				<AccordionHeader placeholder={"hello"} onClick={() => handleOpen(1)}>
+					برند ها
+				</AccordionHeader>
 				<AccordionBody>
-					<List>
-						<ListItem className="p-0">
-							<Checkbox label="شون " />
+					<List placeholder={"list"}>
+						<ListItem placeholder={"listItem"} className="p-0">
+							<Checkbox placeholder={"checkbox"} crossOrigin={() => undefined} label="شون " />
 						</ListItem>
-						<ListItem className="p-0">
-							<Checkbox label="سریتا " />
+						<ListItem placeholder={"listItem"} className="p-0">
+							<Checkbox placeholder={"checkbox"} crossOrigin={() => undefined} label="سریتا " />
 						</ListItem>
-						<ListItem className="p-0">
-							<Checkbox label="صخر" value={"data"} />
+						<ListItem placeholder={"listItem"} className="p-0">
+							<Checkbox
+								placeholder={"checkbox"}
+								crossOrigin={() => undefined}
+								label="صخر"
+								value={"data"}
+							/>
 						</ListItem>
 					</List>
 				</AccordionBody>

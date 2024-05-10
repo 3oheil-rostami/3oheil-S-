@@ -19,9 +19,10 @@ const Addresses = () => {
 			</div>
 			<hr />
 			<div className="body py-5 flex flex-col gap-3">
-				<List>
-					<ListItem>
+				<List placeholder={"list"}>
+					<ListItem placeholder={"listItem"}>
 						<Radio
+							crossOrigin={() => undefined}
 							name="description"
 							label={
 								<div>
@@ -34,8 +35,9 @@ const Addresses = () => {
 							}}
 						/>
 					</ListItem>
-					<ListItem>
+					<ListItem placeholder={"listItem"}>
 						<Radio
+							crossOrigin={() => undefined}
 							name="description"
 							label={
 								<div>
