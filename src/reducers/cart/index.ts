@@ -24,17 +24,17 @@ const cartSlice = createSlice({
 	initialState,
 	reducers: {
 		addProductToCart: {
-			reducer(state, { payload: { product, colorId } }) {
+			reducer(state, action: { payload: { product: Product; colorId: string } }) {
 				const itAlreadyAvailable = state.data?.items?.find(
-					productItem => productItem.colorId._id === (colorId as string)
+					productItem => productItem.colorId._id === action.payload.colorId
 				);
 				const currentColorProduct =
-					(product as Product).colors?.find(
-						(colorItem: Color) => colorItem._id === (colorId as string)
+					(action.payload.product as Product).colors?.find(
+						(colorItem: Color) => colorItem._id === action.payload.colorId
 					) || ({} as Color);
 				const currentQuantityProduct = state.data?.items?.find(
 					(productItem: { productId: Product; colorId: Color; quantity: number; _id?: string }) =>
-						productItem.productId._id === (product as Product)._id
+						productItem.productId._id === action.payload.product._id
 				)?.quantity;
 
 				if (!!itAlreadyAvailable) {
@@ -48,7 +48,7 @@ const cartSlice = createSlice({
 				} else {
 					state.data?.items?.push({
 						colorId: currentColorProduct,
-						productId: product as Product,
+						productId: action.payload.product as Product,
 						quantity: currentQuantityProduct || 1,
 					});
 				}
@@ -58,9 +58,9 @@ const cartSlice = createSlice({
 			},
 		},
 		removeProductFromCart: {
-			reducer(state, { payload: { colorId } }) {
+			reducer(state, action: { payload: { colorId: string } }) {
 				const currentProduct: ProductItemInCart | undefined = state.data?.items?.find(
-					productItem => productItem.colorId._id === (colorId as string)
+					productItem => productItem.colorId._id === action.payload.colorId
 				);
 				if (currentProduct && currentProduct.quantity > 0) {
 					currentProduct.quantity -= 1;
