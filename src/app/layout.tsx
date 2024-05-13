@@ -2,7 +2,6 @@ import localFont from "next/font/local";
 import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
-// import { ThemeProvider } from "@material-tailwind/react";
 const iranSans = localFont({ src: "./IRANSans.woff2" });
 
 export default function RootLayout({
