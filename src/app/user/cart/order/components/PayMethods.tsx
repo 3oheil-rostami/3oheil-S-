@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { Card, CardBody, List, ListItem, Radio } from "@/app/Material-tailwind";
 import Input from "@/components/form/Input";
 import Button from "@/components/form/Button";
 
@@ -13,45 +12,26 @@ const PayMethods = () => {
 					اعمال کد تخفیف
 				</Button>
 			</div>
-			<List placeholder={"list"}>
-				<ListItem placeholder={"listItem"} className="size-fit rounded-xl">
-					<Radio
-						crossOrigin={() => undefined}
-						label={
-							<Card placeholder={"card"}>
-								<CardBody
-									placeholder={"card body"}
-									className="text-center bg-primary-100 rounded-xl">
-									<p className="text-center text-5xl p-10 font-bold">درگاه پرداخت تستی</p>
-								</CardBody>
-							</Card>
-						}
-						containerProps={{
-							className: "-mr-2",
-						}}
-					/>
-				</ListItem>
-				<ListItem placeholder={"listItem"} className="size-fit rounded-xl">
-					<Radio
-						crossOrigin={() => undefined}
-						disabled
-						label={
-							<Card placeholder={"card"}>
-								<CardBody
-									placeholder={"cardBody"}
-									className="text-center bg-neutral-100 rounded-xl">
-									<p className="text-center text-5xl p-10 font-bold leading-[60px]">
-										درگاه پرداخت پاسارگاد
-									</p>
-								</CardBody>
-							</Card>
-						}
-						containerProps={{
-							className: "-mr-2",
-						}}
-					/>
-				</ListItem>
-			</List>
+			<form>
+				<label>
+					<input type="radio" name="payment-method" />
+					<div>
+						<div className="text-center bg-primary-100 rounded-xl">
+							<p className="text-center text-5xl p-10 font-bold">درگاه پرداخت تستی</p>
+						</div>
+					</div>
+				</label>
+				<label>
+					<input type="radio" disabled name="payment-method" />
+					<div>
+						<div className="text-center bg-neutral-100 rounded-xl">
+							<p className="text-center text-5xl p-10 font-bold leading-[60px]">
+								درگاه پرداخت پاسارگاد
+							</p>
+						</div>
+					</div>
+				</label>
+			</form>
 		</div>
 	);
 };

@@ -3,7 +3,6 @@ import Button from "@/components/form/Button";
 import React from "react";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
-import { List, ListItem, Radio } from "@/app/Material-tailwind";
 const Addresses = () => {
 	return (
 		<div>
@@ -19,38 +18,22 @@ const Addresses = () => {
 			</div>
 			<hr />
 			<div className="body py-5 flex flex-col gap-3">
-				<List placeholder={"list"}>
-					<ListItem placeholder={"listItem"}>
-						<Radio
-							crossOrigin={() => undefined}
-							name="description"
-							label={
-								<div>
-									<h4 className="text-base font-bold">آذربایجان غربی ، پیرانشهر </h4>
-									<p>بلوار کوردستان ، میدان ماموستا هیمن ، خیابان پاداشیان ، کوچه پاداش 14 </p>
-								</div>
-							}
-							containerProps={{
-								className: "-mt-5 ",
-							}}
-						/>
-					</ListItem>
-					<ListItem placeholder={"listItem"}>
-						<Radio
-							crossOrigin={() => undefined}
-							name="description"
-							label={
-								<div>
-									<h4 className="text-base font-bold">خراسان رضوی ، مشهد </h4>
-									<p>بلوار سپهبد قرنی ،موحدین ، بین موحدین 3 و 5</p>
-								</div>
-							}
-							containerProps={{
-								className: "-mt-5 ",
-							}}
-						/>
-					</ListItem>
-				</List>
+				<form>
+					<label>
+						<input type="radio" name="address" />
+						<div>
+							<h4 className="text-base font-bold">آذربایجان غربی ، پیرانشهر </h4>
+							<p>بلوار کوردستان ، میدان ماموستا هیمن ، خیابان پاداشیان ، کوچه پاداش 14 </p>
+						</div>
+					</label>
+					<label>
+						<input type="radio" name="address" />
+						<div>
+							<h4 className="text-base font-bold">خراسان رضوی ، مشهد </h4>
+							<p>بلوار سپهبد قرنی ،موحدین ، بین موحدین 3 و 5</p>
+						</div>
+					</label>
+				</form>
 			</div>
 		</div>
 	);

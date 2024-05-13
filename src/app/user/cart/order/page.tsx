@@ -2,7 +2,7 @@
 import { store } from "@/app/store";
 import React, { useState } from "react";
 import { Provider } from "react-redux";
-import { Step, Stepper, ThemeProvider } from "@/app/Material-tailwind";
+// import { Step, Stepper, ThemeProvider } from "@/app/Material-tailwind";
 import Button from "@/components/form/Button";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Addresses from "./components/Addresses";
@@ -25,7 +25,7 @@ const OrderContent = () => {
 	return (
 		<div>
 			<div className="w-full px-8 py-4">
-				<Stepper
+				{/* <Stepper
 					placeholder={"stepper"}
 					dir="ltr"
 					activeStep={activeStep}
@@ -70,7 +70,7 @@ const OrderContent = () => {
 							</h6>
 						</div>
 					</Step>
-				</Stepper>
+				</Stepper> */}
 			</div>
 			<div className="mt-20">
 				{activeStep === 0 ? <Addresses /> : activeStep === 1 ? <PayMethods /> : <></>}
@@ -99,9 +99,7 @@ const OrderContent = () => {
 
 const Order = () => (
 	<Provider store={store}>
-		<ThemeProvider>
-			<OrderContent />
-		</ThemeProvider>
+		<OrderContent />
 	</Provider>
 );
 export default Order;

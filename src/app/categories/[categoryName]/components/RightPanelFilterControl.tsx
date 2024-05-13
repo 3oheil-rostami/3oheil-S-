@@ -1,17 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-	Accordion,
-	AccordionBody,
-	AccordionHeader,
-	List,
-	ListItem,
-	Checkbox,
-	Switch,
-	Slider,
-	Input,
-	ThemeProvider,
-} from "@/app/Material-tailwind";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "@/app/store";
 import {
@@ -44,103 +32,81 @@ const RightPanelFilterControlContent = () => {
 		}
 	};
 
-	// const handleRangePriceInUrl = () => {
-	// 	dispatch(productsFilterByPrice(rangePrice));
-	// };
+	const handleRangePriceInUrl = () => {
+		dispatch(productsFilterByPrice(rangePrice));
+	};
 
-	// useEffect(() => {
-	// 	setRangePrice(currentRangePrice);
-	// }, []);
-	// useEffect(() => {
-	// 	handleRangePriceInUrl();
-	// }, [rangePrice]);
+	useEffect(() => {
+		setRangePrice(currentRangePrice);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	useEffect(() => {
+		handleRangePriceInUrl();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [rangePrice]);
 
 	return (
 		<>
-			<ListItem placeholder={"listitem"}>
-				<Switch
-					crossOrigin={() => undefined}
-					label="فقط کالاهای موجود"
-					containerProps={{ className: "ml-5" }}
-					onChange={handleIsAvailableProductsInUrl}
-				/>
-			</ListItem>
+			<label className="flex items-center gap-1">
+				<input type="checkbox" onChange={handleIsAvailableProductsInUrl} />
+				<span>فقط کالاهای موجود</span>
+			</label>
 
-			<Accordion placeholder={"accordion"} open={open === 0} icon={<Icon id={0} open={open} />}>
-				<AccordionHeader placeholder={"accordion"} onClick={() => handleOpen(0)}>
-					محدوده قیمت
-				</AccordionHeader>
-				<AccordionBody>
+			<div>
+				<div>محدوده قیمت</div>
+				<div>
 					<div className="flex flex-col gap-2">
-						<Input
-							crossOrigin={() => undefined}
-							label="حداقل قیمت "
-							type="number"
-							inputMode="numeric"
-							value={rangePrice?.[0]}
-							onChange={e =>
-								setRangePrice(prev => (!!prev ? [Number(e.target.value), prev[1]] : undefined))
-							}
-						/>
-						<Input
-							crossOrigin={() => undefined}
-							label="حداکثر قیمت"
-							type="number"
-							inputMode="numeric"
-							value={rangePrice?.[1]}
-							onChange={e =>
-								setRangePrice(prev => (!!prev ? [prev[0], Number(e.target.value)] : undefined))
-							}
-						/>
-					</div>
-				</AccordionBody>
-			</Accordion>
-			<Accordion placeholder={"hello"} open={open === 1} icon={<Icon id={1} open={open} />}>
-				<AccordionHeader placeholder={"hello"} onClick={() => handleOpen(1)}>
-					برند ها
-				</AccordionHeader>
-				<AccordionBody>
-					<List placeholder={"list"}>
-						<ListItem placeholder={"listItem"} className="p-0">
-							<Checkbox placeholder={"checkbox"} crossOrigin={() => undefined} label="شون " />
-						</ListItem>
-						<ListItem placeholder={"listItem"} className="p-0">
-							<Checkbox placeholder={"checkbox"} crossOrigin={() => undefined} label="سریتا " />
-						</ListItem>
-						<ListItem placeholder={"listItem"} className="p-0">
-							<Checkbox
-								placeholder={"checkbox"}
-								crossOrigin={() => undefined}
-								label="صخر"
-								value={"data"}
+						<label htmlFor="">
+							<input
+								type="number"
+								inputMode="numeric"
+								value={rangePrice?.[0]}
+								onChange={e =>
+									setRangePrice(prev => (!!prev ? [Number(e.target.value), prev[1]] : undefined))
+								}
 							/>
-						</ListItem>
-					</List>
-				</AccordionBody>
-			</Accordion>
+							<span>حداقل قیمت</span>
+						</label>
+						<label htmlFor="" className="flex flex-col gap-2">
+							<input
+								type="number"
+								inputMode="numeric"
+								value={rangePrice?.[1]}
+								onChange={e =>
+									setRangePrice(prev => (!!prev ? [prev[0], Number(e.target.value)] : undefined))
+								}
+							/>
+							<span>حداکثر قیمت</span>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div>برند ها</div>
+				<div>
+					<div>
+						<div className="p-0 flex items-center gap-1">
+							<input type="checkbox" />
+							<span>شون</span>
+						</div>
+						<div className="p-0 flex items-center gap-1">
+							<input type="checkbox" />
+							<span>سریتا</span>
+						</div>
+						<div className="p-0 flex items-center gap-1">
+							<input type="checkbox" />
+							<span>فلانی</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</>
 	);
 };
 
-function Icon({ id, open }: { id: number; open: number }) {
-	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			fill="none"
-			viewBox="0 0 24 24"
-			strokeWidth={2}
-			stroke="currentColor"
-			className={`${id === open ? "rotate-180" : ""} h-5 w-5 transition-transform`}>
-			<path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-		</svg>
-	);
-}
-
 const RightPanelFilterControl = () => (
 	<Provider store={store}>
-		<ThemeProvider>
-			<RightPanelFilterControlContent />
-		</ThemeProvider>
+		<RightPanelFilterControlContent />
 	</Provider>
 );
 

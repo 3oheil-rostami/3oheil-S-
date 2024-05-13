@@ -1,21 +1,3 @@
-"use client";
-import { Button, ThemeProvider } from "@material-tailwind/react";
-import React, { useState } from "react";
-
-const App = () => {
-	return (
-		<div className="container mx-auto">
-			<ThemeProvider>
-				<Button size="lg" variant="gradient">
-					hello
-				</Button>
-			</ThemeProvider>
-		</div>
-	);
-};
-
-export default App;
-
 {
 	/* <div className='w-screen h-64 flex items-center justify-center p-20 bg-neutral-400'>
 					<div className='w-72 h-[400px]'>
