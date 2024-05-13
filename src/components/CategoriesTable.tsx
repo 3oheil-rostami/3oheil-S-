@@ -2,6 +2,7 @@
 import { Cell, Table } from "rsuite-table";
 import IconButton from "./form/IconButton";
 import { MdDelete, MdEdit } from "react-icons/md";
+import Image from "next/image";
 
 interface ImageCellProps {
 	rowData: any;
@@ -18,9 +19,12 @@ const CategoriesTable = (data: any) => {
 				<div
 					className="bg-neutral-50 mt-0.5 overflow-hidden inline-block"
 					style={{ width: forIcon ? "50px" : "100%", height: forIcon ? "50px" : "100px" }}>
-					<img
+					<Image
 						src={`http://localhost:4000/image/${forIcon ? rowData.icon : rowData.pic}`}
 						className="size-full object-cover"
+						width={200}
+						height={200}
+						alt="nothing"
 					/>
 				</div>
 			</Cell>
@@ -44,7 +48,7 @@ const CategoriesTable = (data: any) => {
 					// 	console.log(isOpen, rowData);
 					// }}
 					renderTreeToggle={(icon, rowData) => {
-						if (rowData.children && rowData.children.length === 0) {
+						if (rowData?.children?.length === 0) {
 							return;
 						}
 						return icon;
