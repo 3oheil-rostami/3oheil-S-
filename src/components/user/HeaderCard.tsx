@@ -7,7 +7,6 @@ import { MdOutlineFavorite, MdShoppingCart } from "react-icons/md";
 
 const HeaderCard = () => {
 	const pathname = usePathname();
-	console.log("pathname:", pathname);
 	return (
 		<div className="border-2 px-3 py-2 flex justify-between items-center rounded-xl">
 			<div className="rightSection flex items-center gap-2">

@@ -99,7 +99,7 @@ const cartSlice = createSlice({
 	},
 });
 
-export const selectCartItems = (state: any) => state.cart;
+export const selectCartItems = (state: any) => state.cart as CartReducerStatesProps;
 export const selectCountProductBasedOnCartContent = (state: any, colorId: string) =>
 	state.cart?.data?.items?.find((productItem: any) => productItem.colorId._id === colorId)
 		?.quantity || 0;

@@ -4,7 +4,6 @@ import CardAddToCart from "@/components/CardAddToCart";
 import DetailsProduct from "@/components/DetailsProduct";
 import ImageSlider from "@/components/ImageSlider";
 import ProductImages from "@/components/ProductImages";
-import MdModalLayout from "@/components/modals/MdModalLayout";
 import { checkProductLiked, getProduct } from "@/services/product";
 import { Comment, ProductPage } from "@/types/apiTypes";
 import CommentsSection from "@/components/Comments";
@@ -124,13 +123,6 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 						</div>
 					</div>
 				</div>
-				<MdModalLayout
-					size="sm"
-					confirmButtonText="حذف"
-					title="حذف کالا"
-					typeModal="success"
-					isShow={false}
-				/>
 			</div>
 			<div className="flex flex-col gap-8 py-5 px-3 my-5 border-t-4 border-neutral-800/50">
 				<section>

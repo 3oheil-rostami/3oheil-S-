@@ -24,54 +24,7 @@ const OrderContent = () => {
 
 	return (
 		<div>
-			<div className="w-full px-8 py-4">
-				{/* <Stepper
-					placeholder={"stepper"}
-					dir="ltr"
-					activeStep={activeStep}
-					isLastStep={value => setIsLastStep(value)}
-					isFirstStep={value => setIsFirstStep(value)}>
-					<Step
-						placeholder={"step"}
-						className={activeStep >= 0 ? "!bg-secondary-600" : "!bg-neutral-200"}>
-						1
-						<div className="absolute -bottom-10 w-max text-center">
-							<h6
-								className={`${
-									activeStep === 0 ? "text-neutral-800 animate-pulse" : "text-neutral-600"
-								} pl-5`}>
-								اطلاعات ارسال
-							</h6>
-						</div>
-					</Step>
-					<Step
-						placeholder={"step"}
-						className={activeStep >= 1 ? "!bg-secondary-600" : "!bg-neutral-200"}>
-						2
-						<div className="absolute -bottom-10 w-max text-center">
-							<h6
-								className={
-									activeStep === 1 ? "text-neutral-800 animate-pulse" : "text-neutral-600"
-								}>
-								روش پرداخت
-							</h6>
-						</div>
-					</Step>
-					<Step
-						placeholder={"step"}
-						className={activeStep >= 2 ? "!bg-secondary-600" : "!bg-neutral-200"}>
-						3
-						<div className="absolute -bottom-10 w-max text-center">
-							<h6
-								className={`${
-									activeStep === 2 ? "text-neutral-800 animate-pulse" : "text-neutral-600"
-								}`}>
-								اتمام خرید
-							</h6>
-						</div>
-					</Step>
-				</Stepper> */}
-			</div>
+			<div className="w-full px-8 py-4"></div>
 			<div className="mt-20">
 				{activeStep === 0 ? <Addresses /> : activeStep === 1 ? <PayMethods /> : <></>}
 			</div>

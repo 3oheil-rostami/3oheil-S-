@@ -12,7 +12,7 @@ async function getData() {
 		if (response.status === 404) return {} as ProductsInCart;
 		return data;
 	} catch (error) {
-		console.log(error);
+		// console.log(error);
 		return {} as ProductsInCart;
 	}
 }
