@@ -64,7 +64,7 @@ const Register = () => {
 		});
 	});
 	async function handleSendPhoneNumber({ number }: { number: string }): Promise<Response> {
-		return fetch("http://localhost:4000/user/forget", {
+		return fetch("https://demon.liara.run/user/forget", {
 			method: "POST",
 			headers: {
 				Accept: "*/*",
@@ -130,7 +130,7 @@ const Register = () => {
 		password: string;
 		confirmPassword: string;
 	}): Promise<Response> {
-		return fetch("http://localhost:4000/user/verifyForgetCode", {
+		return fetch("https://demon.liara.run/user/verifyForgetCode", {
 			method: "POST",
 			headers: {
 				Accept: "*/*",

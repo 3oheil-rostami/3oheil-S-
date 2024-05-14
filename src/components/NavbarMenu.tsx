@@ -68,7 +68,7 @@ export default async function NavbarMenu() {
 										</div>
 										<div className="image-wrapper self-end size-64 relative">
 											<Image
-												src={`http://localhost:4000/image/categoriepic/${item.pic}`}
+												src={`https://demon.liara.run/image/categoriepic/${item.pic}`}
 												fill
 												sizes="250px"
 												alt="product image"

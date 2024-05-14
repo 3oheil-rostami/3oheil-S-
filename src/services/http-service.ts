@@ -1,6 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
-const baseURL = "http://localhost:4000";
+const baseURL = "https://demon.liara.run";
 const isServer: boolean = typeof window === "undefined";
 
 const httpService = axios.create({

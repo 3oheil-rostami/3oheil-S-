@@ -70,7 +70,7 @@ const GetPhoneNumber = () => {
 	});
 	// fetching function
 	async function handleSendNumber(number: string): Promise<Response> {
-		return fetch("http://localhost:4000/sms/send", {
+		return fetch("https://demon.liara.run/sms/send", {
 			method: "POST",
 			headers: {
 				Accept: "*/*",

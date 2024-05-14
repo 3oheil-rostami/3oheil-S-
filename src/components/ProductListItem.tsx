@@ -14,7 +14,7 @@ const ProductListItem = ({ colorId, productId }: ProductItemInCart) => {
 				<div className="image-area flex flex-col gap-2 items-center">
 					<div className="image-wrapper size-24 overflow-hidden">
 						<Image
-							src={`http://localhost:4000/image/productCover/${productId.productCover}`}
+							src={`https://demon.liara.run/image/productCover/${productId.productCover}`}
 							width={100}
 							height={100}
 							alt=""

@@ -14,7 +14,7 @@ type FormValues = {
 };
 
 async function handleSendData(data: FormValues) {
-	return fetch("http://localhost:4000/auth/login", {
+	return fetch("https://demon.liara.run/auth/login", {
 		method: "POST",
 		headers: {
 			Accept: "*/*",

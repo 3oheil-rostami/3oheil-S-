@@ -74,7 +74,7 @@ const GetCode = () => {
 
 	// fetching function
 	async function handleSendCodeVerify(code: number, number: string): Promise<Response> {
-		return fetch("http://localhost:4000/sms/verify", {
+		return fetch("https://demon.liara.run/sms/verify", {
 			method: "POST",
 			headers: {
 				Accept: "*/*",

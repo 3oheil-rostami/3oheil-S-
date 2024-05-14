@@ -79,7 +79,7 @@ const SignUp = () => {
 
 	// fetching function
 	async function handleSendCodeVerify(data: ApiData): Promise<Response> {
-		return fetch("http://localhost:4000/auth/signup", {
+		return fetch("https://demon.liara.run/auth/signup", {
 			method: "POST",
 			headers: {
 				Accept: "*/*",

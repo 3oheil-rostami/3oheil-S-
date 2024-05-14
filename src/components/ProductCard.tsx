@@ -24,7 +24,7 @@ function ProductCard({ product, inCart }: { product: Product; inCart?: ProductsI
 						<Link href={`/product/${product.enName}`}>
 							<picture className="h-full w-full block">
 								<Image
-									src={`http://localhost:4000/image/productCover/${product.productCover}`}
+									src={`https://demon.liara.run/image/productCover/${product.productCover}`}
 									width={300}
 									height={300}
 									alt=""

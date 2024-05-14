@@ -63,11 +63,11 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 						<ImageSlider
 							images={[
 								{
-									src: `http://localhost:4000/images/productCover/${data?.product.productCover}`,
+									src: `https://demon.liara.run/images/productCover/${data?.product.productCover}`,
 									alt: "product image",
 								},
 								...(data?.product.productPics.map(picItem => ({
-									src: `http://localhost:4000/image/productPic/${picItem}`,
+									src: `https://demon.liara.run/image/productPic/${picItem}`,
 									alt: `product image`,
 								})) || []),
 							]}
@@ -83,11 +83,11 @@ const page = async ({ params: { productId } }: { params: { productId: string } }
 					<ProductImages
 						images={[
 							{
-								src: `http://localhost:4000/image/productCover/${data?.product.productCover}`,
+								src: `https://demon.liara.run/image/productCover/${data?.product.productCover}`,
 								alt: "product image",
 							},
 							...(data?.product.productPics.map(picItem => ({
-								src: `http://localhost:4000/image/productPic/${picItem}`,
+								src: `https://demon.liara.run/image/productPic/${picItem}`,
 								alt: `product image`,
 							})) || []),
 						]}

@@ -20,7 +20,7 @@ export default function CardSide({
 			<div className="">
 				<div className="image-wrapper h-[200px]">
 					<Image
-						src={`http://localhost:4000/image/productCover/${productCover}`}
+						src={`https://demon.liara.run/image/productCover/${productCover}`}
 						width={200}
 						height={200}
 						alt={name}
