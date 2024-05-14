@@ -46,9 +46,9 @@ responseInterceptor.interceptors.response.use(
 		const { status } = error?.response;
 		if (typeof window !== "undefined") {
 			// client side
-			if (status === 497 || status === 499) {
-				window.location.href = "/auth/login";
-			}
+			// if (status === 497 || status === 499) {
+			// 	window.location.href = "/auth/login";
+			// }
 		}
 		return Promise.reject(error);
 	}
