@@ -1,113 +1,164 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "@/app/store";
+import { sortProducts } from "@/constants/sortProducts";
 import {
-	productsFilterByIsAvailable,
-	productsFilterByPrice,
-	selectCurrentIsAvailable,
-	selectCurrentRangePrice,
+  productsFilterByPrice,
+  selectCurrentIsAvailable,
+  selectCurrentRangePrice,
 } from "@/reducers/product";
+import { RangeNumber } from "@/types";
+import { Product } from "@/types/apiTypes";
+import { uniqueArray } from "@/utils";
+import { getMostExpensvieProduct } from "@/utils/priceUtils";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
 
-const RightPanelFilterControlContent = () => {
-	const router = useRouter();
-	const dispatch = useDispatch();
-	const [open, setOpen] = React.useState<number>(0);
-	const [rangePrice, setRangePrice] = useState<[number, number] | undefined>([0, 0]);
-	const currentIsAvailableValue = useSelector(selectCurrentIsAvailable);
-	const currentRangePrice = useSelector(selectCurrentRangePrice);
-	const searchParams = new URLSearchParams(window.location.search);
+type Props = { products: Product[] };
 
-	const handleOpen = (value: number) => setOpen(open === value ? 0 : value);
+const RightPanelFilterControlContent = ({ products }: Props) => {
+  "use client";
+  const currentBrandsInPage = products.map((productItem) => productItem.brand);
+  const uniqeCurrentBrands = uniqueArray(currentBrandsInPage || []);
+  const maximumPrice = getMostExpensvieProduct(products)?.price;
 
-	const handleIsAvailableProductsInUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(productsFilterByIsAvailable(e.target.checked));
-		if (currentIsAvailableValue !== undefined) {
-			searchParams.set("isAvailable", JSON.stringify(currentIsAvailableValue));
-			router.push(`${window.location.pathname}?${searchParams}`);
-		} else {
-			searchParams.delete("isAvailable");
-			router.push(`${window.location.pathname}?${searchParams}`);
-		}
-	};
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-	const handleRangePriceInUrl = () => {
-		dispatch(productsFilterByPrice(rangePrice));
-	};
+  const [rangePrice, setRangePrice] = useState<RangeNumber | undefined>(
+    undefined
+  );
 
-	useEffect(() => {
-		setRangePrice(currentRangePrice);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-	useEffect(() => {
-		handleRangePriceInUrl();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [rangePrice]);
+  const currentIsAvailableValue = useSelector(selectCurrentIsAvailable);
+  const currentRangePrice = useSelector(selectCurrentRangePrice);
+  const searchParams = new URLSearchParams(window.location.search);
 
-	return (
-		<>
-			<label className="flex items-center gap-1">
-				<input type="checkbox" onChange={handleIsAvailableProductsInUrl} />
-				<span>فقط کالاهای موجود</span>
-			</label>
+  const handleRangePriceInUrl = () => {
+    dispatch(productsFilterByPrice(rangePrice));
+  };
 
-			<div>
-				<div>محدوده قیمت</div>
-				<div>
-					<div className="flex flex-col gap-2">
-						<label htmlFor="">
-							<input
-								type="number"
-								inputMode="numeric"
-								value={rangePrice?.[0]}
-								onChange={e =>
-									setRangePrice(prev => (!!prev ? [Number(e.target.value), prev[1]] : undefined))
-								}
-							/>
-							<span>حداقل قیمت</span>
-						</label>
-						<label htmlFor="" className="flex flex-col gap-2">
-							<input
-								type="number"
-								inputMode="numeric"
-								value={rangePrice?.[1]}
-								onChange={e =>
-									setRangePrice(prev => (!!prev ? [prev[0], Number(e.target.value)] : undefined))
-								}
-							/>
-							<span>حداکثر قیمت</span>
-						</label>
-					</div>
-				</div>
-			</div>
-			<div>
-				<div>برند ها</div>
-				<div>
-					<div>
-						<div className="p-0 flex items-center gap-1">
-							<input type="checkbox" />
-							<span>شون</span>
-						</div>
-						<div className="p-0 flex items-center gap-1">
-							<input type="checkbox" />
-							<span>سریتا</span>
-						</div>
-						<div className="p-0 flex items-center gap-1">
-							<input type="checkbox" />
-							<span>فلانی</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</>
-	);
+  useEffect(() => {
+    setRangePrice(currentRangePrice);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    handleRangePriceInUrl();
+  }, [rangePrice]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <>
+      <div className="daisy-collapse daisy-collapse-arrow">
+        <input type="checkbox" name="filters" />
+        <div className="daisy-collapse-title text-base font-medium">
+          فیلتر ها
+        </div>
+        <div className="daisy-collapse-content">
+          <span className="daisy-divider">محدوده قیمت</span>
+          <div className="px-2">
+            <div className="flex flex-col gap-2">
+              <label className="daisy-form-control w-full max-w-xs">
+                <div className="label">
+                  <span className="daisy-label-text">حداقل قیمت</span>
+                </div>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  value={rangePrice?.from}
+                  onChange={(e) =>
+                    setRangePrice((prev) => ({
+                      until: prev?.until ?? 0,
+                      from: +e.target.value,
+                    }))
+                  }
+                  className="daisy-input daisy-input-bordered w-full max-w-xs"
+                />
+              </label>
+              <label className="daisy-form-control w-full max-w-xs">
+                <div className="label">
+                  <span className="daisy-label-text">حداکثر قیمت</span>
+                </div>
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  max={maximumPrice}
+                  value={rangePrice?.until}
+                  onChange={(e) =>
+                    setRangePrice((prev) => ({
+                      from: prev?.from ?? 0,
+                      until: +e.target.value,
+                    }))
+                  }
+                  className="daisy-input daisy-input-bordered w-full max-w-xs"
+                />
+              </label>
+            </div>
+          </div>
+
+          <span className="daisy-divider">برند ها</span>
+          <div>
+            <div className="flex flex-col gap-1">
+              {uniqeCurrentBrands.map((brandItem) => (
+                <div key={brandItem?._id}>
+                  <label
+                    className="p-0 flex items-center gap-1 w-fit cursor-pointer"
+                    htmlFor={brandItem?.enName}
+                  >
+                    <input
+                      type="checkbox"
+                      value={brandItem?.enName}
+                      id={brandItem?.enName}
+                      name="brand"
+                      className="daisy-checkbox daisy-checkbox-secondary"
+                    />
+                    <span>{brandItem?.name}</span>
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <span className="daisy-divider">ترتیب بندی</span>
+          <div>
+            <div className="flex flex-col gap-1">
+              {sortProducts.map((sortItem) => (
+                <div key={sortItem?.id}>
+                  <label
+                    htmlFor={sortItem.enTitle}
+                    className="p-0 flex items-center gap-1 w-fit cursor-pointer"
+                  >
+                    <input
+                      type="radio"
+                      value={sortItem?.enTitle}
+                      id={sortItem?.enTitle}
+                      name="sort"
+                      className="daisy-radio daisy-radio-secondary"
+                    />
+                    <span>{sortItem?.title}</span>
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <span className="daisy-divider">بیشتر</span>
+          <div className="daisy-form-control">
+            <label className="daisy-label cursor-pointer">
+              <span className="daisy-input-bordered">فقط کالاهای موجود</span>
+              <input
+                type="checkbox"
+                className="daisy-toggle daisy-toggle-secondary"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
-const RightPanelFilterControl = () => (
-	<Provider store={store}>
-		<RightPanelFilterControlContent />
-	</Provider>
+const RightPanelFilterControl = ({ products }: Props) => (
+  <Provider store={store}>
+    <RightPanelFilterControlContent products={products} />
+  </Provider>
 );
 
 export default RightPanelFilterControl;

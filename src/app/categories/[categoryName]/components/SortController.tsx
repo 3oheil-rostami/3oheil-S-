@@ -17,12 +17,14 @@ const SortControllerContent = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[dispatch, currentSortItem]
 	);
+
 	useEffect(() => {
 		const searchParams = new URLSearchParams(window.location.search);
 		const currentSort = searchParams.get("sort") as SortItems;
 		dispatch(productsSortBy(currentSort));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
+
 	useEffect(() => {
 		const searchParams = new URLSearchParams(window.location.search);
 		if (currentSortItem) {
@@ -34,6 +36,7 @@ const SortControllerContent = () => {
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [handleChangeCurrentSortItem]);
+	
 	return (
 		<div className="my-5 flex items-center gap-5">
 			<span className="text-base font-bold text-neutral-700">مرتب سازی بر اساس :</span>

@@ -20,7 +20,7 @@ const CategoriesTable = (data: any) => {
 					className="bg-neutral-50 mt-0.5 overflow-hidden inline-block"
 					style={{ width: forIcon ? "50px" : "100%", height: forIcon ? "50px" : "100px" }}>
 					<Image
-						src={`https://demon.liara.run/image/${forIcon ? rowData.icon : rowData.pic}`}
+						src={`${process.env.NEXT_PUBLIC_DEVELOPMENT_ENV_BACKEND_URL}/image/${forIcon ? rowData.icon : rowData.pic}`}
 						className="size-full object-cover"
 						width={200}
 						height={200}

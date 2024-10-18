@@ -1,20 +1,30 @@
 import { httpService } from "../http-service";
 
-type ApiData = {
-	name: string;
-	family: string;
-	email?: string;
-	password: string;
-	number: string;
+type SignUpData = {
+  name: string;
+  family: string;
+  email?: string;
+  password: string;
+  number: string;
 };
 
-const sendNumber = (number: string) => httpService.post("/sms/send", { number });
+/* _-_-_-_-_-_-_-_- sign up -_-_-_-_-_-_-_-_ */
 
-const sendCode = (code: number, number: string) =>
-	httpService.post("/sms/verify", { code, number });
-const signUp = (data: ApiData) => {
-	console.log({ ...data });
-	return httpService.post("/auth/signup", { ...data }, { withCredentials: true });
+// step 1
+const sendNumber = (number: string) =>
+  httpService.post("/sms/send", { number });
+
+// step 2
+const sendCode = (data: { code: string; number: string }) =>
+  httpService.post("/sms/verify", data);
+
+// step 3 _last Step_
+const signUp = (data: SignUpData) => {
+  return httpService.post(
+    "/auth/signup",
+    { ...data },
+    { withCredentials: true }
+  );
 };
 
 export { sendNumber, sendCode, signUp };
