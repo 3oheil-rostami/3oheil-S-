@@ -8,6 +8,8 @@ export const generateURLSearchParams = (
   Object.entries(params).forEach(([key, value]) => {
     if (Array.isArray(value)) {
       value.forEach((item) => searchParams.append(key, item));
+    } else if (typeof value === 'boolean') {
+      searchParams.append(key, value.toString());
     } else if (value !== undefined) {
       searchParams.append(key, value);
     }

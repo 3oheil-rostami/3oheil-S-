@@ -25,29 +25,29 @@ interface ProductPageProps {
 interface ProductImageModalProps {
   isShow: boolean;
   images:
-    | {
-        src: string;
-        width?: number;
-        height?: number;
-        blurWidth?: number;
-        blurHeight?: number;
-      }[]
-    | string[];
+  | {
+    src: string;
+    width?: number;
+    height?: number;
+    blurWidth?: number;
+    blurHeight?: number;
+  }[]
+  | string[];
 }
 interface ProductImageSliderProps {
   autoPlay?: boolean;
   delay?: number;
   duration?: number;
   images:
-    | {
-        src: string;
-        width?: number;
-        height?: number;
-        blurWidth?: number;
-        blurHeight?: number;
-        alt?: string;
-      }[]
-    | string[];
+  | {
+    src: string;
+    width?: number;
+    height?: number;
+    blurWidth?: number;
+    blurHeight?: number;
+    alt?: string;
+  }[]
+  | string[];
 }
 interface CardAddToCartProps {
   brand: Brand;
@@ -172,7 +172,13 @@ interface SortItemsSearchParams {
 
 type RangeNumber = { from: number; until: number };
 
-type SearchParams = { [key: string]: string | string[] | undefined };
+type SearchParams = { [key: string]: string | string[] | boolean | undefined };
+type CategorySearchParams = {
+  isAvailable?: boolean;
+  prices?: number[]
+  sort?: SortItems;
+  brands?: string[]
+};
 
 export {
   type Link,
@@ -198,4 +204,5 @@ export {
   SortItems,
   RangeNumber,
   SearchParams,
+  CategorySearchParams
 };

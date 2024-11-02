@@ -48,7 +48,7 @@ export default function CategoryPage({
   ) : isShowLoading ? (
     <CategoryPageSkelton />
   ) : !data ? (
-    <p>خطایی دیگر رخ داد.</p>
+    <p>خطایی  رخ داد.</p>
   ) : (
     <div className="container-wrapper bg-gray-50 ">
       <div className=" inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8">
