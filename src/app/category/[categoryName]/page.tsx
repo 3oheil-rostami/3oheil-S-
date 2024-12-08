@@ -70,7 +70,7 @@ export default async function CategoryPage({
         </ul>
         <div className="w-full pt-5 px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-2">
-            <SortController />
+            {/* <SortController /> */}
             <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-1 bg-neutral-100 ">
               {!!data &&
                 data.products.map((productItem) => {
