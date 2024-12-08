@@ -1,15 +1,14 @@
-"use client";
-
 import RightPanelFilterControl from "@/app/categories/[categoryName]/components/RightPanelFilterControl";
 import SortController from "@/app/categories/[categoryName]/components/SortController";
 import Breadcrumb from "@/components/Breadcrumb";
 import LinkAccordion from "@/components/LinkAccordion";
 import ProductCard from "@/components/ProductCard";
 import NavDrawLink from "@/components/dashboard/NavDrawLink";
-import CategoryPageSkelton from "@/components/skeltions/CategoryPage";
-import useFetchCategory from "@/hooks/useCategory";
+import { getCategory } from "@/services/category";
 import { SearchParams } from "@/types";
-import { useMemo } from "react";
+import { uniqueArray } from "@/utils";
+import { parseSearchParams } from "@/utils/url";
+import { headers } from "next/headers";
 import { LuGalleryVerticalEnd } from "react-icons/lu";
 
 interface Props {
@@ -17,39 +16,22 @@ interface Props {
   searchParams: SearchParams;
 }
 
-export default function CategoryPage({
+export default async function CategoryPage({
   params: { categoryName },
   searchParams,
 }: Props) {
-  const stableSearchParams = useMemo(() => searchParams, [searchParams]);
+  const headerList = headers();
+  const fullUrl = headerList.get('referer');
+  const searchParamsString = fullUrl ? new URL(fullUrl).search : '';
 
-  const categoryData = useFetchCategory({
-    categoryName,
-    searchParams: stableSearchParams,
-  });
+  const data = await getCategory(categoryName, searchParamsString)
 
-  if (categoryData === null) {
-    return <p>خطایی رخ داد</p>;
-  }
+  if (data === null) return <p>خطایی رخ داد  .</p>
 
-  const {
-    data: axiosData,
-    isLoading,
-    isFetching,
-    isError,
-    error,
-  } = categoryData;
+  const uniqeBrands = uniqueArray(data?.products.map(product => product.brand))
+  const defaultValueRightPanel = parseSearchParams(searchParamsString)
 
-  const isShowLoading = isLoading || isFetching;
-  const data = axiosData?.data;
-
-  return isError ? (
-    <p className="text-red-500 text-center">{error as any}</p>
-  ) : isShowLoading ? (
-    <CategoryPageSkelton />
-  ) : !data ? (
-    <p>خطایی  رخ داد.</p>
-  ) : (
+  return (
     <div className="container-wrapper bg-gray-50 ">
       <div className=" inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8">
         <div className="flex items-center py-4">
@@ -62,8 +44,8 @@ export default function CategoryPage({
               })) || []
             }
           />
-        </div>
-      </div>
+        </div >
+      </div >
       <div className="flex">
         <ul
           id="application-sidebar"
@@ -80,17 +62,11 @@ export default function CategoryPage({
             <ul className="space-y-1">
               <LinkAccordion
                 title="دسته بندی های مربوطه"
-                links={[
-                  ...(data?.categories || [])?.map((categoryItem) => ({
-                    id: categoryItem?._id,
-                    title: categoryItem?.name,
-                    href: categoryItem?.href,
-                  })),
-                ]}
+                links={[]}
               />
             </ul>
           </li>
-          <RightPanelFilterControl products={data?.products || []} />
+          <RightPanelFilterControl searchParams={searchParams} uniqeBrands={uniqeBrands} defaultValues={defaultValueRightPanel} />
         </ul>
         <div className="w-full pt-5 px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-2">
@@ -104,12 +80,12 @@ export default function CategoryPage({
                       product={productItem}
                     // inCart={data.productsInCartData}
                     />
-                  );
+                  )
                 })}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }

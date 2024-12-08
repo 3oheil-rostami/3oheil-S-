@@ -1,58 +1,28 @@
 "use client";
 
 import { sortProducts } from "@/constants/sortProducts";
-import defualtValuesFilterProducts from "@/services/defualtValues/FilterProducts";
-import useProductsFilter from "@/stores/useProductsFilter";
-import { SearchParams } from "@/types";
-import { Product } from "@/types/apiTypes";
-import { uniqueArray } from "@/utils";
-import { getMostExpensvieProduct } from "@/utils/priceUtils";
-import { generateURLSearchParams } from "@/utils/url";
-import { useSearchParams } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useRef } from "react";
+import { OptionalCategoryFilters, SearchParams, SortItems } from "@/types";
+import { Brand, Product } from "@/types/apiTypes";
+import { objectToSearchParams } from "@/utils/url";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
-type Props = { products: Product[] };
-const RightPanelFilterControl = ({ products }: Props) => {
-  const searchParams = useSearchParams();
+type Props = {
+  searchParams: SearchParams;
+  uniqeBrands: Brand[];
+  defaultValues: OptionalCategoryFilters
+};
 
-  const { searchParams: setedSearchParams, setSearchParams } = useProductsFilter()
-  console.log('setedSearchParams: changed ##', setedSearchParams)
+const RightPanelFilterControl = ({ defaultValues, uniqeBrands }: Props) => {
+  console.log('defaultValues:', defaultValues)
+  const router = useRouter()
 
-  const defaultValues = defualtValuesFilterProducts(setedSearchParams)
+  const { handleSubmit, register } = useForm<OptionalCategoryFilters>({ defaultValues });
 
-  const { register } = useForm({ defaultValues })
-
-  const currentBrandsInPage = products.map((productItem) => productItem.brand);
-  const uniqeCurrentBrands = uniqueArray(currentBrandsInPage || []);
-
-  const maximumPrice = getMostExpensvieProduct(products)?.price;
-  const selectedBrandsRef = useRef<string[]>(defaultValues.brands || [])
-
-  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      selectedBrandsRef.current.push(value);
-    } else {
-      selectedBrandsRef.current = selectedBrandsRef.current.filter(
-        (item) => item !== value
-      );
-    }
+  const onSubmit = (data: OptionalCategoryFilters) => {
+    const createdSearchParams = objectToSearchParams(data)
+    router.push(`${window.location.pathname}${createdSearchParams}`, { scroll: true })
   };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const { from_price, till_price, isAvailable, ...dataForm } = Object.fromEntries(formData)
-    const prices = [from_price, till_price] as string[]
-    const payload: SearchParams = { ...dataForm, brands: selectedBrandsRef.current, prices, isAvailable: isAvailable === 'on' }
-    const generatedSearchParams = generateURLSearchParams(payload)
-    setSearchParams(generatedSearchParams.toString())
-  }
-
-  useEffect(() => {
-    setSearchParams(searchParams.toString())
-  }, [])
 
   return (
     <>
@@ -61,7 +31,7 @@ const RightPanelFilterControl = ({ products }: Props) => {
         <div className="daisy-collapse-title text-base font-medium">
           فیلتر ها
         </div>
-        <form onSubmit={handleSubmit} className="daisy-collapse-content">
+        <form onSubmit={handleSubmit(onSubmit)} className="daisy-collapse-content">
           <span className="daisy-divider">محدوده قیمت</span>
           <div className="px-2">
             <div className="flex flex-col gap-2">
@@ -73,7 +43,7 @@ const RightPanelFilterControl = ({ products }: Props) => {
                   type="number"
                   inputMode="numeric"
                   className="daisy-input daisy-input-bordered w-full max-w-xs"
-                  {...register('from_price', { min: 0 })}
+                  {...register("price.0", { valueAsNumber: true })}
                 />
               </label>
 
@@ -85,7 +55,7 @@ const RightPanelFilterControl = ({ products }: Props) => {
                   type="number"
                   inputMode="numeric"
                   className="daisy-input daisy-input-bordered w-full max-w-xs"
-                  {...register('till_price', { min: 0, max: maximumPrice })}
+                  {...register("price.1", { valueAsNumber: true })}
                 />
               </label>
             </div>
@@ -94,7 +64,7 @@ const RightPanelFilterControl = ({ products }: Props) => {
           <span className="daisy-divider">برند ها</span>
           <div>
             <div className="flex flex-col gap-1">
-              {uniqeCurrentBrands.map((brandItem) => (
+              {uniqeBrands.map((brandItem) => (
                 <div key={brandItem?._id}>
                   <label
                     className="p-0 flex items-center gap-1 w-fit cursor-pointer"
@@ -104,7 +74,7 @@ const RightPanelFilterControl = ({ products }: Props) => {
                       type="checkbox"
                       value={brandItem?.enName}
                       className="daisy-checkbox daisy-checkbox-secondary"
-                      onChange={handleCheckboxChange}
+                      {...register("brands")}
                     />
                     <span>{brandItem?.name}</span>
                   </label>
@@ -128,7 +98,7 @@ const RightPanelFilterControl = ({ products }: Props) => {
                       value={sortItem?.enTitle}
                       id={sortItem?.enTitle}
                       className="daisy-radio daisy-radio-secondary"
-                      {...register('sort')}
+                      {...register("sort")}
                     />
                     <span>{sortItem?.title}</span>
                   </label>
@@ -143,8 +113,8 @@ const RightPanelFilterControl = ({ products }: Props) => {
               <span className="daisy-input-bordered">فقط کالاهای موجود</span>
               <input
                 type="checkbox"
-                name="isAvailable"
                 className="daisy-toggle daisy-toggle-secondary"
+                {...register("isAvailable")}
               />
             </label>
           </div>
@@ -157,19 +127,3 @@ const RightPanelFilterControl = ({ products }: Props) => {
 
 
 export default RightPanelFilterControl
-
-
-// const [rangePrice, setRangePrice] = useState<RangeNumber | undefined>(
-//   undefined
-// );
-
-// const searchParams = new URLSearchParams(window.location.search);
-
-// const handleRangePriceInUrl = () => {
-// };
-
-
-// useEffect(() => {
-//   handleRangePriceInUrl();
-// }, [rangePrice]); // eslint-disable-line react-hooks/exhaustive-deps
-

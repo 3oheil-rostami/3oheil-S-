@@ -15,5 +15,38 @@ export const generateURLSearchParams = (
     }
   });
 
+  console.log('searchParams in generateURLSearchParams:', searchParams.toString())
   return searchParams;
 };
+
+
+export const parseSearchParams = <T = Record<string, unknown>>(searchParamsString: string): T => {
+  const searchParams = new URLSearchParams(searchParamsString);
+  const paramsObject: Record<string, unknown> = {};
+
+  searchParams.forEach((value, key) => {
+    try {
+      paramsObject[key] = JSON.parse(decodeURIComponent(value));
+    } catch {
+      paramsObject[key] = decodeURIComponent(value);
+    }
+  });
+
+  return paramsObject as T;
+}
+
+
+export const objectToSearchParams = (paramsObject: Record<string, unknown>): string => {
+  const searchParams = new URLSearchParams();
+
+  Object.entries(paramsObject).forEach(([key, value]) => {
+    if (typeof value === "object") {
+      searchParams.append(key, JSON.stringify(value));
+    } else {
+      searchParams.append(key, String(value));
+    }
+  });
+
+  return `?${searchParams.toString()}`;
+}
+

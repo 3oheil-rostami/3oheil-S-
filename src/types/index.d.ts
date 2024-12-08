@@ -173,12 +173,23 @@ interface SortItemsSearchParams {
 type RangeNumber = { from: number; until: number };
 
 type SearchParams = { [key: string]: string | string[] | boolean | undefined };
+
 type CategorySearchParams = {
-  isAvailable?: boolean;
-  prices?: number[]
-  sort?: SortItems;
-  brands?: string[]
+  isAvailable: boolean;
+  prices: number[]
+  sort: SortItems;
+  brands: string[]
 };
+
+type CategorySearchParamsOptional = Partial<CategorySearchParams>
+
+export type CategoryFilters = {
+  sort: SortItems;
+  brands: string[];
+  isAvailable: boolean;
+  price: [number, number];
+}
+export type OptionalCategoryFilters = Partial<CategoryFilters>
 
 export {
   type Link,

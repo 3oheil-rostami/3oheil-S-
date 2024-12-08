@@ -24,7 +24,8 @@ export function takingProductFromOthers({
     : sortedColors[0];
 }
 
-export const uniqueArray = (array: any[]) =>
-  array.filter(
-    (item, index, self) => index === self.findIndex((t) => t?._id === item?._id)
+export function uniqueArray<T extends { _id: number | string }>(array: T[]): T[] {
+  return array.filter(
+    (item, index, self) => index === self.findIndex((t) => t._id === item._id)
   );
+}

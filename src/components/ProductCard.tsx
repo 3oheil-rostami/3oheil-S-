@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React, { memo } from "react";
 import Link from "next/link";
 import { LiaStarSolid } from "react-icons/lia";
 import AddToCartButton from "./AddToCartButton";
@@ -126,4 +125,4 @@ function ProductCard({
   );
 }
 
-export default memo(ProductCard);
+export default (ProductCard);
