@@ -1,7 +1,9 @@
 "use client";
 
 import Button from "@/components/form/Button";
+import Input2 from "@/components/form/Input2";
 import LoginInputWrapper from "@/components/form/LoginInputWrapper";
+import TextAreaInput from "@/components/form/TextAreaInput";
 import Map from "@/components/maps";
 import { useForm } from "react-hook-form";
 import {
@@ -41,68 +43,51 @@ export default function ContactPage() {
             شما میتوانید در این قسمت ما را در تماس باشید
           </p>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <LoginInputWrapper
-              icon={<FiUser className="text-gray-400" />}
+            <Input2
+              placeholder="نام و نام خانوادگی"
               errorMessage={errors.name?.message}
-            >
-              <input
-                className="pr-2 outline-none border-none font-sans grow placeholder:text-sm placeholder:font-bold bg-inherit"
-                type="text"
-                placeholder="نام و نام خانوادگی"
-                {...register("name", {
-                  required: "نام و نام خانوادگی الزامی است",
-                  minLength: {
-                    value: 3,
-                    message: "نام باید حداقل 3 حرف باشد",
-                  },
-                })}
-              />
-            </LoginInputWrapper>
+              icon={<FiUser className="text-gray-400" />}
+              {...register("name", {
+                required: "نام و نام خانوادگی الزامی است",
+                minLength: {
+                  value: 3,
+                  message: "نام باید حداقل 3 حرف باشد",
+                },
+              })}
+            />
 
-            <LoginInputWrapper
-              icon={<FiMail className="text-gray-400" />}
+            <Input2
+              type="email"
+              placeholder="ایمیل"
               errorMessage={errors.email?.message}
-            >
-              <input
-                className="pr-2 outline-none border-none font-sans grow placeholder:text-sm placeholder:font-bold bg-inherit"
-                type="email"
-                placeholder="ایمیل"
-                {...register("email", {
-                  required: "ایمیل الزامی است",
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "آدرس ایمیل نامعتبر است",
-                  },
-                })}
-              />
-            </LoginInputWrapper>
+              icon={<FiMail className="text-gray-400" />}
+              {...register("email", {
+                required: "ایمیل الزامی است",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "آدرس ایمیل نامعتبر است",
+                },
+              })}
+            />
 
-            <LoginInputWrapper
+            <TextAreaInput
+              placeholder="پیام های خود را در اینجا بنویسید"
               icon={<FiMessageSquare className="text-gray-400" />}
-              errorMessage={errors.message?.message}
-            >
-              <textarea
-                className="pr-2 outline-none border-none font-sans grow placeholder:text-sm placeholder:font-bold bg-inherit"
-                placeholder="پیام های خود را در اینجا بنویسید"
-                {...register("message", {
-                  required: "پیام الزامی است",
-                  minLength: {
-                    value: 10,
-                    message: "پیام باید حداقل 10 حرف باشد",
-                  },
-                })}
-              />
-            </LoginInputWrapper>
+              {...register("message", {
+                required: "پیام الزامی است",
+                minLength: {
+                  value: 10,
+                  message: "پیام باید حداقل 10 حرف باشد",
+                },
+              })}
+            />
 
-            <Button
-              colorScheme="secondary"
-              variant="fill"
-              size="2xl"
-              className="!w-full !font-semibold"
+            <button
+              className="w-full btn btn-primary"
               type="submit"
             >
               ثبت تماس
-            </Button>
+            </button>
           </form>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-8 text-sm text-gray-600 space-y-4 md:space-y-0">

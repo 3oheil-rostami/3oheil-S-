@@ -1,19 +1,18 @@
 "use client";
-import { addToCart, removeToCart } from "@/services/cart";
-import { AddToCartButtonProps, CartReducerStatesProps } from "@/types";
-import React, { useEffect, useState } from "react";
-import { MdDelete, MdDeleteOutline, MdOutlineAdd } from "react-icons/md";
-import { toast } from "react-toastify";
-import Button from "./form/Button";
-import Link from "next/link";
-import { TiDelete } from "react-icons/ti";
-import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "@/app/store";
 import {
 	addProductToCart,
 	removeProductFromCart,
 	selectCountProductBasedOnCartContent,
 } from "@/reducers/cart";
+import { addToCart, removeToCart } from "@/services/cart";
+import { AddToCartButtonProps, CartReducerStatesProps } from "@/types";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { MdDelete, MdDeleteOutline, MdOutlineAdd } from "react-icons/md";
+import { TiDelete } from "react-icons/ti";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 function AddToCartButton({
 	incrementAction,
@@ -57,9 +56,9 @@ function AddToCartButton({
 				return response.status === 401 ? (
 					<div className="flex justify-between items-center gap-2">
 						<p>ابتدا لاگین کنید .</p>
-						<Button colorScheme="secondary" variant="outline" size="2xs">
-							<Link href={"/auth/login"}>لاگین</Link>
-						</Button>
+						<Link className="btn btn-primary btn-outline" href={"/auth/login"}>
+							لاگین
+						</Link>
 					</div>
 				) : response.status === 400 ? (
 					"شما بن شده اید ،با پشتیبانی تماس بگیرید ."
@@ -100,10 +99,10 @@ function AddToCartButton({
 					return response.status === 200
 						? "از سبد حذف شد ."
 						: response.status === 404
-						? "همچین محصولی داخل سبد خریدتون موجود نیست ."
-						: response.status === 500
-						? "خطا سمت سرور رخ داد ."
-						: "خطای ناشناس";
+							? "همچین محصولی داخل سبد خریدتون موجود نیست ."
+							: response.status === 500
+								? "خطا سمت سرور رخ داد ."
+								: "خطای ناشناس";
 				},
 			});
 		} else {
@@ -113,22 +112,20 @@ function AddToCartButton({
 
 	return (
 		<div
-			className={`flex justify-center items-center transition-all ${
-				size === "sm"
-					? countNum === 0
-						? " *:hidden *:hover:hidden first:*:inline first:*:hover:inline "
-						: " *:hidden *:hover:inline first:*:inline first:*:hover:hidden "
-					: countNum === 0
+			className={`flex justify-center items-center transition-all ${size === "sm"
+				? countNum === 0
+					? " *:hidden *:hover:hidden first:*:inline first:*:hover:inline "
+					: " *:hidden *:hover:inline first:*:inline first:*:hover:hidden "
+				: countNum === 0
 					? " *:hidden *:hover:hidden first:*:inline first:*:hover:inline "
 					: " *:inline first:*:hidden "
-			} 
-			${
-				size === "sm"
-					? " w-fit h-9 min-w-9 bg-white border border-primary-600 rounded-full text-primary-700 p-px  gap-2"
+				} 
+			${size === "sm"
+					? " w-fit h-9 min-w-9 bg-white border border-fuchsia-800 rounded-full text-primary-700 p-px  gap-2"
 					: countNum === 0
-					? " w-full h-11 bg-primary-600 text-white rounded-md  gap-4"
-					: " w-full h-11 bg-white text-primary-700 rounded-md border-2 border-[rgb(246,0,33)!important] gap-4"
-			}`}
+						? " w-full h-11 bg-border-fuchsia-800 text-white rounded-md  gap-4"
+						: " w-full h-11 bg-white text-primary-700 rounded-md border-2 border-[rgb(246,0,33)!important] gap-4"
+				}`}
 			style={{ borderWidth: size === "lg" && countNum > 0 ? "2px" : "" }}>
 			<button
 				className="addToCard block w-full"
@@ -139,9 +136,8 @@ function AddToCartButton({
 			{countNum > 0 && (
 				<>
 					<button
-						className={`p-1 bg-neutral-50 border-2 border-transparent hover:border-neutral-200 transition-all ${
-							size === "sm" ? "text-base rounded-full" : "text-2xl rounded-sm w-16"
-						}`}
+						className={`p-1 bg-neutral-50 border-2 border-transparent hover:border-neutral-200 transition-all ${size === "sm" ? "text-base rounded-full" : "text-2xl rounded-sm w-16"
+							}`}
 						type="button"
 						disabled={!canUseActions}
 						onClick={incrementHandler}>
@@ -149,9 +145,8 @@ function AddToCartButton({
 					</button>
 					<span className="count font-bold text-lg">{countNum}</span>
 					<button
-						className={`p-1 bg-neutral-50 border-2 border-transparent hover:border-neutral-200 transition-all ${
-							size === "sm" ? "text-base rounded-full" : "text-2xl rounded-sm w-16"
-						}`}
+						className={`p-1 bg-neutral-50 border-2 border-transparent hover:border-neutral-200 transition-all ${size === "sm" ? "text-base rounded-full" : "text-2xl rounded-sm w-16"
+							}`}
 						disabled={!canUseActions}
 						onClick={decrementHandler}>
 						<MdDeleteOutline className="mx-auto" />

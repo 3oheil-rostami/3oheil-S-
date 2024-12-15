@@ -1,8 +1,7 @@
 "use client";
-import Button from "@/components/form/Button";
-import React from "react";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdAdd } from "react-icons/md";
+
 const Addresses = () => {
 	return (
 		<div>
@@ -11,10 +10,10 @@ const Addresses = () => {
 					<IoLocationSharp className="text-3xl text-secondary-800" />
 					<span className="text-xl font-semibold text-neutral-700">انتخاب آدرس</span>
 				</div>
-				<Button colorScheme="secondary" variant="outline" size="xs">
+				<button className="btn btn-primary btn-outline">
 					<MdAdd />
 					ثبت آدرس جدید
-				</Button>
+				</button>
 			</div>
 			<hr />
 			<div className="body py-5 flex flex-col gap-3">

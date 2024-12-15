@@ -1,8 +1,8 @@
 import React, { memo } from "react";
-import Image from "next/image";
+
 const TopBar = ({ srcImage }: { srcImage?: string }) => {
 	return (
-		<div id="top" className={`w-full relative ${srcImage ? "h-0" : "h-16"} bg-primary-200`}>
+		<div id="top" className={`w-full relative ${srcImage ? "h-0" : "h-16"}`}>
 			{/* {!!srcImage && (
 				<Image
 					fill
@@ -11,8 +11,7 @@ const TopBar = ({ srcImage }: { srcImage?: string }) => {
 					style={{ inset: 0, objectFit: "cover", display: !srcImage ? "none" : "unset" }}
 				/>
 			)} */}
-			<h1 className="text-white font-bold text-3xl text-center">
-				{" "}
+			<h1 className="text-black/75 font-bold text-xl text-center pt-7">
 				وبسایت در حال توسعه است ، به همین خاطر ایرادات زیادی میبینید.(البته فعلا )
 			</h1>
 		</div>

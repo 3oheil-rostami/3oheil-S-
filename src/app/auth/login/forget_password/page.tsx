@@ -1,11 +1,11 @@
 "use client";
-import React, { BaseSyntheticEvent, useState } from "react";
-import Button from "@/components/form/Button";
-import LoginInputWrapper from "@/components/form/LoginInputWrapper";
-import { MdLock, MdOutlinePassword, MdPhone } from "react-icons/md";
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import Input2 from "@/components/form/Input2";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { BaseSyntheticEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { MdLock, MdOutlinePassword } from "react-icons/md";
+import { toast } from "react-toastify";
 
 type FormValues = {
   code: string;
@@ -53,14 +53,14 @@ const Register = () => {
           return response.status === 500
             ? "خطایی در سرور رخ داده است ."
             : response.status === 429
-            ? "کد تایید به تازگی ارسال شد، باید منتظر بمانید !"
-            : response.status === 404
-            ? "حسابی با این شماره پیدا نشد ."
-            : response.status === 400
-            ? "خطایی  در هنگام ارسال درخواست رخ داد ."
-            : response.status === 200
-            ? "کد به شماره تلفن شما ارسال شد ، حالا میتونید بقیه فیلد هارا پر کنید."
-            : "خطای ناشناس :/";
+              ? "کد تایید به تازگی ارسال شد، باید منتظر بمانید !"
+              : response.status === 404
+                ? "حسابی با این شماره پیدا نشد ."
+                : response.status === 400
+                  ? "خطایی  در هنگام ارسال درخواست رخ داد ."
+                  : response.status === 200
+                    ? "کد به شماره تلفن شما ارسال شد ، حالا میتونید بقیه فیلد هارا پر کنید."
+                    : "خطای ناشناس :/";
         },
       });
     } catch (error) {
@@ -129,16 +129,16 @@ const Register = () => {
             return response.status === 500
               ? "خطایی در سرور رخ داده است ."
               : response.status === 404
-              ? "به این شماره کدی ارسال نشده است"
-              : response.status === 403
-              ? "شما به دفعات کد تایید را اشتباه وارد کرده اید بعدا دوباره تلاش کنید ."
-              : response.status === 401
-              ? "کد وارد شده با کد ارسالی تطابق ندارد ."
-              : response.status === 400
-              ? "مدت زمان کد تایید تمام شده دوباره تلاش کنید ."
-              : response.status === 200
-              ? "رمز با موفقیت تغییر یافت ، شما به صفحه ورود هدایت میشوید."
-              : "خطای ناشناس :/";
+                ? "به این شماره کدی ارسال نشده است"
+                : response.status === 403
+                  ? "شما به دفعات کد تایید را اشتباه وارد کرده اید بعدا دوباره تلاش کنید ."
+                  : response.status === 401
+                    ? "کد وارد شده با کد ارسالی تطابق ندارد ."
+                    : response.status === 400
+                      ? "مدت زمان کد تایید تمام شده دوباره تلاش کنید ."
+                      : response.status === 200
+                        ? "رمز با موفقیت تغییر یافت ، شما به صفحه ورود هدایت میشوید."
+                        : "خطای ناشناس :/";
           },
         });
       } catch (error) {
@@ -165,7 +165,7 @@ const Register = () => {
   }): Promise<Response> {
     return fetch(
       process.env.NEXT_PUBLIC_DEVELOPMENT_ENV_BACKEND_URL +
-        "/user/verifyForgetCode",
+      "/user/verifyForgetCode",
       {
         method: "POST",
         headers: {
@@ -182,134 +182,121 @@ const Register = () => {
       <h1 className="text-gray-800 font-bold text-2xl mb-1">
         بازیابی رمز عبور
       </h1>
-      <p className="text-sm font-normal text-gray-600 mb-10 mt-3">
-        درک می کنیم که بخاطر گرفتاری ها یه سری چیزا فراموش میشوند .
-      </p>
-      <p className="text-sm font-bold text-gray-600 mb-3 mr-2">
+      <p className="text-sm font-bold text-gray-600 my-3 mr-2">
         اول شماره خود را وارد کنید و دکمه بغلش را بزنید تا کد براتون ارسال شود
         بعد میتوانید ادامه دهید.
       </p>
-      <form className="" onSubmit={submitSendPhoneNumberHandler}>
-        <LoginInputWrapper
-          isDisabled={isEnableOtherForm}
-          icon={<MdPhone />}
+      <form onSubmit={submitSendPhoneNumberHandler}>
+        <Input2
+          disabled={isEnableOtherForm}
+          // icon={<MdPhone className="!min-w-4" />}
           errorMessage={phoneNumberFormState.errors.number?.message}
-        >
-          <div className="flex items-center">
-            <input
-              className="pr-2 outline-none border-none font-sans grow placeholder:text-sm placeholder:font-bold"
-              type="text"
-              placeholder="شماره تلفن"
-              {...phoneNumberRegister("number", {
-                pattern: {
-                  value: /^09\d{9}$/,
-                  message: "ابتدای شماره را به این شکل وارد کنید :0912 ",
-                },
-                required: "شماره رو وارد نکردین :)",
-                disabled: isEnableOtherForm,
-              })}
-            />
-            <Button
-              colorScheme="secondary"
-              type="submit"
-              typeBtn="text"
-              variant="fill"
-              size="2xs"
-            >
+          placeholder="شماره تلفن"
+          {...phoneNumberRegister("number", {
+            pattern: {
+              value: /^09\d{9}$/,
+              message: "ابتدای شماره را به این شکل وارد کنید :0912 ",
+            },
+            required: "شماره رو وارد نکردین :)",
+            disabled: isEnableOtherForm,
+          })}
+          button={
+            <button className="h-fit min-h-fit py-1 btn btn-primary ">
               ارسال کد
-            </Button>
-          </div>
-        </LoginInputWrapper>
+            </button>
+          }
+        />
       </form>
+
       <form onSubmit={submitSendOtherFormHandler}>
-        <LoginInputWrapper
-          isDisabled={!isEnableOtherForm}
+        <Input2
+          disabled={!isEnableOtherForm}
           icon={<MdOutlinePassword />}
           errorMessage={otherFormState.errors.code?.message}
-        >
-          <input
-            className="pr-2 outline-none border-none font-sans placeholder:text-sm placeholder:font-bold"
-            type="text"
-            placeholder="کد ارسالی"
-            {...otherRegister("code", {
-              required: { value: true, message: "کد ارسالی را وارد نکردید !" },
-              minLength: {
-                value: 5,
-                message: "کد وارد شده کمتر از 5 کاراکتر است.",
-              },
-              maxLength: {
-                value: 5,
-                message: "کد وارد شده بیشتر از 5 کاراکتر است.",
-              },
-              disabled: !isEnableOtherForm,
-            })}
-          />
-        </LoginInputWrapper>
-        <LoginInputWrapper
-          isDisabled={!isEnableOtherForm}
+          placeholder="کد ارسالی"
+          {...otherRegister("code", {
+            required: { value: true, message: "کد ارسالی را وارد نکردید !" },
+            minLength: {
+              value: 5,
+              message: "کد وارد شده کمتر از 5 کاراکتر است.",
+            },
+            maxLength: {
+              value: 5,
+              message: "کد وارد شده بیشتر از 5 کاراکتر است.",
+            },
+            disabled: !isEnableOtherForm,
+          })}
+        />
+
+        <Input2
+          disabled={!isEnableOtherForm}
           icon={<MdLock />}
           errorMessage={otherFormState.errors.password?.message}
-        >
-          <input
-            className="pr-2 outline-none border-none font-sans placeholder:text-sm placeholder:font-bold"
-            type="password"
-            placeholder="رمز عبور"
-            {...otherRegister("password", {
-              required: { value: true, message: "رمز عبور الزامیست !" },
-              minLength: {
-                value: 8,
-                message: "رمز عبور نباید کمتر از 8 کاراکتر باشد .",
-              },
-              maxLength: {
-                value: 25,
-                message: "رمز عبور نباید بیشتر از 25 کاراکتر باشد .",
-              },
-              disabled: !isEnableOtherForm,
-            })}
-          />
-        </LoginInputWrapper>
-        <LoginInputWrapper
-          isDisabled={!isEnableOtherForm}
+          type="password"
+          placeholder="رمز عبور"
+          {...otherRegister("password", {
+            required: { value: true, message: "رمز عبور الزامیست !" },
+            minLength: {
+              value: 8,
+              message: "رمز عبور نباید کمتر از 8 کاراکتر باشد .",
+            },
+            maxLength: {
+              value: 25,
+              message: "رمز عبور نباید بیشتر از 25 کاراکتر باشد .",
+            },
+            disabled: !isEnableOtherForm,
+          })}
+        />
+
+        <Input2
+          disabled={!isEnableOtherForm}
           icon={<MdLock />}
           errorMessage={otherFormState.errors.confirmPassword?.message}
-        >
-          <input
-            className="pr-2 outline-none border-none font-sans placeholder:text-sm placeholder:font-bold"
-            type="password"
-            placeholder="تکرار رمز عبور "
-            {...otherRegister("confirmPassword", {
-              required: { value: true, message: "تکرار رمز عبور الزامیست !" },
-              minLength: {
-                value: 8,
-                message: "تکرار رمز عبور نباید کمتر از 8 کاراکتر باشد .",
-              },
-              maxLength: {
-                value: 25,
-                message: "تکرار رمز عبور نباید بیشتر از 25 کاراکتر باشد .",
-              },
-              validate: (inputValue) => {
-                if (otherWatch("password") !== inputValue) {
-                  return "با رمز عبور مطابقت ندارد .";
-                }
-              },
-              disabled: !isEnableOtherForm,
-            })}
-          />
-        </LoginInputWrapper>
-        <Button
-          colorScheme="secondary"
-          variant="fill"
-          type="submit"
-          size="sm"
+          type="password"
+          placeholder="تکرار رمز عبور "
+          {...otherRegister("confirmPassword", {
+            required: { value: true, message: "تکرار رمز عبور الزامیست !" },
+            minLength: {
+              value: 8,
+              message: "تکرار رمز عبور نباید کمتر از 8 کاراکتر باشد .",
+            },
+            maxLength: {
+              value: 25,
+              message: "تکرار رمز عبور نباید بیشتر از 25 کاراکتر باشد .",
+            },
+            validate: (inputValue) => {
+              if (otherWatch("password") !== inputValue) {
+                return "با رمز عبور مطابقت ندارد .";
+              }
+            },
+            disabled: !isEnableOtherForm,
+          })}
+        />
+
+        <button
           disabled={!isEnableOtherForm}
-          className={`w-full bg-secondary-600 mt-4 py-2 rounded-[1rem!important] text-white font-semibold mb-2 ${
-            !isEnableOtherForm ? "opacity-40" : ""
-          }`}
+          className={'btn btn-primary w-full mt-4'}
         >
           ورود
-        </Button>
+        </button>
+
+        <span className="divider"></span>
+
+        <div className="flex items-center justify-between px-2 gap-3 mt-2">
+          <Link
+            href={"/auth/login"}
+            className="btn btn-secondary btn-outline min-h-fit h-fit py-1 "
+          >
+            ورود
+          </Link>
+          <Link
+            href={'/auth/register/get_phone_number'}
+            className="btn btn-primary btn-outline min-h-fit h-fit py-1 "
+          >
+            ثبت نام
+          </Link>
+        </div>
       </form>
-      <div className="flex items-center justify-between px-2 gap-3"></div>
     </div>
   );
 };

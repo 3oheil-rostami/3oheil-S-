@@ -1,18 +1,17 @@
 "use client";
+
 import { store } from "@/app/store";
-import React from "react";
-import { Provider } from "react-redux";
-import Button from "../form/Button";
-import { useSelector } from "react-redux";
 import { selectCartItems } from "@/reducers/cart";
 import { ProductsInCart } from "@/types/apiTypes";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Provider, useSelector } from "react-redux";
 
 const PricingCardContent = () => {
 	const pathname = usePathname();
-	const router = useRouter();
 	const allProductsInCart = useSelector(selectCartItems);
 	const data: ProductsInCart | undefined | null = allProductsInCart.data;
+
 	return (
 		<div className="border-r-2 w-72 pr-4 min-w-72">
 			<ul className="list-none flex flex-col gap-5 bg-neutral-50 p-5 rounded-xl">
@@ -39,15 +38,11 @@ const PricingCardContent = () => {
 					</span>
 				</li>
 				{!pathname.endsWith("/cart/order") && (
-					<Button
-						colorScheme="primary"
-						variant="fill"
-						size="xs"
-						className="mt-3"
-						onClick={() => router.push("/user/cart/order")}
-						isDisabled={!data?.items?.length}>
+					<Link
+						href={!data?.items?.length ? "" : "/user/cart/order"}
+						aria-disabled={!data?.items?.length}>
 						تائید و تکمیل سفارش
-					</Button>
+					</Link>
 				)}
 			</ul>
 			{!!data?.items?.length && (

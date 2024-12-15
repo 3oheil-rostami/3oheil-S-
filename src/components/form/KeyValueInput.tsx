@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Input from "./Input";
+import React, { useState } from "react";
 import Button from "./Button";
+import Input from "./Input";
 
 interface Props {
 	features: { key: string; value: string }[];

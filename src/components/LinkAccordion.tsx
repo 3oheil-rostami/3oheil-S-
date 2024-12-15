@@ -22,12 +22,12 @@ export default function LinkAccordion({
 }: LinkAccordionProps) {
   return (
     <li className="accordion">
-      <div className="daisy-collapse daisy-collapse-arrow">
+      <div className="collapse collapse-arrow">
         <input type="checkbox" name={title} defaultChecked />
-        <div className="daisy-collapse-title text-base font-medium">
+        <div className="collapse-title text-base font-medium">
           {title}
         </div>
-        <div className="daisy-collapse-content">
+        <div className="collapse-content">
           {!!subAccordions.length ? (
             <ul className=" ps-3 pt-2">
               {subAccordions.map((accordionItem, index) => (

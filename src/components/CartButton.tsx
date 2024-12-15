@@ -1,19 +1,15 @@
 "use client";
-import React from "react";
-import { clearCartContent, selectCartItems } from "@/reducers/cart";
-import { useDispatch, useSelector } from "react-redux";
-import IconButton from "./form/IconButton";
-import { IoCartOutline } from "react-icons/io5";
-import Button from "./form/Button";
-import ProductListItem from "./ProductListItem";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 import emptyCartImg from "@/../public/images/empty-cart2.png";
+import { clearCartContent, selectCartItems } from "@/reducers/cart";
 import { clearCart } from "@/services/cart";
+import Image from "next/image";
+import Link from "next/link";
+import { FaCartShopping } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import ProductListItem from "./ProductListItem";
 
 const CartButton = () => {
-	const router = useRouter();
 	const dispatch = useDispatch();
 	const allCartItems = useSelector(selectCartItems);
 	const allowedToOrder: boolean = (allCartItems.data?.items?.length || 0) > 0;
@@ -47,23 +43,19 @@ const CartButton = () => {
 	return (
 		<div className="relative group">
 			{allCartItems.status === "successfully" && (
-				<span className="badge absolute top-0 left-0 px-1 rounded-full bg-white text-primary-600 text-base font-semibold min-w-2 min-h-2">
+				<span className="badge absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 aspect-square ">
 					{sumProducts()}
 				</span>
 			)}
-			<IconButton
-				colorScheme="primary"
-				size="lg"
-				variant="fill"
-				onClick={() => router.push("/user/cart")}>
-				<IoCartOutline />
-			</IconButton>
+			<Link href={"/user/cart"} className="btn btn-square btn-primary text-lg">
+				<FaCartShopping />
+			</Link>
 			<div className="absolute top-14 left-0 flex flex-col w-96 h-auto min-h-80 bg-neutral-100 shadow-xl rounded-xl opacity-0 scale-y-0 group-hover:scale-y-100 group-hover:opacity-100 overflow-hidden transition-all duration-500 -translate-y-full group-hover:translate-y-0 delay-100">
 				<div className="header w-full flex items-center justify-between p-3 bg-neutral-200">
 					<span className="text-base font-semibold text-neutral-900">{sumProducts()}عدد کالا </span>
-					<Button colorScheme="secondary" size="2xs" variant="fill" onClick={handleClearCart}>
+					<button className="btn btn-outline btn-secondary min-h-fit h-fit py-2" onClick={handleClearCart}>
 						خالی کردن سبد خرید
-					</Button>
+					</button>
 				</div>
 				<div className="content grow max-h-[500px] overflow-y-auto">
 					{Number(allCartItems.data?.items?.length) > 0 ? (
@@ -98,9 +90,9 @@ const CartButton = () => {
 							{Number((allCartItems.data?.sumPrice || 0)?.toFixed(0))?.toLocaleString()} ت
 						</span>
 					</div>
-					<Button colorScheme="secondary" size="xs" variant="fill" isDisabled={!allowedToOrder}>
+					<button className="btn btn-primary" disabled={!allowedToOrder}>
 						نهایی کردن خرید
-					</Button>
+					</button>
 				</div>
 			</div>
 		</div>

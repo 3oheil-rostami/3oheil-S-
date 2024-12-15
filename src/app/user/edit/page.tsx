@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { Provider, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getUserInformation } from "@/reducers/user";
+import Input2 from "@/components/form/Input2";
 
 interface FormField {
   name: string;
@@ -49,12 +50,12 @@ const EditPersonInformationContent = () => {
           return status === 201
             ? "اطلاعات با موفقیت ثبت شدند ."
             : status === 400
-            ? "خطایی به هنگام ارسال درخواست رخ داد ."
-            : status === 403
-            ? "این ایمیل از قبل وجود دارد"
-            : status === 500
-            ? "خطایی در سمت سرور رخ داد ."
-            : "خطایی رخ داد .!";
+              ? "خطایی به هنگام ارسال درخواست رخ داد ."
+              : status === 403
+                ? "این ایمیل از قبل وجود دارد"
+                : status === 500
+                  ? "خطایی در سمت سرور رخ داد ."
+                  : "خطایی رخ داد .!";
         },
       });
     });
@@ -64,13 +65,12 @@ const EditPersonInformationContent = () => {
     <div>
       <p>دیتاهای خود را ویرایش کنید و در آخر ثبت اطلاعات رو بزنید .</p>
       <form className="mt-10" onSubmit={onSubmit}>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-8">
-          <div className="field-item">
-            <Input
-              className="border shadow-md focus-within:shadow-inner transition-all duration-300"
+        <div className="grid grid-cols-2 gap-x-4 gap-y-4">
+          <div >
+            <Input2
               label="نام :"
               placeholder="مثلا : باران"
-              errorHandling={errors.name?.message}
+              errorMessage={errors.name?.message}
               {...register("name", {
                 pattern: {
                   value: /^(?=.*[\u0600-\u06FF]).+$/,
@@ -83,12 +83,11 @@ const EditPersonInformationContent = () => {
               })}
             />
           </div>
-          <div className="field-item">
-            <Input
-              className="border shadow-md focus-within:shadow-inner transition-all duration-300"
+          <div >
+            <Input2
               label="نام خانوادگی :"
               placeholder="مثلا : علیزاده"
-              errorHandling={errors.family?.message}
+              errorMessage={errors.family?.message}
               {...register("family", {
                 pattern: {
                   value: /^(?=.*[\u0600-\u06FF]).+$/,
@@ -101,12 +100,11 @@ const EditPersonInformationContent = () => {
               })}
             />
           </div>
-          <div className="field-item">
-            <Input
-              className="border shadow-md focus-within:shadow-inner transition-all duration-300"
+          <div >
+            <Input2
               label="ایمیل :"
               placeholder="مثلا : DomonShop@gmail.com"
-              errorHandling={errors.email?.message}
+              errorMessage={errors.email?.message}
               {...register("email", {
                 pattern: {
                   value: /^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$/,
@@ -115,28 +113,17 @@ const EditPersonInformationContent = () => {
               })}
             />
           </div>
-          <div className="field-item flex items-center justify-end gap-2">
-            <Button
-              colorScheme="secondary"
-              variant="outline"
-              size="xs"
-              style={{ color: "#d71d44" }}
-              onClick={() => router.back()}
-            >
+          <div className="flex items-center justify-end gap-2">
+            <button className="btn btn-outline btn-primary" onClick={() => router.back()}>
               لغو عملیات
-            </Button>
-            <Button
-              colorScheme="secondary"
-              variant="fill"
-              size="xs"
-              type="submit"
-            >
+            </button>
+            <button className="btn btn-primary" type="submit">
               ثبت اطلاعات
-            </Button>
+            </button>
           </div>
         </div>
-      </form>
-    </div>
+      </form >
+    </div >
   );
 };
 

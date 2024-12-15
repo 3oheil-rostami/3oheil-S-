@@ -12,6 +12,8 @@ import eanemad from "@/../public/images/samandehi.png";
 import { TiSocialFacebook, TiSocialGithub, TiSocialSkype, TiSocialTwitter } from "react-icons/ti";
 import Input from "./form/Input";
 import Link from "next/link";
+import Input2 from "./form/Input2";
+import { FaChevronUp } from "react-icons/fa";
 
 const Footer = () => {
 	const features = [feature1, feature2, feature3, feature4, feature5];
@@ -31,11 +33,9 @@ const Footer = () => {
 						</div>
 					</div>
 					<div className="">
-						<Button colorScheme="primary" typeBtn="text" variant="outline" size="md">
-							<Link href={"#top"} className="flex items-center gap-1 w-full">
-								برو به بالا <BiArrowToTop />
-							</Link>
-						</Button>
+						<Link href={"#top"} className="btn btn-outline btn-secondary">
+							برو به بالا <FaChevronUp />
+						</Link>
 					</div>
 				</div>
 				<div className="features py-7 flex items-center justify-evenly gap-2">
@@ -94,11 +94,11 @@ const Footer = () => {
 							<h6 className="text-neutral-900 text-md mr-2">
 								با ثبت ایمیل از جدید ترین تخفیف ها با خبر شوید :)
 							</h6>
-							<div className="flex items-center gap-2 mt-2">
-								<Input placeholder="ایمیل خود را وارد کنید ." className="shadow-md" />
-								<Button colorScheme="primary" typeBtn="text" variant="fill" size="xs">
+							<div className="flex items-center gap-2">
+								<Input2 placeholder="ایمیل خود را وارد کنید ." containerClassName="grow" />
+								<button className="btn btn-primary">
 									ثبت
-								</Button>
+								</button>
 							</div>
 						</div>
 					</div>

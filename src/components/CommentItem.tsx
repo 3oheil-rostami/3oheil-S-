@@ -1,9 +1,7 @@
 import { Comment } from "@/types/apiTypes";
-import React from "react";
-import MyAvatar from "./MyAvatar";
-import { MdOutlineFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
-import Button from "./form/Button";
 import { BsReplyFill } from "react-icons/bs";
+import { MdOutlineFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+import MyAvatar from "./MyAvatar";
 
 const CommentItem = ({ ...comItem }: Comment) => {
 	return (
@@ -24,28 +22,18 @@ const CommentItem = ({ ...comItem }: Comment) => {
 					</div>
 					<p className="mt-2 text-neutral-900 text-sm font-medium">{comItem.body}</p>
 					<div className="btn-wrapper mt-3 flex gap-2">
-						<Button
-							colorScheme="primary"
-							variant="outline"
-							size="xs"
-							type="button"
-							className="flex items-center">
+						<button className="btn btn-outline btn-primary">
 							<MdOutlineFavorite className="text-primary-600 text-xl" />
 							<span>
 								{comItem.like.length || 0} <span>نفر پسندیدند</span>
 							</span>
-						</Button>
-						<Button
-							colorScheme="secondary"
-							size="xs"
-							variant="outline"
-							type="button"
-							className="flex items-center">
+						</button>
+						<button className="btn btn-outline btn-secondary">
 							<BsReplyFill className="text-xl" />
 							<span>
 								{comItem.replies.length || 0} <span> پاسخ دادند</span>
 							</span>
-						</Button>
+						</button>
 					</div>
 					<div className="comments-replied mr-2 mt-2 pr-4 border-r-2 border-neutral-300">
 						{comItem.replies.map(repItem => (
@@ -67,12 +55,7 @@ const CommentItem = ({ ...comItem }: Comment) => {
 									</div>
 									<p className="mt-2 text-neutral-900 text-sm font-medium">{repItem.body}</p>
 									<div className="btn-wrapper mt-3 flex gap-2">
-										<Button
-											colorScheme="primary"
-											variant="outline"
-											size="2xs"
-											type="button"
-											className="flex items-center">
+										<button className="btn btn-square btn-primary">
 											{repItem.isLiked ? (
 												<MdOutlineFavorite className="text-primary-600 text-lg" />
 											) : (
@@ -81,7 +64,7 @@ const CommentItem = ({ ...comItem }: Comment) => {
 											<span>
 												{repItem.like.length} <span>نفر پسندیدند</span>
 											</span>
-										</Button>
+										</button>
 									</div>
 								</div>
 							</div>

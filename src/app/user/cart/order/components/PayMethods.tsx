@@ -1,16 +1,14 @@
 "use client";
-import React from "react";
-import Input from "@/components/form/Input";
-import Button from "@/components/form/Button";
+import Input2 from "@/components/form/Input2";
 
 const PayMethods = () => {
 	return (
 		<div>
 			<div className="flex first:*:grow my-8 p-1 border rounded-lg focus-within:shadow-lg transition-all duration-300">
-				<Input placeholder="کد تخفیف" />
-				<Button colorScheme="primary" variant="fill" size="xs" className="min-w-fit">
+				<Input2 placeholder=" کد تخفیفخود رو وارد کنید ." label="کد تخفیف" />
+				<button className="btn btn-primary w-fit min-w-fit">
 					اعمال کد تخفیف
-				</Button>
+				</button>
 			</div>
 			<form>
 				<label>

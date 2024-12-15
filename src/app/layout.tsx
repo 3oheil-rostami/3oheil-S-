@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { Flip, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
+
 const iranSans = localFont({ src: "./IRANSans.woff2" });
 
 export default function RootLayout({
@@ -12,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl" data-theme="light">
+    <html lang="fa" dir="rtl" data-theme="demon">
       <body
         style={{ width: "100dvw", height: "100dvh", overflow: "hidden auto" }}
         className={iranSans.className}

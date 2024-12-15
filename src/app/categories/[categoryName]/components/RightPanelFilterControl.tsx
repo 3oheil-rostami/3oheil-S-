@@ -26,42 +26,42 @@ const RightPanelFilterControl = ({ defaultValues, uniqeBrands }: Props) => {
 
   return (
     <>
-      <div className="daisy-collapse daisy-collapse-arrow">
+      <div className="collapse collapse-arrow">
         <input type="checkbox" name="filters" />
-        <div className="daisy-collapse-title text-base font-medium">
+        <div className="collapse-title text-base font-medium">
           فیلتر ها
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="daisy-collapse-content">
-          <span className="daisy-divider">محدوده قیمت</span>
+        <form onSubmit={handleSubmit(onSubmit)} className="collapse-content">
+          <span className="divider">محدوده قیمت</span>
           <div className="px-2">
             <div className="flex flex-col gap-2">
-              <label className="daisy-form-control w-full max-w-xs">
+              <label className="form-control w-full max-w-xs">
                 <div className="label">
-                  <span className="daisy-label-text">حداقل قیمت</span>
+                  <span className="label-text">حداقل قیمت</span>
                 </div>
                 <input
                   type="number"
                   inputMode="numeric"
-                  className="daisy-input daisy-input-bordered w-full max-w-xs"
+                  className="input input-bordered w-full max-w-xs"
                   {...register("price.0", { valueAsNumber: true })}
                 />
               </label>
 
-              <label className="daisy-form-control w-full max-w-xs">
+              <label className="form-control w-full max-w-xs">
                 <div className="label">
-                  <span className="daisy-label-text">حداکثر قیمت</span>
+                  <span className="label-text">حداکثر قیمت</span>
                 </div>
                 <input
                   type="number"
                   inputMode="numeric"
-                  className="daisy-input daisy-input-bordered w-full max-w-xs"
+                  className="input input-bordered w-full max-w-xs"
                   {...register("price.1", { valueAsNumber: true })}
                 />
               </label>
             </div>
           </div>
 
-          <span className="daisy-divider">برند ها</span>
+          <span className="divider">برند ها</span>
           <div>
             <div className="flex flex-col gap-1">
               {uniqeBrands.map((brandItem) => (
@@ -73,7 +73,7 @@ const RightPanelFilterControl = ({ defaultValues, uniqeBrands }: Props) => {
                     <input
                       type="checkbox"
                       value={brandItem?.enName}
-                      className="daisy-checkbox daisy-checkbox-secondary"
+                      className="checkbox checkbox-secondary"
                       {...register("brands")}
                     />
                     <span>{brandItem?.name}</span>
@@ -84,7 +84,7 @@ const RightPanelFilterControl = ({ defaultValues, uniqeBrands }: Props) => {
             </div>
           </div>
 
-          <span className="daisy-divider">ترتیب بندی</span>
+          <span className="divider">ترتیب بندی</span>
           <div>
             <div className="flex flex-col gap-1">
               {sortProducts.map((sortItem) => (
@@ -97,7 +97,7 @@ const RightPanelFilterControl = ({ defaultValues, uniqeBrands }: Props) => {
                       type="radio"
                       value={sortItem?.enTitle}
                       id={sortItem?.enTitle}
-                      className="daisy-radio daisy-radio-secondary"
+                      className="radio radio-secondary"
                       {...register("sort")}
                     />
                     <span>{sortItem?.title}</span>
@@ -107,18 +107,18 @@ const RightPanelFilterControl = ({ defaultValues, uniqeBrands }: Props) => {
             </div>
           </div>
 
-          <span className="daisy-divider">بیشتر</span>
-          <div className="daisy-form-control">
-            <label className="daisy-label cursor-pointer">
-              <span className="daisy-input-bordered">فقط کالاهای موجود</span>
+          <span className="divider">بیشتر</span>
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="input-bordered">فقط کالاهای موجود</span>
               <input
                 type="checkbox"
-                className="daisy-toggle daisy-toggle-secondary"
+                className="toggle toggle-secondary"
                 {...register("isAvailable")}
               />
             </label>
           </div>
-          <button className=" daisy-btn w-full daisy-btn-secondary daisy-btn-outline mt-7">اعمال تغییرات</button>
+          <button className=" btn w-full btn-secondary btn-outline mt-7">اعمال تغییرات</button>
         </form>
       </div >
     </>

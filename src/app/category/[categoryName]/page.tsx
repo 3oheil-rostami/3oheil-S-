@@ -1,3 +1,4 @@
+import FilterGenerator from "@/app/categories/[categoryName]/components/FilterGenerator";
 import RightPanelFilterControl from "@/app/categories/[categoryName]/components/RightPanelFilterControl";
 import SortController from "@/app/categories/[categoryName]/components/SortController";
 import Breadcrumb from "@/components/Breadcrumb";
@@ -27,6 +28,8 @@ export default async function CategoryPage({
   const data = await getCategory(categoryName, searchParamsString)
 
   if (data === null) return <p>خطایی رخ داد  .</p>
+
+  console.log('searchParams', searchParams)
 
   const uniqeBrands = uniqueArray(data?.products.map(product => product.brand))
   const defaultValueRightPanel = parseSearchParams(searchParamsString)
@@ -70,7 +73,7 @@ export default async function CategoryPage({
         </ul>
         <div className="w-full pt-5 px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-2">
-            {/* <SortController /> */}
+            <FilterGenerator filters={searchParams} />
             <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-1 bg-neutral-100 ">
               {!!data &&
                 data.products.map((productItem) => {

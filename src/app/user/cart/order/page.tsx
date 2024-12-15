@@ -1,13 +1,12 @@
 "use client";
 import { store } from "@/app/store";
-import React, { useState } from "react";
-import { Provider } from "react-redux";
-// import { Step, Stepper, ThemeProvider } from "@/app/Material-tailwind";
-import Button from "@/components/form/Button";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { Provider } from "react-redux";
 import Addresses from "./components/Addresses";
 import PayMethods from "./components/PayMethods";
-import { useRouter } from "next/navigation";
+
 const OrderContent = () => {
 	const router = useRouter();
 	const [activeStep, setActiveStep] = useState(0);
@@ -31,18 +30,18 @@ const OrderContent = () => {
 			<div className="flex justify-between items-center">
 				<div className="">
 					{!isFirstStep && (
-						<Button colorScheme="secondary" variant="outline" size="xs" onClick={handlePrev}>
+						<button className="btn btn-outline btn-primary" onClick={handlePrev}>
 							<IoIosArrowForward />
 							مرحله قبلی
-						</Button>
+						</button>
 					)}
 				</div>
 				<div className="">
 					{!isLastStep && (
-						<Button colorScheme="secondary" variant="fill" size="xs" onClick={handleNext}>
+						<button className="btn btn-primary" onClick={handleNext}>
 							مرحله بعدی
 							<IoIosArrowBack />
-						</Button>
+						</button>
 					)}
 				</div>
 			</div>

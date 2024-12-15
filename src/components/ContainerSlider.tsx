@@ -3,7 +3,7 @@ import React, { ComponentProps } from "react";
 import Button from "./form/Button";
 import SliderBanner from "./SliderBanner";
 import CardSide from "./CardSlide";
-import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
+import { FaArrowCircleLeft, FaArrowCircleRight, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -30,24 +30,18 @@ const ContainerSlider = ({ products, type, ...rest }: Props) => {
     .reverse()[0];
   return (
     <div
-      className={`container-slider container-wrapper rounded-lg flex px-3 overflow-hidden ${
-        type === "moreSale"
-          ? "bg-[rgb(190,24,93)!important]"
-          : "bg-[rgb(255,26,64)!important]"
-      } `}
+      className={`container-slider container-wrapper rounded-lg flex px-3 overflow-hidden ${type === "moreSale"
+        ? "!bg-[rgb(190,24,93)]"
+        : "!bg-[rgb(255,26,64)]"
+        } `}
       {...rest}
     >
       <div className="w-72 relative">
         <SliderBanner type={type} topOff={findTopOff} />
         <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-end py-8">
-          <Button
-            colorScheme="secondary"
-            typeBtn="text"
-            variant="fill"
-            className="text-white shadow-none"
-          >
+          <button className="btn btn-primary">
             مشاهده همه
-          </Button>
+          </button>
         </div>
       </div>
       <Swiper
@@ -68,29 +62,17 @@ const ContainerSlider = ({ products, type, ...rest }: Props) => {
             <CardSide {...productItem} isHasTime={type === "moreDiscount"} />
           </SwiperSlide>
         ))}
-        <div className="absolute w-28 h-12 bottom-8 left-4 z-[60] flex gap-2 items-center *:bg-white *:rounded-md *:*:text-[rgb(255,26,64)!important]">
-          <span>
-            <Button
-              colorScheme="primary"
-              typeBtn="icon"
-              variant="outline"
-              className={`text-[24px] text-primary-400`}
-              // onClick={() => swiper?.slidePrev()}
-            >
-              <FaArrowCircleRight />
-            </Button>
-          </span>
-          <span>
-            <Button
-              colorScheme="primary"
-              typeBtn="icon"
-              variant="outline"
-              className="text-[24px]"
-              // onClick={() => swiper?.slideNext()}
-            >
-              <FaArrowCircleLeft />
-            </Button>
-          </span>
+        <div className="absolute w-28 h-12 bottom-8 left-4 z-[60] flex gap-2 items-center">
+          <button className="btn btn-circle btn-primary"
+          // onClick={() => swiper?.slidePrev()}
+          >
+            <FaChevronRight />
+          </button>
+          <button className="btn btn-circle btn-primary"
+          // onClick={() => swiper?.slideNext()}
+          >
+            <FaChevronLeft />
+          </button>
         </div>
       </Swiper>
     </div>

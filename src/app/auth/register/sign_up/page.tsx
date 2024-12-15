@@ -1,6 +1,5 @@
 "use client";
-import Button from "@/components/form/Button";
-import LoginInputWrapper from "@/components/form/LoginInputWrapper";
+import Input2 from "@/components/form/Input2";
 import { signUp as networkSignUp } from "@/services/auth";
 import { useRouter } from "next/navigation";
 import { BaseSyntheticEvent } from "react";
@@ -46,19 +45,19 @@ const SignUp = () => {
         async render() {
           response.status === 201
             ? setTimeout(() => {
-                router.replace("/");
-              }, 3000)
+              router.replace("/");
+            }, 3000)
             : router.replace("/auth/register/get_phone_number");
 
           return response.status === 500
             ? "خطایی در سرور رخ داده است ."
             : response.status === 401
-            ? "شماره شما تایید نشده است ."
-            : response.status === 400
-            ? "خطایی در اسال درخواست رخ داد ."
-            : response.status === 201
-            ? "ثبت نام با موفقیت انجام شد . خیلی خوش آمدید ."
-            : "خطای ناشناس :/";
+              ? "شماره شما تایید نشده است ."
+              : response.status === 400
+                ? "خطایی در اسال درخواست رخ داد ."
+                : response.status === 201
+                  ? "ثبت نام با موفقیت انجام شد . خیلی خوش آمدید ."
+                  : "خطای ناشناس :/";
         },
       });
     } catch (error) {
@@ -84,106 +83,81 @@ const SignUp = () => {
         .
       </p>
       <form className=" pt-1" onSubmit={submitHandler}>
-        <LoginInputWrapper
+        <Input2
           icon={<IoPersonSharp />}
           errorMessage={formState.errors.name?.message}
-        >
-          <input
-            className="pr-2 outline-none border-none placeholder:text-sm placeholder:font-bold"
-            type="text"
-            id=""
-            placeholder="نام"
-            {...register("name", {
-              required: { value: true, message: "نام الزامیست" },
-              pattern: {
-                value: /^(?=.*[\u0600-\u06FF]).+$/,
-                message: "از حروف فارسی استفاده کنید.",
-              },
-            })}
-          />
-        </LoginInputWrapper>
-        <LoginInputWrapper
+          placeholder="نام"
+          {...register("name", {
+            required: { value: true, message: "نام الزامیست" },
+            pattern: {
+              value: /^(?=.*[\u0600-\u06FF]).+$/,
+              message: "از حروف فارسی استفاده کنید.",
+            },
+          })}
+        />
+
+        <Input2
           icon={<BsFillPersonLinesFill />}
           errorMessage={formState.errors.family?.message}
-        >
-          <input
-            className="pr-2 outline-none border-none placeholder:text-sm placeholder:font-bold"
-            type="text"
-            placeholder="نام خانوادگی"
-            {...register("family", {
-              required: { value: true, message: "نام خانوادگی الزامیست" },
-              pattern: {
-                value: /^(?=.*[\u0600-\u06FF]).+$/,
-                message: "از حروف فارسی استفاده کنید.",
-              },
-            })}
-          />
-        </LoginInputWrapper>
-        <LoginInputWrapper
+          placeholder="نام خانوادگی"
+          {...register("family", {
+            required: { value: true, message: "نام خانوادگی الزامیست" },
+            pattern: {
+              value: /^(?=.*[\u0600-\u06FF]).+$/,
+              message: "از حروف فارسی استفاده کنید.",
+            },
+          })}
+        />
+
+        <Input2
           icon={<IoMdMail />}
           errorMessage={formState.errors.email?.message}
-        >
-          <input
-            className="pr-2 outline-none border-none placeholder:text-sm placeholder:font-bold"
-            type="email"
-            id=""
-            placeholder="ایمیل (اختیای)"
-            {...register("email", {
-              pattern: {
-                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$/,
-                message: "فرمت وارد شده درست نمیباشد .",
-              },
-            })}
-          />
-        </LoginInputWrapper>
-        <LoginInputWrapper
+          placeholder="ایمیل (اختیای)"
+          type="email"
+          {...register("email", {
+            pattern: {
+              value: /^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$/,
+              message: "فرمت وارد شده درست نمیباشد .",
+            },
+          })}
+        />
+
+        <Input2
           icon={<FaLock />}
           errorMessage={formState.errors.password?.message}
-        >
-          <input
-            className="pr-2 outline-none border-none placeholder:text-sm placeholder:font-bold"
-            type="password"
-            placeholder="رمز عبور"
-            {...register("password", {
-              required: { value: true, message: "رمز عبور الزامیست !" },
-              minLength: {
-                value: 8,
-                message: "رمز عبور نباید کمتر از 8 کاراکتر باشد .",
-              },
-              maxLength: {
-                value: 25,
-                message: "رمز عبور نباید بیشتر از 25 کاراکتر باشد .",
-              },
-            })}
-          />
-        </LoginInputWrapper>
-        <LoginInputWrapper
+          type="password"
+          placeholder="رمز عبور"
+          {...register("password", {
+            required: { value: true, message: "رمز عبور الزامیست !" },
+            minLength: {
+              value: 8,
+              message: "رمز عبور نباید کمتر از 8 کاراکتر باشد .",
+            },
+            maxLength: {
+              value: 25,
+              message: "رمز عبور نباید بیشتر از 25 کاراکتر باشد .",
+            },
+          })}
+        />
+
+        <Input2
           icon={<FaLock />}
           errorMessage={formState.errors.confirmPassword?.message}
-        >
-          <input
-            className="pr-2 outline-none border-none placeholder:text-sm placeholder:font-bold"
-            type="password"
-            placeholder="تکرار رمز عبور"
-            {...register("confirmPassword", {
-              required: { value: true, message: "تکرار رمز عبور الزامیست !" },
-              validate: (value) => {
-                if (watch("password") !== value) {
-                  return "با رمز عبور مطابقت ندارد .";
-                }
-              },
-            })}
-          />
-        </LoginInputWrapper>
-        <Button
-          colorScheme="secondary"
-          variant="fill"
-          type="submit"
-          size="sm"
-          className="w-full bg-secondary-600 mt-4 py-2 rounded-[1rem!important] text-white font-semibold mb-2"
-        >
+          type="password"
+          placeholder="تکرار رمز عبور"
+          {...register("confirmPassword", {
+            required: { value: true, message: "تکرار رمز عبور الزامیست !" },
+            validate: (value) => {
+              if (watch("password") !== value) {
+                return "با رمز عبور مطابقت ندارد .";
+              }
+            },
+          })}
+        />
+
+        <button className="w-full btn btn-primary mt-4" >
           ثبت نام
-        </Button>
+        </button>
       </form>
     </section>
   );

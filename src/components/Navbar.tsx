@@ -1,21 +1,19 @@
 "use client";
-import React, { memo, useEffect } from "react";
 import Logo from "@/../public/images/images.jpeg";
-import Input from "./form/Input";
-import Button from "./form/Button";
-import { IoSearch } from "react-icons/io5";
-import { IoIosLogIn } from "react-icons/io";
-import Image from "next/image";
-import { Provider, useSelector } from "react-redux";
 import { store } from "@/app/store";
-import CartButton from "./CartButton";
 import { fetchProductsInCart } from "@/reducers/cart";
 import { fetchUserInformation, getUserInformation, isUserLoggedIn } from "@/reducers/user";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { memo, useEffect } from "react";
 import { FaUser } from "react-icons/fa";
+import { IoSearch } from "react-icons/io5";
+import { TbLogin2 } from "react-icons/tb";
+import { Provider, useSelector } from "react-redux";
+import CartButton from "./CartButton";
+import Input2 from "./form/Input2";
 
 const NavbarContent = () => {
-	const router = useRouter();
 	const isLoggedIn: boolean = useSelector(isUserLoggedIn);
 	const userInfo = useSelector(getUserInformation);
 	useEffect(() => {
@@ -35,34 +33,26 @@ const NavbarContent = () => {
 					/>
 				</div>
 				<div className="search-wrapper w-full">
-					<Input
+					<Input2
 						placeholder="کالا مورد نظرت رو اینجا بنویس ..."
-						leftIcon={<IoSearch />}
+						button={<button className="btn btn-square h-full min-h-full btn-outline btn-secondary glass"><IoSearch /></button>}
 						type="search"
-						className="bg-pink-50 h-12 shadow-lg "
+						className="grow"
+						containerClassName="*:!pl-0"
 					/>
 				</div>
 			</div>
 			<div className="left-sec w-1/2 flex justify-end items-center gap-2">
 				{isLoggedIn ? (
-					<Button
-						colorScheme="primary"
-						variant="outline"
-						size="lg"
-						className="flex gap-1 items-center"
-						onClick={() => router.push("/user")}>
-						<FaUser />
+					<Link className="btn btn-outline btn-primary" href={"/user"}>
+						<FaUser className="text-2xl" />
 						<span>{userInfo?.name + " " + userInfo?.family}</span>
-					</Button>
+					</Link>
 				) : (
-					<Button
-						colorScheme="primary"
-						variant="outline"
-						size="lg"
-						typeBtn="text"
-						onClick={() => router.push("/auth/login")}>
-						ورود / ثبت نام <IoIosLogIn />
-					</Button>
+					<Link href={"/auth/login"} className="btn btn-outline btn-primary">
+						<span>ورود / ثبت نام</span>
+						<TbLogin2 className="text-2xl" />
+					</Link>
 				)}
 				<CartButton />
 			</div>

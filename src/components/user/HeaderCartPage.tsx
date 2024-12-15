@@ -1,11 +1,11 @@
 "use client";
 import { store } from "@/app/store";
+import { clearCartContent, selectCartItems } from "@/reducers/cart";
 import { ProductsInCart } from "@/types/apiTypes";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { MdDelete } from "react-icons/md";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import Button from "../form/Button";
-import { MdDelete } from "react-icons/md";
-import { clearCartContent, selectCartItems } from "@/reducers/cart";
 
 const HeaderCartPageContent = ({ data }: Props) => {
 	const dispatch = useDispatch();

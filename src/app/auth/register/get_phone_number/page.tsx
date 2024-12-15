@@ -1,5 +1,6 @@
 "use client";
 import Button from "@/components/form/Button";
+import Input2 from "@/components/form/Input2";
 import LoginInputWrapper from "@/components/form/LoginInputWrapper";
 import { sendNumber } from "@/services/auth";
 import Link from "next/link";
@@ -36,8 +37,8 @@ const GetPhoneNumber = () => {
           response.status === 200
             ? router.replace("/auth/register/get_code")
             : response.status === 302
-            ? router.replace("/auth/register/sign_up")
-            : "";
+              ? router.replace("/auth/register/sign_up")
+              : "";
 
           return response.status === 200 ? (
             "شماره با موفقیت بذیرفته شدید و کد براتون ارسال شد ."
@@ -50,15 +51,9 @@ const GetPhoneNumber = () => {
               <p className="text-sm">
                 شما با این شماره حسابی دارید . میخواهید وارد شوید ؟
               </p>
-              <Button
-                colorScheme="secondary"
-                variant="outline"
-                size="2xs"
-                className="text-nowrap"
-                onClick={() => router.push("/auth/login")}
-              >
+              <Link href={'/auth/login'} className="btn btn-primary min-h-fit h-fit">
                 ورود
-              </Button>
+              </Link>
             </div>
           ) : response.status === 429 ? (
             " چند لحظه پیش کد را ارسال کرده ایم،  چند لحظه صبر کنید تا دوباره بتوانیم بفرستیم."
@@ -94,37 +89,28 @@ const GetPhoneNumber = () => {
         برای شروع ثبت نام ابتدا باید شماره خود را وارد کنید :)
       </p>
       <form onSubmit={handleSubmit(async () => await onSubmit())} className="">
-        <LoginInputWrapper
+        <Input2
           icon={<FiPhone />}
           errorMessage={formState.errors.number?.message}
-        >
-          <input
-            className="pr-2 outline-none border-none grow focus:bg-transparent focus-visible:bg-transparent font-sans placeholder:text-sm placeholder:font-bold"
-            type="number"
-            placeholder="شماره همراه"
-            {...register("number", {
-              pattern: {
-                value: /^09\d{9}$/,
-                message: "ابتدای شماره را به این شکل وارد کنید :....09 ",
-              },
-              required: "شماره رو وارد نکردین :)",
-            })}
-          />
-        </LoginInputWrapper>
-        <Button
-          colorScheme="secondary"
-          variant="fill"
-          type="submit"
-          size="sm"
-          className="w-full bg-secondary-600 mt-4 py-2 rounded-[1rem!important] text-white font-semibold mb-2"
-        >
+          type="number"
+          placeholder="شماره همراه"
+          {...register("number", {
+            pattern: {
+              value: /^09\d{9}$/,
+              message: "ابتدای شماره را به این شکل وارد کنید :....09 ",
+            },
+            required: "شماره رو وارد نکردین :)",
+          })}
+        />
+        <button className="w-full btn btn-primary mt-2">
           قدم بعدی
-        </Button>
-        <p className="text-sm font-normal text-neutral-800 px-2">
+        </button>
+
+        <p className="text-sm font-normal text-neutral-800 px-2 mt-2">
           <span> اگه قبلا ثبت نام کردین </span>
           <Link
             href={"/auth/login"}
-            className="font-bold hover:text-primary-700"
+            className="font-bold hover:text-primary-700 link link-primary"
           >
             ورود
           </Link>

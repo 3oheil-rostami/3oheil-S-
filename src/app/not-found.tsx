@@ -1,11 +1,10 @@
-import Image from "next/image";
-import React from "react";
 import notFoundImg from "@/../public/images/not-found.svg";
-import Button from "@/components/form/Button";
-import Link from "next/link";
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import NavbarMenu from "@/components/NavbarMenu";
-import Footer from "@/components/Footer";
+import Image from "next/image";
+import Link from "next/link";
+
 const notFound = () => {
 	return (
 		<>
@@ -25,11 +24,11 @@ const notFound = () => {
 				</div>
 				<div className="flex flex-col justify-center gap-5">
 					<h3 className="text-5xl font-bold text-neutral-800 text-center">صفحه یافت نشد !</h3>
-					<Button colorScheme="secondary" type="button" variant="fill">
+					<button className="btn btn-primary" type="button">
 						<Link href={"/"} className="block min-w-full">
 							بازگشت به خانه
 						</Link>
-					</Button>
+					</button>
 				</div>
 			</div>
 			<Footer />
