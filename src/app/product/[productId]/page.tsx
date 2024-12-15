@@ -5,7 +5,7 @@ import DetailsProduct from "@/components/DetailsProduct";
 import ImageSlider from "@/components/ImageSlider";
 import ProductImages from "@/components/ProductImages";
 import { checkProductLiked, getProduct } from "@/services/product";
-import { Comment, ProductPage } from "@/types/apiTypes";
+import { Brand, Comment, ProductPage } from "@/types/apiTypes";
 import CommentsSection from "@/components/Comments";
 import { getAllComments } from "@/services/comment";
 import AddToCartCard from "@/components/AddToCartCard(ClientSide)";
@@ -24,9 +24,9 @@ async function getDataProduct(enName: string) {
 }
 async function getOtherData(productId: string): Promise<
   | {
-      commentsData: Comment[];
-      checkLickedProductResponse: boolean;
-    }
+    commentsData: Comment[];
+    checkLickedProductResponse: boolean;
+  }
   | undefined
 > {
   try {
@@ -122,7 +122,7 @@ const page = async ({ params: { productId } }: Props) => {
                     brandPic: "",
                     enName: "unknown",
                     name: "برند ناشناس",
-                  }
+                  } as Brand
                 }
                 price={
                   data?.product.colors.sort((a, b) => a.price - b.price)[0]
