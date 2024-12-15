@@ -4,7 +4,6 @@ import { UserInformation } from "@/types/apiTypes";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchUserInformation = createAsyncThunk("user/fetchUserInformation", async () => {
-	console.log("fetchUserInformation is called !!");
 	try {
 		const response = await getUserInfo();
 		return response.data;

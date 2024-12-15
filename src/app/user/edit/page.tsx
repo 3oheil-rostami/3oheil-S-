@@ -37,7 +37,6 @@ const EditPersonInformationContent = () => {
     e.preventDefault();
     // console.log("object");
     handleSubmit(async (data) => {
-      console.log("data:", data);
       const toastId = toast.loading("در حال ذخیره کردن اطلاعات ...");
       const response = await updateUserInformation(data);
       const { status } = response;

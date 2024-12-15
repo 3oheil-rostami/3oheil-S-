@@ -35,8 +35,6 @@ const Login = () => {
   const [completedLogin, setCompletedLogin] = useState<boolean>(false);
   const { register, handleSubmit, formState, watch } = useForm<FormValues>();
 
-  console.log(watch())
-
   const onSubmit = handleSubmit(async ({ ...data }) => {
     if (!navigator.onLine) {
       toast.warning("شما آنلاین نیستید .");
@@ -89,8 +87,8 @@ const Login = () => {
   };
 
   console.log(register("password", {
-      required: { value: true, message: "رمز عبور الزامیست !" },
-    })
+    required: { value: true, message: "رمز عبور الزامیست !" },
+  })
   )
 
   return (

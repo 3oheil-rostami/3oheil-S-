@@ -24,7 +24,6 @@ export default FilterGenerator
 
 
 const sort = ({ sort }: OptionalCategoryFilters) => {
-    console.log('sort', sort)
     const currentSort = sortProducts.find(item => item.enTitle === sort)
 
     return sort && currentSort ? (
@@ -34,7 +33,6 @@ const sort = ({ sort }: OptionalCategoryFilters) => {
 
 const price = ({ price }: OptionalCategoryFilters) => {
     if (!price) return null
-    console.log('price', price)
     const [fromPrice, untilPrice] = price
     return (
         <div>
@@ -45,14 +43,12 @@ const price = ({ price }: OptionalCategoryFilters) => {
 }
 
 const isAvailable = ({ isAvailable }: OptionalCategoryFilters) => {
-    console.log('is availbe', isAvailable)
     return isAvailable ? (
         <span>فقط کالاهای موجود</span>
     ) : null
 }
 
 const brands = ({ brands }: OptionalCategoryFilters) => {
-    console.log('brands', brands)
     return Array.isArray(brands) ? (
         <div>{brands?.map(item => (
             <span key={item}>{item}</span>

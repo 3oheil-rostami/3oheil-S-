@@ -15,7 +15,6 @@ export const generateURLSearchParams = (
     }
   });
 
-  console.log('searchParams in generateURLSearchParams:', searchParams.toString())
   return searchParams;
 };
 

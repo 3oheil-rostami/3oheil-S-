@@ -11,7 +11,6 @@ export default function DetailsProduct({
 	colors: Color[];
 	score: number;
 }) {
-	console.log(score);
 	return (
 		<div className="w-full lg:w-1/2  border-t-2 border-neutral-300 pt-4 px-3 lg:order-none grow">
 			{/* <h2 className='text-lg font-bold text-neutral-700 mb-3 uppercase'>LONG MASCARA CITRAY</h2> */}
