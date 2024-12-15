@@ -1,10 +1,10 @@
-import { Product } from "@/types/apiTypes";
+import { Product, ProductPage } from "@/types/apiTypes";
 import { httpService, responseInterceptor } from "../http-service";
 
 const getProducts = () => httpService.get<Product[]>(`/product/etall`);
 
 const getProduct = (enName: string) =>
-  httpService.get<Product>(`/product/get/${enName}`);
+  httpService.get<ProductPage>(`/product/get/${enName}`);
 
 const getMoreDiscount = () => httpService.get("product/moreDiscount");
 
