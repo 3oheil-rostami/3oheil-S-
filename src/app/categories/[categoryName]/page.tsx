@@ -20,8 +20,7 @@ type Props = {
 async function getData(href: string, searchParams: string) {
   try {
     const response = await getCategory(href, searchParams);
-    const data = response.data;
-    return data;
+    return response;
   } catch (error) {
     return undefined;
   }
@@ -35,7 +34,7 @@ export default async function CategoryLayout({
     .map(([key, value]) => `${key}=${value}`)
     .join("&");
 
-  const data = await getData(categoryName, searchParamsUrl);
+  const response = await getData(categoryName, searchParamsUrl);
 
   return (
     <>
@@ -51,7 +50,7 @@ export default async function CategoryLayout({
           <div className="flex items-center py-4">
             <Breadcrumb
               links={
-                data?.address?.map((breadcrumbItem, index) => ({
+                response?.address?.map((breadcrumbItem, index) => ({
                   id: index,
                   title: breadcrumbItem?.key,
                   href: "" + breadcrumbItem?.value,
@@ -77,7 +76,7 @@ export default async function CategoryLayout({
                 <LinkAccordion
                   title="دسته بندی های مربوطه"
                   links={[
-                    ...(data?.categories || [])?.map((categoryItem) => ({
+                    ...(response?.categories || [])?.map((categoryItem) => ({
                       id: categoryItem?._id,
                       title: categoryItem?.name,
                       href: categoryItem?.href,
@@ -86,19 +85,19 @@ export default async function CategoryLayout({
                 />
               </ul>
             </li>
-            <RightPanelFilterControl products={data?.products || []} />
+            <RightPanelFilterControl defaultValues={{}} searchParams={{}} uniqeBrands={[]} />
           </ul>
           <div className="w-full pt-5 px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col gap-2">
               <SortController />
               <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-1 bg-neutral-100 ">
-                {!!data &&
-                  data.products.map((productItem) => {
+                {!!response &&
+                  response.products.map((productItem) => {
                     return (
                       <ProductCard
                         key={productItem._id}
                         product={productItem}
-                        // inCart={data.productsInCartData}
+                      // inCart={response.productsInCartData}
                       />
                     );
                   })}

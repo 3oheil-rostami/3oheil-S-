@@ -14,7 +14,6 @@ type Props = {
 };
 
 const RightPanelFilterControl = ({ defaultValues, uniqeBrands }: Props) => {
-  console.log('defaultValues:', defaultValues)
   const router = useRouter()
 
   const { handleSubmit, register } = useForm<OptionalCategoryFilters>({ defaultValues });
