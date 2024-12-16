@@ -25,7 +25,7 @@ export default async function NavbarMenu() {
 					data.map((item, index) => (
 						<li key={index} className="group z-[999999] text-slate-800 hover:text-slate-950 ">
 							<Link
-								href={`/categories/${item.href}`}
+								href={`/category/${item.href}`}
 								className="font-bold text-neutral-800"
 								icon={<PiEyedropperSampleDuotone />}>
 								{item.name}
@@ -35,7 +35,7 @@ export default async function NavbarMenu() {
 									<h3 className="mb-4 pb-4 border-b-4 border-secondary-800/50">
 										<Link
 											className="font-bold text-xl text-neutral-800 hover:text-neutral-950 transition-all"
-											href={`/categories/${item.href}`}>
+											href={`/category/${item.href}`}>
 											{item.name}
 										</Link>
 									</h3>
@@ -48,7 +48,7 @@ export default async function NavbarMenu() {
 															<span className="absolute transition-all duration-500 right-0 bottom-0 h-full rounded-[86%14%84%16%/25%83%17%75%] bg-secondary-500/25 opacity-30 group-hover/categoryItem:opacity-100 w-1/2"></span>
 															<Link
 																className="text-lg text-neutral-800 font-semibold absolute z-10 hover:underline"
-																href={`/categories/${subItem.href}`}>
+																href={`/category/${subItem.href}`}>
 																{subItem.name}
 															</Link>
 														</li>
@@ -58,7 +58,7 @@ export default async function NavbarMenu() {
 																className={`mr-2 text-base text-neutral-700 font-medium last:mb-3 hover:text-neutral-900 ${
 																	index === 0 ? "mt-3" : ""
 																}`}>
-																<Link className="w-fit" href={`/categories/${subSUbItem.href}`}>
+																<Link className="w-fit" href={`/category/${subSUbItem.href}`}>
 																	{subSUbItem.name}
 																</Link>
 															</li>
