@@ -1,0 +1,71 @@
+.main {
+    display: flex;
+}
+.content {
+    flex: 5;
+}
+
+.sidebar {
+    flex: 1;
+}
+.alll{
+    background-color: orange !important;
+    color: brown;
+}
+
+.box {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border: 1px solid ;
+}
+.header {
+    display: flex; 
+    justify-content: space-between;
+}
+.header span {
+    cursor: pointer;
+    margin: 10px;
+}
+.logout {
+    display: inline-block;
+    color: white;
+    background-color: red;
+    border-radius: 10px;
+    padding: 0.5rem;
+      transition: transform 0.3s ease;
+
+}
+.logout:hover {
+    display: inline-block;
+    background-color: rgba(255, 0, 0, 0.496);
+    transition: 0.3s all;
+    transform: scale(1.05) translateY(-5px); 
+    /* animation: alternate 0.5s; */
+
+
+}
+.login {
+    color: green;
+}
+a.active {
+    color: green;
+    font-size: 1.5rem;
+}
+ul , ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 1rem;
+}
+a {
+    text-decoration: none;
+    list-style: none;
+}
+a:hover {
+    border-bottom: 1px solid wheat;
+    animation: step-end 1s 1s 2 reverse ;
+    transition: all 0.3s;
+}
+.form-item {
+    margin: 1rem !important ;
+    padding: 1rem;
+}

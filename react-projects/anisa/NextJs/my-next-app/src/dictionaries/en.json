@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "title": "Soheil Rostami — Frontend Developer",
+    "description": "Personal portfolio of Soheil Rostami, a frontend developer crafting fast, accessible and delightful web experiences with React and Next.js."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact",
+    "openMenu": "Open navigation menu",
+    "menuTitle": "Navigation",
+    "menuDescription": "Main site navigation links"
+  },
+  "hero": {
+    "greeting": "Hi, my name is",
+    "name": "Soheil Rostami",
+    "title": "Frontend Developer",
+    "tagline": "I build fast, accessible and delightful web experiences with React & Next.js.",
+    "cta": "View my work",
+    "ctaSecondary": "Get in touch",
+    "photoAlt": "Portrait of Soheil Rostami",
+    "available": "Available for work"
+  },
+  "about": {
+    "heading": "About Me",
+    "paragraph1": "I'm a frontend developer passionate about turning complex problems into simple, beautiful and intuitive interfaces. My focus is on the modern React ecosystem — Next.js, TypeScript and design systems.",
+    "paragraph2": "Beyond writing clean, maintainable code, I care deeply about performance, accessibility and the small details that make a product feel polished. I enjoy learning new technologies and sharing what I learn along the way.",
+    "yearsExperience": "Years of experience",
+    "projectsCompleted": "Projects completed",
+    "technologies": "Technologies mastered"
+  },
+  "skills": {
+    "heading": "Tech Stack",
+    "subheading": "Technologies I work with every day"
+  },
+  "services": {
+    "heading": "Services",
+    "subheading": "What I can do for you",
+    "items": {
+      "webDevelopment": {
+        "title": "Web Application Development",
+        "description": "Modern, scalable web apps built with React and Next.js — from landing pages to complex dashboards."
+      },
+      "responsiveDesign": {
+        "title": "Responsive UI Implementation",
+        "description": "Pixel-perfect, fully fluid interfaces from Figma or any design, working beautifully on every screen size."
+      },
+      "performance": {
+        "title": "Performance Optimization",
+        "description": "Faster load times and better Core Web Vitals through code splitting, caching, image optimization and profiling."
+      },
+      "accessibility": {
+        "title": "Accessibility & SEO",
+        "description": "Semantic, WCAG-friendly markup and technical SEO so your product reaches everyone — and ranks well."
+      },
+      "i18n": {
+        "title": "Multilingual & RTL Websites",
+        "description": "Full internationalization with right-to-left support — ideal for Persian/English products."
+      },
+      "maintenance": {
+        "title": "Code Review & Maintenance",
+        "description": "Refactoring legacy frontends, upgrading dependencies and keeping your codebase clean and healthy."
+      }
+    }
+  },
+  "projects": {
+    "heading": "Projects",
+    "subheading": "A selection of things I've built recently",
+    "viewLive": "Live demo",
+    "viewCode": "Source code",
+    "items": {
+      "shop": {
+        "title": "E-commerce Platform",
+        "description": "A full-featured online store with cart, checkout, product filtering and a Persian-first RTL interface. Built with Next.js App Router and Tailwind CSS."
+      },
+      "dashboard": {
+        "title": "Admin Dashboard",
+        "description": "A data-rich admin panel with charts, tables, authentication and dark mode. Focused on performance and clean component architecture."
+      },
+      "learning": {
+        "title": "Learning Platform",
+        "description": "An educational platform with course listings, lessons and progress tracking, featuring smooth page transitions and optimistic UI."
+      }
+    }
+  },
+  "contact": {
+    "heading": "Get In Touch",
+    "subheading": "Have a project in mind or just want to say hi? My inbox is always open.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "emailPlaceholder": "you@example.com",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell me about your project…",
+    "submit": "Send message",
+    "submitting": "Sending…",
+    "success": "Thanks! Your message has been sent.",
+    "errors": {
+      "nameRequired": "Please enter your name.",
+      "emailInvalid": "Please enter a valid email address.",
+      "messageTooShort": "Your message should be at least 10 characters.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "builtWith": "Built with Next.js & Tailwind CSS"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "locale": {
+    "switch": "Change language",
+    "en": "English",
+    "fa": "فارسی"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "Sorry, the page you are looking for doesn't exist.",
+    "back": "Back to home"
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  }
+}

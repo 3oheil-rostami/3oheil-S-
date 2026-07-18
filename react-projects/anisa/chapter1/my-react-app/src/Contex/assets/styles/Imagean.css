@@ -1,0 +1,10 @@
+.animated-image {
+  opacity: 0; /* اول نامرئی */
+  transform: translateY(50px); /* از پایین شروع می‌کنه */
+  transition: all 0.8s ease-out; /* نرم و خوشگل بیاد بالا */
+}
+
+.animated-image.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
